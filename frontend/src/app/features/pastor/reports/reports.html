@@ -1,268 +1,290 @@
+<main class="flex-1 px-4 py-3">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+        <ol class="flex items-center">
+            <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">District Pastor</li>
+            <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
+            <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">Report
+                History</li>
+        </ol>
+    </nav>
 
-    <main class="flex-1 px-4 py-3 ">
-        <!-- Breadcrumb -->
-        <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
-            <ol class="flex items-center">
-                <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">District Pastor</li>
-                <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
-                <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">Report
-                    History</li>
-            </ol>
-        </nav>
-
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div>
-                <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-3">Report History</h1>
-                <p class="text-slate-500 max-w-2xl leading-relaxed">
-                    A comprehensive archive of all submitted field reports for Isabela District. Use filters to narrow
-                    down by department or time period.
-                </p>
-            </div>
-            <div class="flex items-center gap-3">
-                <a href="field_report.html"
-                    class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all active:scale-[0.98]">
-                    <i class="fa-solid fa-plus"></i>
-                    New Report
-                </a>
-            </div>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div>
+            <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-3">Report History</h1>
+            <p class="text-slate-500 max-w-2xl leading-relaxed">
+                A comprehensive archive of all submitted field reports for Isabela District. Use filters to narrow down
+                by department or time period.
+            </p>
         </div>
+        <div class="flex items-center gap-3">
+            <button
+                class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all active:scale-[0.98]">
+                <i class="fa-solid fa-plus"></i> New Report
+            </button>
+        </div>
+    </div>
 
-        <!-- Filters Section -->
-        <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <!-- Search -->
-                <div class="md:col-span-2 relative">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
-                    </div>
-                    <input type="text" placeholder="Search by report title or keyword..."
-                        class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all">
+    <!-- Filters Section -->
+    <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Search -->
+            <div class="md:col-span-2 relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
                 </div>
+                <input type="text" placeholder="Search by report title or keyword..."
+                    class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all">
+            </div>
 
-                <!-- Department -->
-                <div class="relative">
-                    <select
-                        class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all cursor-pointer">
-                        <option>All Departments</option>
-                        <option>Youth Ministry</option>
-                        <option>Children's Ministry</option>
-                        <option>Women's Ministry</option>
-                        <option>Men's Ministry</option>
-                        <option>Sabbath School</option>
-                        <option>Stewardship</option>
-                        <option>Health Ministry</option>
-                    </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
-                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                    </div>
+            <!-- Department -->
+            <div class="relative">
+                <select
+                    class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all cursor-pointer">
+                    <option>All Departments</option>
+                    <option>Youth Ministry</option>
+                    <option>Children's Ministry</option>
+                    <option>Women's Ministry</option>
+                    <option>Men's Ministry</option>
+                    <option>Sabbath School</option>
+                    <option>Stewardship</option>
+                    <option>Health Ministry</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </div>
+            </div>
 
-                <!-- Quarter -->
-                <div class="relative">
-                    <select
-                        class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all cursor-pointer">
-                        <option>All Quarters</option>
-                        <option>1st Quarter (Jan - Mar)</option>
-                        <option>2nd Quarter (Apr - Jun)</option>
-                        <option>3rd Quarter (Jul - Sep)</option>
-                        <option>4th Quarter (Oct - Dec)</option>
-                    </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
-                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                    </div>
+            <!-- Quarter -->
+            <div class="relative">
+                <select
+                    class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all cursor-pointer">
+                    <option>All Quarters</option>
+                    <option>1st Quarter (Jan - Mar)</option>
+                    <option>2nd Quarter (Apr - Jun)</option>
+                    <option>3rd Quarter (Jul - Sep)</option>
+                    <option>4th Quarter (Oct - Dec)</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Table Section -->
-        <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse text-left">
-                    <thead>
-                        <tr class="bg-slate-50/50 border-b border-slate-100">
-                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Report
-                                Title</th>
-                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
-                                Department</th>
-                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Date
-                                Submitted</th>
-                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Period
-                            </th>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
-                                Status</th>
-                            <th
-                                class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-right">
-                                Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-50">
-                        <!-- Row 1 -->
-                        <tr class="group hover:bg-slate-50/80 transition-all">
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Youth
-                                        Leadership Summit</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Youth
-                                    Ministry</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-500">Jan 29, 2026</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-700 font-semibold">Q1 2026</span>
-                            </td>
-                            <td class="px-6 py-5 text-center">
+    <!-- Table Section -->
+    <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-left">
+                <thead>
+                    <tr class="bg-slate-50/50 border-b border-slate-100">
+                        <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Report
+                            Title</th>
+                        <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Department
+                        </th>
+                        <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Date
+                            Submitted</th>
+                        <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Period
+                        </th>
+                        <th
+                            class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
+                            Status</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    @for (report of reports; track report.id) {
+                    <tr (click)="openModal(report)" class="group hover:bg-slate-50/80 transition-all cursor-pointer">
+                        <td class="px-6 py-5">
+                            <div class="flex items-center gap-3">
                                 <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[10px] font-black uppercase tracking-tighter border border-amber-100">
-                                    <span class="w-1 h-1 rounded-full bg-amber-500"></span>
-                                    Pending
-                                </span>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <button
-                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </button>
-                            </td>
-                        </tr>
+                                    class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">{{report.title}}</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-5">
+                            <span
+                                class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">{{report.department}}</span>
+                        </td>
+                        <td class="px-6 py-5">
+                            <span class="text-xs text-slate-500">{{report.date}}</span>
+                        </td>
+                        <td class="px-6 py-5">
+                            <span class="text-xs text-slate-700 font-semibold">{{report.period}}</span>
+                        </td>
+                        <td class="px-6 py-5 text-center">
+                            @if (report.status === 'Approved') {
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-tighter border border-emerald-100">
+                                <i class="fa-solid fa-check text-[8px]"></i> Approved
+                            </span>
+                            } @else {
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[10px] font-black uppercase tracking-tighter border border-amber-100">
+                                <span class="w-1 h-1 rounded-full bg-amber-500"></span> Pending
+                            </span>
+                            }
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-                        <!-- Row 2 -->
-                        <tr class="group hover:bg-slate-50/80 transition-all">
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Campus
-                                        Encounter</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Campus
-                                    Ministry</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-500">Jan 18, 2026</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-700 font-semibold">Q1 2026</span>
-                            </td>
-                            <td class="px-6 py-5 text-center">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-tighter border border-emerald-100">
-                                    <i class="fa-solid fa-check text-[8px]"></i>
-                                    Approved
-                                </span>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <button
-                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 3 -->
-                        <tr class="group hover:bg-slate-50/80 transition-all">
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Community
-                                        Outreach Program</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Sabbath
-                                    School</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-500">Feb 10, 2026</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-700 font-semibold">Q1 2026</span>
-                            </td>
-                            <td class="px-6 py-5 text-center">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-tighter border border-emerald-100">
-                                    <i class="fa-solid fa-check text-[8px]"></i>
-                                    Approved
-                                </span>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <button
-                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Row 4 -->
-                        <tr class="group hover:bg-slate-50/80 transition-all">
-                            <td class="px-6 py-5">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Family
-                                        Life Seminar</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Family
-                                    Ministries</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-500">Apr 15, 2026</span>
-                            </td>
-                            <td class="px-6 py-5">
-                                <span class="text-xs text-slate-700 font-semibold">Q2 2026</span>
-                            </td>
-                            <td class="px-6 py-5 text-center">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[10px] font-black uppercase tracking-tighter border border-amber-100">
-                                    <span class="w-1 h-1 rounded-full bg-amber-500"></span>
-                                    Pending
-                                </span>
-                            </td>
-                            <td class="px-6 py-5 text-right">
-                                <button
-                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <div
-                class="px-6 py-5 bg-slate-50/50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                    Showing <span class="text-slate-900">1–4</span> of <span class="text-slate-900">25</span> Reports
-                </p>
-                <div class="flex items-center gap-2">
+        <!-- Pagination -->
+        <div
+            class="px-6 py-5 bg-slate-50/50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                Showing <span class="text-slate-900">1–4</span> of <span class="text-slate-900">25</span> Reports
+            </p>
+            <div class="flex items-center gap-2">
+                <button
+                    class="p-2 text-slate-400 hover:text-emerald-600 disabled:opacity-30 disabled:hover:bg-transparent transition-all"
+                    disabled>
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <div class="flex items-center gap-1">
                     <button
-                        class="p-2 text-slate-400 hover:text-emerald-600 disabled:opacity-30 disabled:hover:bg-transparent transition-all"
-                        disabled>
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    <div class="flex items-center gap-1">
-                        <button
-                            class="w-8 h-8 rounded-lg bg-emerald-600 text-white text-xs font-bold shadow-md shadow-emerald-600/20">1</button>
-                        <button
-                            class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">2</button>
-                        <button
-                            class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">3</button>
-                        <span class="text-slate-300 px-1">...</span>
-                        <button
-                            class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">7</button>
-                    </div>
-                    <button class="p-2 text-slate-400 hover:text-emerald-600 transition-all">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </button>
+                        class="w-8 h-8 rounded-lg bg-emerald-600 text-white text-xs font-bold shadow-md shadow-emerald-600/20">1</button>
+                    <button
+                        class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">2</button>
+                    <button
+                        class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">3</button>
+                    <span class="text-slate-300 px-1">...</span>
+                    <button
+                        class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">7</button>
                 </div>
+                <button class="p-2 text-slate-400 hover:text-emerald-600 transition-all">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
             </div>
         </div>
-    </main>
+    </div>
+</main>
+
+<!-- Summary Modal -->
+@if (isModalOpen()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300"
+    (click)="closeModal()">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-hidden transform transition-all duration-300 scale-100"
+        (click)="$event.stopPropagation()">
+
+        <!-- Modal Header -->
+        <div class="px-6 py-5 border-b border-slate-100 bg-slate-50/50 flex justify-between items-start">
+            <div>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Report
+                        Summary</span>
+                    @if (selectedReport()?.status === 'Approved') {
+                    <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold">
+                        <i class="fa-solid fa-check mr-1"></i> Verified
+                    </span>
+                    }
+                </div>
+                <h2 class="text-xl font-serif font-bold text-slate-900">{{selectedReport()?.title}}</h2>
+                <p class="text-sm text-slate-500 mt-1">Submitted on {{selectedReport()?.date}} by
+                    {{selectedReport()?.submittedBy}}</p>
+            </div>
+            <button (click)="closeModal()"
+                class="text-slate-400 hover:text-slate-600 p-2 hover:bg-slate-100 rounded-full transition-all">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="p-6 overflow-y-auto max-h-[60vh]">
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Department</div>
+                    <div class="text-sm font-bold text-slate-900">{{selectedReport()?.department}}</div>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Period</div>
+                    <div class="text-sm font-bold text-slate-900">{{selectedReport()?.period}}</div>
+                </div>
+                <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                    <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1">Total Activities
+                    </div>
+                    <div class="text-lg font-bold text-emerald-900">{{calculateGrandTotal()}}</div>
+                </div>
+            </div>
+
+            <!-- Summary Table -->
+            <div class="border border-slate-200/60 rounded-xl overflow-hidden">
+                <div class="px-4 py-3 bg-slate-50 border-b border-slate-200">
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Quarterly Breakdown</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-slate-50/50">
+                            <tr>
+                                <th
+                                    class="px-4 py-3 text-left text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Category</th>
+                                <th
+                                    class="px-4 py-3 text-right text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Q1</th>
+                                <th
+                                    class="px-4 py-3 text-right text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Q2</th>
+                                <th
+                                    class="px-4 py-3 text-right text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Q3</th>
+                                <th
+                                    class="px-4 py-3 text-right text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Q4</th>
+                                <th
+                                    class="px-4 py-3 text-right text-[10px] font-bold text-slate-700 uppercase tracking-wider">
+                                    Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            @for (item of selectedReport()?.summaryData; track item.category) {
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-4 py-3 text-slate-900 font-medium">{{item.category}}</td>
+                                <td class="px-4 py-3 text-right text-slate-600">{{item.q1}}</td>
+                                <td class="px-4 py-3 text-right text-slate-600">{{item.q2}}</td>
+                                <td class="px-4 py-3 text-right text-slate-600">{{item.q3}}</td>
+                                <td class="px-4 py-3 text-right text-slate-600">{{item.q4}}</td>
+                                <td class="px-4 py-3 text-right font-bold text-slate-900">{{item.total}}</td>
+                            </tr>
+                            }
+                            <!-- Total Row -->
+                            <tr class="bg-slate-50/80 font-bold">
+                                <td class="px-4 py-3 text-slate-900">Grand Total</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{calculateQuarterTotal('q1')}}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{calculateQuarterTotal('q2')}}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{calculateQuarterTotal('q3')}}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{calculateQuarterTotal('q4')}}</td>
+                                <td class="px-4 py-3 text-right text-emerald-700">{{calculateGrandTotal()}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Additional Notes -->
+            <!-- <div class="mt-6 bg-amber-50 border border-amber-100 rounded-xl p-4">
+                <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info text-amber-500 mt-0.5"></i>
+                    <div>
+                        <h4 class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-1">Pastor's Remarks</h4>
+                        <p class="text-sm text-amber-700 leading-relaxed">
+                            This report has been reviewed and verified by the district office. All quarterly targets
+                            have been met with notable increase in community outreach participation.
+                        </p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/30 flex justify-end gap-3">
+            <button (click)="closeModal()"
+                class="px-5 py-2.5 text-sm font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition-all">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+}

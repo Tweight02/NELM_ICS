@@ -1,64 +1,113 @@
-<main class="flex-1 px-4 py-6">
+<main class="flex-1 px-4 py-6 sm:px-6">
     <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
         <ol class="flex items-center">
-            <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">Church Works</li>
+            <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest flex items-center gap-1.5">
+                <i class="fa-solid fa-house text-[10px]"></i> Church Works
+            </li>
             <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
-            <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">
-                Church Report</li>
+            <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest flex items-center gap-1.5"
+                aria-current="page">
+                <i class="fa-solid fa-file-lines text-[10px]"></i> Church Report
+            </li>
         </ol>
     </nav>
 
-    <!-- Church Info Section -->
+    <!-- Header Section -->
     <div class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
             <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-2">Church Activities</h1>
             <p class="text-slate-500 text-sm">View and filter church activities by department and category</p>
         </div>
+        <div class="flex items-center gap-2">
+            <button
+                class="px-4 py-2.5 text-sm font-semibold text-slate-700 border border-slate-200 rounded-xl hover:bg-slate-50 transition flex items-center gap-2">
+                <i class="fa-solid fa-file-export"></i> Export
+            </button>
+            <button
+                class="px-4 py-2.5 text-sm font-semibold text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 transition flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-plus"></i> New Report
+            </button>
+        </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        @for (s of summary(); track s.label) {
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/60 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-3">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center" [class]="s.bg">
+                    <i class="fa-solid text-white" [class]="s.icon"></i>
+                </div>
+            </div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 font-semibold">{{ s.label }}</p>
+            <p class="text-2xl font-bold text-slate-900 mt-1">{{ s.value }}</p>
+        </div>
+        }
     </div>
 
     <!-- Filters -->
     <div class="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm mb-6">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-filter text-emerald-600"></i> Filter Reports
+            </h3>
+            <button (click)="clearFilters()"
+                class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Search -->
+            <div class="space-y-2 lg:col-span-1">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Search</label>
+                <div class="relative">
+                    <i
+                        class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input [(ngModel)]="search" type="text" placeholder="Search..."
+                        class="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                </div>
+            </div>
+
             <!-- Church Filter -->
             <div class="space-y-2">
                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Church</label>
-                <select
+                <select [(ngModel)]="filterChurch"
                     class="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                    <option>All Churches</option>
-                    <option>Isabela District</option>
-                    <option>Nueva Vizcaya District</option>
-                    <option>Quirino District</option>
-                    <option>Santiago District</option>
+                    <option value="">All Churches</option>
+                    <option>Church 1</option>
+                    <option>Church 2</option>
+                    <option>Church 3</option>
+                    <option>Church 4</option>
                 </select>
             </div>
 
             <!-- Department Filter -->
             <div class="space-y-2">
                 <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Department</label>
-                <select
+                <select [(ngModel)]="filterDept"
                     class="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                    <option>All Departments</option>
-                    <option>Worship</option>
+                    <option value="">All Departments</option>
+                    <option>Sabbath School</option>
                     <option>Youth Ministry</option>
-                    <option>Outreach</option>
-                    <option>Administration</option>
-                    <option>Discipleship</option>
-                    <option>Pastoral Care</option>
+                    <option>Childrens</option>
+                    <option>Ministerial</option>
+                    <option>Womens</option>
                 </select>
             </div>
 
             <!-- Category Filter -->
             <div class="space-y-2">
-                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Category</label>
-                <select
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Programs</label>
+                <select [(ngModel)]="filterCategory"
                     class="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                    <option>All Categories</option>
-                    <option>Service</option>
-                    <option>Event</option>
-                    <option>Meeting</option>
+                    <option value="">All Programs</option>
+                    <option>Sabbath School</option>
+                    <option>Seminar</option>
+                    <option>Bible Study</option>
                     <option>Training</option>
-                    <option>Community Work</option>
+                    <option>Service</option>
+                    <option>Baptism</option>
                 </select>
             </div>
         </div>
@@ -66,180 +115,256 @@
 
     <!-- Table -->
     <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
-        <div class="overflow-x-auto">
+        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+            <div>
+                <h3 class="text-sm font-bold text-slate-900">All Reports</h3>
+                <p class="text-xs text-slate-500 mt-0.5">
+                    Showing {{ filtered().length }} of {{ reports().length }} records
+                    <span class="ml-2 text-emerald-600"><i class="fa-solid fa-hand-pointer text-[10px]"></i> Click any
+                        row to view details</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto max-h-[560px]">
             <table class="w-full text-sm">
-                <thead>
-                    <tr class="border-b border-slate-200 bg-slate-50">
-                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">Church
+                <thead class="sticky top-0 bg-slate-50 z-10">
+                    <tr class="border-b border-slate-200">
+                        <th (click)="toggleSort('church')"
+                            class="px-6 py-4 text-left text-xs font-bold text-slate-900 uppercase tracking-wider cursor-pointer hover:bg-slate-100 transition">
+                            Church <i class="fa-solid ml-1 text-slate-400" [class]="sortIcon('church')"></i>
                         </th>
                         <th class="px-6 py-4 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">
                             Department</th>
                         <th class="px-6 py-4 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">
-                            Category</th>
-                        <th class="px-6 py-4 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">Total
+                            Programs</th>
+                        <th (click)="toggleSort('total')"
+                            class="px-6 py-4 text-right text-xs font-bold text-slate-900 uppercase tracking-wider cursor-pointer hover:bg-slate-100 transition">
+                            Total <i class="fa-solid ml-1 text-slate-400" [class]="sortIcon('total')"></i>
                         </th>
+                        <th class="w-12"></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                    <!-- Row 1 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Isabela District', 'Worship', 'Service', 1850)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Isabela District</td>
-                        <td class="px-6 py-4 text-slate-600">Sabbath School</td>
-                        <td class="px-6 py-4 text-slate-600">Cradleroll</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">100</td>
+                    @for (r of filtered(); track r.id) {
+                    <tr (click)="openModal(r)" class="hover:bg-emerald-50/40 transition-colors cursor-pointer group">
+                        <td class="px-6 py-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 group-hover:bg-emerald-200 transition">
+                                    <i class="fa-solid fa-church text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="text-slate-900 font-semibold">{{ r.church }}</p>
+                                    <p class="text-xs text-slate-500">{{ r.pastor }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="text-slate-700">{{ r.department }}</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span
+                                class="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 group-hover:bg-white transition">
+                                {{ r.category }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <span class="text-slate-900 font-bold text-base">{{ r.total | number }}</span>
+                        </td>
+                        <td class="pr-6 py-4 text-right">
+                            <i
+                                class="fa-solid fa-chevron-right text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all text-sm"></i>
+                        </td>
                     </tr>
-
-                    <!-- Row 2 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Isabela District', 'Youth Ministry', 'Meeting', 680)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Isabela District</td>
-                        <td class="px-6 py-4 text-slate-600">Youth Ministry</td>
-                        <td class="px-6 py-4 text-slate-600">Meeting</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">680</td>
+                    }
+                    @if (filtered().length === 0) {
+                    <tr>
+                        <td colspan="5" class="text-center py-16 text-slate-400">
+                            <i class="fa-solid fa-inbox text-4xl mb-3"></i>
+                            <p class="text-sm">No reports match your filters</p>
+                        </td>
                     </tr>
-
-                    <!-- Row 3 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Isabela District', 'Outreach', 'Community Work', 920)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Isabela District</td>
-                        <td class="px-6 py-4 text-slate-600">Outreach</td>
-                        <td class="px-6 py-4 text-slate-600">Community Work</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">920</td>
-                    </tr>
-
-                    <!-- Row 4 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Nueva Vizcaya District', 'Discipleship', 'Training', 540)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Nueva Vizcaya District</td>
-                        <td class="px-6 py-4 text-slate-600">Discipleship</td>
-                        <td class="px-6 py-4 text-slate-600">Training</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">540</td>
-                    </tr>
-
-                    <!-- Row 5 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Nueva Vizcaya District', 'Pastoral Care', 'Service', 380)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Nueva Vizcaya District</td>
-                        <td class="px-6 py-4 text-slate-600">Pastoral Care</td>
-                        <td class="px-6 py-4 text-slate-600">Service</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">380</td>
-                    </tr>
-
-                    <!-- Row 6 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Quirino District', 'Worship', 'Training', 420)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Quirino District</td>
-                        <td class="px-6 py-4 text-slate-600">Worship</td>
-                        <td class="px-6 py-4 text-slate-600">Training</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">420</td>
-                    </tr>
-
-                    <!-- Row 7 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Santiago District', 'Administration', 'Meeting', 280)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Santiago District</td>
-                        <td class="px-6 py-4 text-slate-600">Administration</td>
-                        <td class="px-6 py-4 text-slate-600">Meeting</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">280</td>
-                    </tr>
-
-                    <!-- Row 8 -->
-                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
-                        (click)="openModal('Santiago District', 'Outreach', 'Event', 650)">
-                        <td class="px-6 py-4 text-slate-900 font-medium">Santiago District</td>
-                        <td class="px-6 py-4 text-slate-600">Outreach</td>
-                        <td class="px-6 py-4 text-slate-600">Event</td>
-                        <td class="px-6 py-4 text-right text-slate-900 font-bold">650</td>
-                    </tr>
+                    }
                 </tbody>
             </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between text-sm">
+            <p class="text-slate-500 text-xs">Total: <span class="font-bold text-slate-900">{{ filtered().length
+                    }}</span> records</p>
+            <div class="flex items-center gap-1">
+                <button class="w-8 h-8 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-40"
+                    disabled>
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button class="w-8 h-8 rounded-lg bg-emerald-600 text-white text-xs font-semibold">1</button>
+                <button class="w-8 h-8 rounded-lg border border-slate-200 hover:bg-slate-50 text-xs">2</button>
+                <button class="w-8 h-8 rounded-lg border border-slate-200 hover:bg-slate-50">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
         </div>
     </div>
 </main>
 
-<!-- Modal -->
-@if (modalOpen()) {
-<div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
-     (click)="closeModal()">
-    <div class="bg-white rounded-2xl shadow-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto"
-         (click)="$event.stopPropagation()">
-        <!-- Modal Header -->
-        <div class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-            <div>
-                <h2 class="text-lg font-bold text-slate-900">{{ modalData().church }}</h2>
-                <p class="text-xs text-slate-500 uppercase tracking-wider">
-                    {{ modalData().department }} - {{ modalData().category }}
-                </p>
+<!-- Enhanced Modal -->
+@if (selected()) {
+<div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn"
+    (click)="closeModal()">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden"
+        (click)="$event.stopPropagation()">
+
+        <!-- Modal Header with gradient -->
+        <div class="relative bg-emerald-900 px-6 py-5 text-white">
+            <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-church text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold">{{ selected()!.church }}</h2>
+                        <p class="text-xs text-emerald-100 uppercase tracking-wider mt-1 flex items-center gap-2">
+                            <span>{{ selected()!.department }}</span>
+                            <span class="w-1 h-1 rounded-full bg-emerald-200"></span>
+                            <span>{{ selected()!.category }}</span>
+                        </p>
+                        <div class="flex items-center gap-3 mt-2 text-xs text-emerald-50">
+                            <span><i class="fa-solid fa-user-tie mr-1"></i>{{ selected()!.pastor }}</span>
+                            <span><i class="fa-solid fa-calendar mr-1"></i>{{ selected()!.submittedDate }}</span>
+                        </div>
+                    </div>
+                </div>
+                <button (click)="closeModal()"
+                    class="w-9 h-9 rounded-xl bg-white/20 hover:bg-white/30 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
-            <button (click)="closeModal()" class="text-slate-400 hover:text-slate-600 text-2xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
         </div>
 
-        <!-- Modal Content -->
-        <div class="p-6">
-            <!-- Quarterly Summary Table -->
-            <div class="mb-6">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Quarterly Breakdown</h3>
-                <div class="overflow-x-auto">
+        <!-- Modal Body -->
+        <div class="p-6 overflow-y-auto flex-1 space-y-6">
+
+            <!-- Quarterly Breakdown -->
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-chart-column text-emerald-600"></i> Quarterly Breakdown
+                    </h3>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
                     <table class="w-full text-sm">
                         <thead>
                             <tr class="border-b border-slate-200 bg-slate-50">
                                 <th
-                                    class="px-4 py-3 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">
-                                    Programs</th>
+                                    class="px-4 py-3 text-left text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                    Metric</th>
                                 <th
-                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-700 uppercase tracking-wider">
                                     Q1</th>
                                 <th
-                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-700 uppercase tracking-wider">
                                     Q2</th>
                                 <th
-                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-700 uppercase tracking-wider">
                                     Q3</th>
                                 <th
-                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-700 uppercase tracking-wider">
                                     Q4</th>
                                 <th
-                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider bg-emerald-50">
                                     Total</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
                             <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-4 py-3 text-slate-900 font-medium">Activities</td>
-                                <td class="px-4 py-3 text-right text-slate-600">12</td>
-                                <td class="px-4 py-3 text-right text-slate-600">14</td>
-                                <td class="px-4 py-3 text-right text-slate-600">10</td>
-                                <td class="px-4 py-3 text-right text-slate-600">8</td>
-                                <td class="px-4 py-3 text-right text-slate-900 font-bold">44</td>
+                                <td class="px-4 py-3 text-slate-900 font-semibold flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-day text-blue-500 text-xs"></i> Activities
+                                </td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q1.activities
+                                    }}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q2.activities
+                                    }}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q3.activities
+                                    }}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q4.activities
+                                    }}</td>
+                                <td class="px-4 py-3 text-right text-slate-900 font-bold bg-emerald-50/40">{{
+                                    totalActivities() }}</td>
                             </tr>
                             <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-4 py-3 text-slate-900 font-medium">Attendance</td>
-                                <td class="px-4 py-3 text-right text-slate-600">450</td>
-                                <td class="px-4 py-3 text-right text-slate-600">520</td>
-                                <td class="px-4 py-3 text-right text-slate-600">480</td>
-                                <td class="px-4 py-3 text-right text-slate-600">400</td>
-                                <td class="px-4 py-3 text-right text-slate-900 font-bold">{{ modalData().total | number }}</td>
+                                <td class="px-4 py-3 text-slate-900 font-semibold flex items-center gap-2">
+                                    <i class="fa-solid fa-users text-purple-500 text-xs"></i> Attendance
+                                </td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q1.attendance |
+                                    number }}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q2.attendance |
+                                    number }}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q3.attendance |
+                                    number }}</td>
+                                <td class="px-4 py-3 text-right text-slate-700">{{ selected()!.quarterly.q4.attendance |
+                                    number }}</td>
+                                <td class="px-4 py-3 text-right text-slate-900 font-bold bg-emerald-50/40">{{
+                                    selected()!.total | number }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Modal Footer -->
-            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+            <!-- Programs Breakdown -->
+            <div>
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-600"></i> Programs Conducted
+                </h3>
+                <div class="space-y-2">
+                    @for (p of selected()!.programs; track p.name) {
+                    <div
+                        class="flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                <i class="fa-solid fa-clipboard-list text-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-900">{{ p.name }}</p>
+                                <p class="text-xs text-slate-500">{{ p.count }} sessions</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-lg font-bold text-slate-900">{{ p.participants | number }}</p>
+                            <p class="text-xs text-slate-500">participants</p>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div>
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-note-sticky text-emerald-600"></i> Notes & Remarks
+                </h3>
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                    <p class="text-sm text-slate-700 leading-relaxed">{{ selected()!.notes }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div
+            class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p class="text-xs text-slate-500">
+                <i class="fa-solid fa-clock mr-1"></i> Last updated {{ selected()!.submittedDate }}
+            </p>
+            <!-- <div class="flex items-center gap-2">
                 <button (click)="closeModal()"
-                    class="px-4 py-2 text-sm font-bold text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
+                    class="px-4 py-2 text-sm font-semibold text-slate-700 border border-slate-300 rounded-lg hover:bg-white transition">
                     Close
                 </button>
-                <!-- <button
-                    class="px-4 py-2 text-sm font-bold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition-colors">
-                    <i class="fa-solid fa-download mr-2"></i>
-                    Ok
-                </button> -->
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

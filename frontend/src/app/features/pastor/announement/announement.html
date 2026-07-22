@@ -1,223 +1,109 @@
-<main class="flex-1 px-4 py-3 ">
-    <!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
-        <ol class="flex items-center">
-            <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">District Pastor</li>
-            <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
-            <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">
-                Announcements & Messages</li>
-        </ol>
-    </nav>
-
-    <div class="mb-10">
-        <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-3">Announcements & Messages</h1>
-        <p class="text-slate-500 max-w-2xl leading-relaxed">
-            Stay updated with official communication from NELM officers, feedback on your submissions, and critical
-            deadline alerts.
-        </p>
+<div class="p-4 sm:p-6 space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                <i class="fa-solid fa-bullhorn text-amber-500"></i> Announcements
+            </h1>
+            <p class="text-sm text-gray-500 mt-1">Publish and manage church-wide announcements</p>
+        </div>
+        <button class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl text-sm flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> New Announcement
+        </button>
     </div>
 
-    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+    <!-- Filters -->
+    <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div class="relative md:col-span-2">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input [(ngModel)]="search" placeholder="Search announcements..."
+                class="w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none" />
+        </div>
+        <select [(ngModel)]="filterPriority" class="border border-gray-200 rounded-xl px-3 py-2 text-sm">
+            <option value="">All Priorities</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+        </select>
+        <select [(ngModel)]="filterCategory" class="border border-gray-200 rounded-xl px-3 py-2 text-sm">
+            <option value="">All Categories</option>
+            <option>General</option>
+            <option>Event</option>
+            <option>Urgent</option>
+            <option>Ministry</option>
+        </select>
+    </div>
 
-        <!-- Left Column: Official Announcements -->
-        <div class="xl:col-span-2 space-y-6">
-            <div class="flex items-center justify-between">
-                <h2 class="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                    <span class="w-1.5 h-4 bg-emerald-600 rounded-full"></span>
-                    Official Announcements
-                </h2>
-                <button class="text-[10px] font-bold text-emerald-600 hover:underline uppercase tracking-wider">Mark
-                    all as read</button>
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (a of filtered(); track a.id) {
+        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-full text-xs font-medium" [class]="priorityBadge(a.priority)">
+                    <i class="fa-solid fa-circle text-[6px] mr-1"></i>{{ a.priority }}
+                </span>
+                <span class="text-xs text-gray-400">{{ a.date }}</span>
             </div>
-
-            <div class="space-y-4">
-                <!-- Announcement Card 1 -->
-                <div
-                    class="group bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm hover:shadow-md transition-all relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                        <span
-                            class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-tighter border border-emerald-100">
-                            <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
-                            Published
-                        </span>
-                        <span
-                            class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i class="fa-regular fa-calendar"></i>
-                            Jan 27, 2026
-                        </span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors">
-                        Q1 Pastoral Leadership Summit – February 14–16</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed mb-6">
-                        All department heads and district pastors are required to attend the annual leadership
-                        alignment summit. Logistics and agenda will be sent via email.
-                    </p>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-50">
-                        <div
-                            class="flex items-center gap-2 text-rose-600 text-xs font-bold uppercase tracking-wider bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-100">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                            RSVP by Feb 7
-                        </div>
-                        <button
-                            class="text-xs font-bold text-emerald-600 flex items-center gap-1 hover:gap-2 transition-all">
-                            Read Details
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </button>
-                    </div>
+            <h3 class="font-semibold text-gray-800 mb-2 line-clamp-2">{{ a.title }}</h3>
+            <p class="text-sm text-gray-500 flex-1 line-clamp-3">{{ a.content }}</p>
+            <div class="flex items-center justify-between pt-4 mt-3 border-t border-gray-100">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <i class="fa-solid fa-user-tie text-gray-400"></i>
+                    {{ a.author }}
                 </div>
-
-                <!-- Announcement Card 2 -->
-                <div
-                    class="group bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm hover:shadow-md transition-all relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-blue-500"></div>
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                        <span
-                            class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-tighter border border-blue-100">
-                            <span class="w-1 h-1 rounded-full bg-blue-500"></span>
-                            Scheduled
-                        </span>
-                        <span
-                            class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
-                            <i class="fa-solid fa-clock"></i>
-                            Feb 1, 06:00
-                        </span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">
-                        Monthly Report Deadline: January Reports</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed mb-6">
-                        Ensure all January field reports are submitted before the system closes for monthly
-                        consolidation. Late submissions may affect district standing.
-                    </p>
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-50">
-                        <div
-                            class="flex items-center gap-2 text-rose-600 text-xs font-bold uppercase tracking-wider bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-100">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            Due Feb 3, 11:59 PM
-                        </div>
-                        <a href="field_report.html"
-                            class="text-xs font-bold text-blue-600 flex items-center gap-1 hover:gap-2 transition-all">
-                            Submit Now
-                            <i class="fa-solid fa-arrow-right-long"></i>
-                        </a>
-                    </div>
+                <div class="flex items-center gap-1.5">
+                    <button (click)="view(a)" class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100"
+                        title="View">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                    <button class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-100" title="Edit">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-100" title="Delete">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
             </div>
         </div>
+        }
+    </div>
 
-        <!-- Right Column: Feedback & Alerts -->
-        <div class="space-y-6">
-            <h2 class="text-sm font-black text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                <span class="w-1.5 h-4 bg-amber-500 rounded-full"></span>
-                Feedback & Alerts
-            </h2>
-
-            <div
-                class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden divide-y divide-slate-50">
-
-                <!-- Feedback Item 1 -->
-                <div class="p-5 hover:bg-slate-50 transition-all cursor-pointer group">
-                    <div class="flex gap-4">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 shadow-sm border border-emerald-100 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-comment-check text-sm"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between mb-1">
-                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-tight truncate">NELM
-                                    Officers</h4>
-                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">1h
-                                    ago</span>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                Your <span class="font-bold text-emerald-700">Youth Summit</span> report exceeded
-                                expectations — commended by the Director.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feedback Item 2 -->
-                <div class="p-5 hover:bg-slate-50 transition-all cursor-pointer group">
-                    <div class="flex gap-4">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 shadow-sm border border-amber-100 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-file-export text-sm"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between mb-1">
-                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-tight truncate">
-                                    Report Request</h4>
-                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">2d
-                                    ago</span>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                Attendance Report requested by the <span
-                                    class="font-bold text-slate-900">President</span>, due Feb 5.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feedback Item 3 -->
-                <div class="p-5 hover:bg-slate-50 transition-all cursor-pointer group">
-                    <div class="flex gap-4">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 shadow-sm border border-blue-100 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-bell text-sm"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between mb-1">
-                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-tight truncate">
-                                    System Reminder</h4>
-                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">2d
-                                    ago</span>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                January field report window closes Feb 3, 11:59 PM.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feedback Item 4 -->
-                <div class="p-5 hover:bg-slate-50 transition-all cursor-pointer group">
-                    <div class="flex gap-4">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 shadow-sm border border-rose-100 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-bolt text-sm"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center justify-between mb-1">
-                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-tight truncate">
-                                    Deadline Alert</h4>
-                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">3d
-                                    ago</span>
-                            </div>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                Consolidation window closes in <span class="font-bold text-rose-600">24
-                                    hours</span>.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Help Widget -->
-            <!-- <div
-                class="bg-emerald-900 rounded-2xl p-6 text-white relative overflow-hidden shadow-lg shadow-emerald-900/20">
-                <i
-                    class="fa-solid fa-envelope-open-text absolute -right-4 -bottom-4 text-8xl text-white/5 rotate-12"></i>
-                <h4 class="font-serif text-lg font-bold mb-2">Need to reply?</h4>
-                <p class="text-slate-400 text-xs leading-relaxed mb-4">
-                    Direct messages to NELM officers can be initiated through the formal communication portal.
-                </p>
-                <button
-                    class="w-full py-2.5 bg-white text-slate-900 rounded-xl text-xs font-bold hover:bg-slate-100 transition-all">
-                    Contact Officers
+    <!-- Modal -->
+    @if (selected()) {
+    <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+                <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-bullhorn text-amber-500"></i> Announcement Details
+                </h3>
+                <button (click)="close()" class="text-gray-400 hover:text-gray-700">
+                    <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
-            </div> -->
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4">
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">{{
+                        selected()!.category }}</span>
+                    <span class="px-2.5 py-1 rounded-full text-xs font-medium"
+                        [class]="priorityBadge(selected()!.priority)">{{ selected()!.priority }} Priority</span>
+                    <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">{{
+                        selected()!.status }}</span>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800">{{ selected()!.title }}</h2>
+                <div class="flex items-center gap-4 text-sm text-gray-500">
+                    <span><i class="fa-solid fa-user-tie mr-1"></i>{{ selected()!.author }}</span>
+                    <span><i class="fa-solid fa-calendar mr-1"></i>{{ selected()!.date }}</span>
+                </div>
+                <p class="text-gray-700 leading-relaxed">{{ selected()!.content }}</p>
+            </div>
+            <div class="flex justify-end gap-2 px-6 py-4 border-t border-gray-100">
+                <button (click)="close()"
+                    class="px-4 py-2 rounded-xl border border-gray-200 text-sm hover:bg-gray-50">Close</button>
+                <button
+                    class="px-4 py-2 rounded-xl bg-amber-500 text-white text-sm hover:bg-amber-600 flex items-center gap-2">
+                    <i class="fa-solid fa-share"></i> Share
+                </button>
+            </div>
         </div>
     </div>
-</main>
+    }
+</div>

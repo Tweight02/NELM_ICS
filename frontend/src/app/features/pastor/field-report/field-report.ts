@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './field-report.html',
   styleUrl: './field-report.css',
 })
-export class FieldReport {}
+export class FieldReport {
+
+}
