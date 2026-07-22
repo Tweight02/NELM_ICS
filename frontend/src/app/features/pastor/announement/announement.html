@@ -33,7 +33,7 @@
     <!-- Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @for (a of filtered(); track a.id) {
-        <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition flex flex-col">
+        <div (click)="view(a)" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition flex flex-col">
             <div class="flex items-center justify-between mb-3">
                 <span class="px-2.5 py-1 rounded-full text-xs font-medium" [class]="priorityBadge(a.priority)">
                     <i class="fa-solid fa-circle text-[6px] mr-1"></i>{{ a.priority }}
