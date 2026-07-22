@@ -1,6 +1,8 @@
 import { NavItem } from "../../../core/models/navigation/nav-item.model";
 
 export const pastor_nav_items: NavItem[] = [
-    { label: 'Home', path: '/pastor/home', icon: 'home', roles: ['pastor'] },
-    { label: 'Field Report', path: '/pastor/field-report', icon: 'file-text', roles: ['pastor'] },
+    { label: 'Dashboard', path: '/pastor/home', icon: 'fa-house', roles: ['pastor'] },
+    { label: 'Field Report', path: '/pastor/field-report', icon: 'fa-file-lines', roles: ['pastor'] },
+    { label: 'Report Histroy', path: '/pastor/report-history', icon: 'fa-clipboard-list', roles: ['pastor']},
+    { label: 'Announcements', path: '/pastor/announcement', icon: 'fa-bullhorn', roles: ['pastor']}
 ];

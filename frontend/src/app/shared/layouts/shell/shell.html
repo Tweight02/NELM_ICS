@@ -1,6 +1,7 @@
-<div class="flex h-screen">
-    <app-navbar [items]="nav.navItems()" />
-    <main class="flex-1 overflow-y-auto p-6">
-        <router-outlet />
-    </main>
-</div>
+<!-- Sidebar (navbar component) -->
+<app-navbar [items]="nav.navItems()" [portalLabel]="nav.portalLabel()" />
+
+<!-- Main content -->
+<main class="pt-6">
+    <router-outlet />
+</main>

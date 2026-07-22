@@ -1,1 +1,204 @@
-<p>reports works!</p>
+<div class="flex pt-10">
+    <main class="ml-64 flex-1 p-8 bg-slate-50 min-h-screen">
+
+        <!-- Breadcrumb -->
+        <div class="text-sm flex items-center gap-2 mb-5">
+            <span class="text-slate-400">District Pastor</span>
+            <span class="text-slate-300">/</span>
+            <span class="font-semibold text-slate-800">Report History</span>
+        </div>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900">Report History</h1>
+                <p class="text-slate-500 mt-2">
+                    View all submitted field reports.
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 mb-6">
+            <div class="flex flex-wrap gap-4">
+
+                <!-- Search -->
+                <input type="text" placeholder="Search report title..."
+                    class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+
+                <!-- Department -->
+                <select
+                    class="border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+
+                    <option>All Departments</option>
+                    <option>Youth Ministry</option>
+                    <option>Children's Ministry</option>
+                    <option>Women's Ministry</option>
+                    <option>Men's Ministry</option>
+                    <option>Sabbath School</option>
+                    <option>Stewardship</option>
+                    <option>Health Ministry</option>
+
+                </select>
+
+                <!-- Quarter -->
+                <select
+                    class="border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+
+                    <option>All Quarters</option>
+                    <option>1st Quarter (Jan - Mar)</option>
+                    <option>2nd Quarter (Apr - Jun)</option>
+                    <option>3rd Quarter (Jul - Sep)</option>
+                    <option>4th Quarter (Oct - Dec)</option>
+
+                </select>
+
+            </div>
+        </div>
+
+        <!-- Reports Table -->
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+
+            <div class="overflow-x-auto">
+
+                <table class="w-full">
+
+                    <thead class="bg-slate-100">
+                        <tr class="text-left text-sm font-semibold text-slate-600">
+
+                            <th class="px-6 py-4">Report Title</th>
+                            <th class="px-6 py-4">Department</th>
+                            <th class="px-6 py-4">Date Submitted</th>
+                            <th class="px-6 py-4">Quarter</th>
+                            <th class="px-6 py-4">Status</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-slate-200 text-sm">
+
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">
+                                Youth Leadership Summit
+                            </td>
+                            <td class="px-6 py-4">
+                                Youth Ministry
+                            </td>
+                            <td class="px-6 py-4">
+                                January 29, 2026
+                            </td>
+                            <td class="px-6 py-4">
+                                1st Quarter
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-semibold">
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">
+                                Campus Encounter
+                            </td>
+                            <td class="px-6 py-4">
+                                Campus Ministry
+                            </td>
+                            <td class="px-6 py-4">
+                                January 18, 2026
+                            </td>
+                            <td class="px-6 py-4">
+                                1st Quarter
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+                                    Approved
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">
+                                Community Outreach Program
+                            </td>
+                            <td class="px-6 py-4">
+                                Sabbath School
+                            </td>
+                            <td class="px-6 py-4">
+                                February 10, 2026
+                            </td>
+                            <td class="px-6 py-4">
+                                1st Quarter
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
+                                    Approved
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium">
+                                Family Life Seminar
+                            </td>
+                            <td class="px-6 py-4">
+                                Family Ministries
+                            </td>
+                            <td class="px-6 py-4">
+                                April 15, 2026
+                            </td>
+                            <td class="px-6 py-4">
+                                2nd Quarter
+                            </td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-semibold">
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="flex items-center justify-between px-6 py-4 border-t border-slate-200">
+
+                <p class="text-sm text-slate-500">
+                    Showing <span class="font-medium">1–5</span> of
+                    <span class="font-medium">25</span> reports
+                </p>
+
+                <div class="flex gap-2">
+
+                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
+                        Previous
+                    </button>
+
+                    <button class="px-4 py-2 rounded-lg bg-emerald-700 text-white">
+                        1
+                    </button>
+
+                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
+                        2
+                    </button>
+
+                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
+                        3
+                    </button>
+
+                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
+                        Next
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+</div>
