@@ -1,204 +1,268 @@
-<div class="flex pt-10">
-    <main class="ml-64 flex-1 p-8 bg-slate-50 min-h-screen">
 
+    <main class="flex-1 px-4 py-3 ">
         <!-- Breadcrumb -->
-        <div class="text-sm flex items-center gap-2 mb-5">
-            <span class="text-slate-400">District Pastor</span>
-            <span class="text-slate-300">/</span>
-            <span class="font-semibold text-slate-800">Report History</span>
-        </div>
+        <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+            <ol class="flex items-center">
+                <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">District Pastor</li>
+                <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
+                <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">Report
+                    History</li>
+            </ol>
+        </nav>
 
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
-                <h1 class="text-3xl font-bold text-slate-900">Report History</h1>
-                <p class="text-slate-500 mt-2">
-                    View all submitted field reports.
+                <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-3">Report History</h1>
+                <p class="text-slate-500 max-w-2xl leading-relaxed">
+                    A comprehensive archive of all submitted field reports for Isabela District. Use filters to narrow
+                    down by department or time period.
                 </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="field_report.html"
+                    class="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all active:scale-[0.98]">
+                    <i class="fa-solid fa-plus"></i>
+                    New Report
+                </a>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 mb-6">
-            <div class="flex flex-wrap gap-4">
-
+        <!-- Filters Section -->
+        <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Search -->
-                <input type="text" placeholder="Search report title..."
-                    class="flex-1 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600">
-
-                <!-- Department -->
-                <select
-                    class="border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600">
-
-                    <option>All Departments</option>
-                    <option>Youth Ministry</option>
-                    <option>Children's Ministry</option>
-                    <option>Women's Ministry</option>
-                    <option>Men's Ministry</option>
-                    <option>Sabbath School</option>
-                    <option>Stewardship</option>
-                    <option>Health Ministry</option>
-
-                </select>
-
-                <!-- Quarter -->
-                <select
-                    class="border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600">
-
-                    <option>All Quarters</option>
-                    <option>1st Quarter (Jan - Mar)</option>
-                    <option>2nd Quarter (Apr - Jun)</option>
-                    <option>3rd Quarter (Jul - Sep)</option>
-                    <option>4th Quarter (Oct - Dec)</option>
-
-                </select>
-
-            </div>
-        </div>
-
-        <!-- Reports Table -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-
-            <div class="overflow-x-auto">
-
-                <table class="w-full">
-
-                    <thead class="bg-slate-100">
-                        <tr class="text-left text-sm font-semibold text-slate-600">
-
-                            <th class="px-6 py-4">Report Title</th>
-                            <th class="px-6 py-4">Department</th>
-                            <th class="px-6 py-4">Date Submitted</th>
-                            <th class="px-6 py-4">Quarter</th>
-                            <th class="px-6 py-4">Status</th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody class="divide-y divide-slate-200 text-sm">
-
-                        <tr class="hover:bg-slate-50">
-                            <td class="px-6 py-4 font-medium">
-                                Youth Leadership Summit
-                            </td>
-                            <td class="px-6 py-4">
-                                Youth Ministry
-                            </td>
-                            <td class="px-6 py-4">
-                                January 29, 2026
-                            </td>
-                            <td class="px-6 py-4">
-                                1st Quarter
-                            </td>
-                            <td class="px-6 py-4">
-                                <span
-                                    class="px-3 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-semibold">
-                                    Pending
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr class="hover:bg-slate-50">
-                            <td class="px-6 py-4 font-medium">
-                                Campus Encounter
-                            </td>
-                            <td class="px-6 py-4">
-                                Campus Ministry
-                            </td>
-                            <td class="px-6 py-4">
-                                January 18, 2026
-                            </td>
-                            <td class="px-6 py-4">
-                                1st Quarter
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
-                                    Approved
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr class="hover:bg-slate-50">
-                            <td class="px-6 py-4 font-medium">
-                                Community Outreach Program
-                            </td>
-                            <td class="px-6 py-4">
-                                Sabbath School
-                            </td>
-                            <td class="px-6 py-4">
-                                February 10, 2026
-                            </td>
-                            <td class="px-6 py-4">
-                                1st Quarter
-                            </td>
-                            <td class="px-6 py-4">
-                                <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
-                                    Approved
-                                </span>
-                            </td>
-                        </tr>
-
-                        <tr class="hover:bg-slate-50">
-                            <td class="px-6 py-4 font-medium">
-                                Family Life Seminar
-                            </td>
-                            <td class="px-6 py-4">
-                                Family Ministries
-                            </td>
-                            <td class="px-6 py-4">
-                                April 15, 2026
-                            </td>
-                            <td class="px-6 py-4">
-                                2nd Quarter
-                            </td>
-                            <td class="px-6 py-4">
-                                <span
-                                    class="px-3 py-1 rounded-full bg-orange-100 text-orange-600 text-xs font-semibold">
-                                    Pending
-                                </span>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-            <!-- Footer -->
-            <div class="flex items-center justify-between px-6 py-4 border-t border-slate-200">
-
-                <p class="text-sm text-slate-500">
-                    Showing <span class="font-medium">1–5</span> of
-                    <span class="font-medium">25</span> reports
-                </p>
-
-                <div class="flex gap-2">
-
-                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
-                        Previous
-                    </button>
-
-                    <button class="px-4 py-2 rounded-lg bg-emerald-700 text-white">
-                        1
-                    </button>
-
-                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
-                        2
-                    </button>
-
-                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
-                        3
-                    </button>
-
-                    <button class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100">
-                        Next
-                    </button>
-
+                <div class="md:col-span-2 relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </div>
+                    <input type="text" placeholder="Search by report title or keyword..."
+                        class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all">
                 </div>
 
-            </div>
+                <!-- Department -->
+                <div class="relative">
+                    <select
+                        class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all cursor-pointer">
+                        <option>All Departments</option>
+                        <option>Youth Ministry</option>
+                        <option>Children's Ministry</option>
+                        <option>Women's Ministry</option>
+                        <option>Men's Ministry</option>
+                        <option>Sabbath School</option>
+                        <option>Stewardship</option>
+                        <option>Health Ministry</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </div>
+                </div>
 
+                <!-- Quarter -->
+                <div class="relative">
+                    <select
+                        class="w-full appearance-none pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all cursor-pointer">
+                        <option>All Quarters</option>
+                        <option>1st Quarter (Jan - Mar)</option>
+                        <option>2nd Quarter (Apr - Jun)</option>
+                        <option>3rd Quarter (Jul - Sep)</option>
+                        <option>4th Quarter (Oct - Dec)</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
+                        <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <!-- Table Section -->
+        <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse text-left">
+                    <thead>
+                        <tr class="bg-slate-50/50 border-b border-slate-100">
+                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Report
+                                Title</th>
+                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                                Department</th>
+                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Date
+                                Submitted</th>
+                            <th class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Period
+                            </th>
+                            <th
+                                class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
+                                Status</th>
+                            <th
+                                class="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-right">
+                                Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50">
+                        <!-- Row 1 -->
+                        <tr class="group hover:bg-slate-50/80 transition-all">
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Youth
+                                        Leadership Summit</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Youth
+                                    Ministry</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-500">Jan 29, 2026</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-700 font-semibold">Q1 2026</span>
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[10px] font-black uppercase tracking-tighter border border-amber-100">
+                                    <span class="w-1 h-1 rounded-full bg-amber-500"></span>
+                                    Pending
+                                </span>
+                            </td>
+                            <td class="px-6 py-5 text-right">
+                                <button
+                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr class="group hover:bg-slate-50/80 transition-all">
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Campus
+                                        Encounter</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Campus
+                                    Ministry</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-500">Jan 18, 2026</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-700 font-semibold">Q1 2026</span>
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-tighter border border-emerald-100">
+                                    <i class="fa-solid fa-check text-[8px]"></i>
+                                    Approved
+                                </span>
+                            </td>
+                            <td class="px-6 py-5 text-right">
+                                <button
+                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3 -->
+                        <tr class="group hover:bg-slate-50/80 transition-all">
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Community
+                                        Outreach Program</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Sabbath
+                                    School</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-500">Feb 10, 2026</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-700 font-semibold">Q1 2026</span>
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-tighter border border-emerald-100">
+                                    <i class="fa-solid fa-check text-[8px]"></i>
+                                    Approved
+                                </span>
+                            </td>
+                            <td class="px-6 py-5 text-right">
+                                <button
+                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 4 -->
+                        <tr class="group hover:bg-slate-50/80 transition-all">
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">Family
+                                        Life Seminar</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs font-medium text-slate-600 bg-slate-100 px-2 py-1 rounded">Family
+                                    Ministries</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-500">Apr 15, 2026</span>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="text-xs text-slate-700 font-semibold">Q2 2026</span>
+                            </td>
+                            <td class="px-6 py-5 text-center">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[10px] font-black uppercase tracking-tighter border border-amber-100">
+                                    <span class="w-1 h-1 rounded-full bg-amber-500"></span>
+                                    Pending
+                                </span>
+                            </td>
+                            <td class="px-6 py-5 text-right">
+                                <button
+                                    class="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-all">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+                class="px-6 py-5 bg-slate-50/50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                    Showing <span class="text-slate-900">1–4</span> of <span class="text-slate-900">25</span> Reports
+                </p>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="p-2 text-slate-400 hover:text-emerald-600 disabled:opacity-30 disabled:hover:bg-transparent transition-all"
+                        disabled>
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <div class="flex items-center gap-1">
+                        <button
+                            class="w-8 h-8 rounded-lg bg-emerald-600 text-white text-xs font-bold shadow-md shadow-emerald-600/20">1</button>
+                        <button
+                            class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">2</button>
+                        <button
+                            class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">3</button>
+                        <span class="text-slate-300 px-1">...</span>
+                        <button
+                            class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 text-xs font-bold hover:bg-slate-50 transition-all">7</button>
+                    </div>
+                    <button class="p-2 text-slate-400 hover:text-emerald-600 transition-all">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
-</div>

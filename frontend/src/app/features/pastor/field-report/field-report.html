@@ -1,213 +1,251 @@
-<div class="flex pt-10">
-    <main class="ml-64 flex-1 p-8">
 
-        <div class="text-sm mb-5">
-            <span class="text-slate-400">District Pastor</span>
-            <span class="text-slate-400 mx-1">/</span>
-            <span class="text-slate-900 font-semibold">My Field Reports</span>
+    <main class="flex-1 px-4 py-3 ">
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+            <ol class="flex items-center">
+                <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">District Pastor</li>
+                <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
+                <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">My
+                    Field Reports</li>
+            </ol>
+        </nav>
+
+        <div class="mb-10">
+            <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-3">Submit a Field Report</h1>
+            <p class="text-slate-500 max-w-2xl leading-relaxed">
+                Select the appropriate ministry department and provide the requested data. Your submission will be
+                recorded in the Isabela District archive for review.
+            </p>
         </div>
 
-        <div class="mb-8">
-            <h1 class="text-3xl font-extrabold text-slate-900 mb-2">Submit a field report</h1>
-            <p class="text-slate-500">Choose your ministry department, log what happened, and it joins your report
-                register below.</p>
-        </div>
-
-        <div class="flex gap-8 items-start">
-
-            <!-- Main column: form -->
-            <div class="flex-1 min-w-0">
-
-                <!-- Hero: New Report Form -->
-                <form class="bg-white rounded-2xl shadow-sm mb-10 overflow-hidden border border-slate-100">
-
-                    <div class="flex items-center justify-between px-8 py-5 border-b border-slate-100">
-                        <span class="text-xs font-bold text-slate-400 tracking-wider">NEW ENTRY</span>
+        <div class="flex flex-col xl:flex-row gap-8 items-start">
+            <!-- Main Form Column -->
+            <div class="flex-1 w-full min-w-0">
+                <form class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+                    <div class="px-8 py-5 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span class="text-xs font-bold text-slate-500 tracking-widest uppercase">New Entry
+                                Form</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-medium">Auto-saving enabled</span>
                     </div>
 
-                    <div class="px-8 pt-6 col-span-3">
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">
-                            Program
-                        </label>
+                    <div class="p-8 space-y-8">
+                        <!-- Program Selection -->
+                        <div class="max-w-md">
+                            <label for="program" class="block text-sm font-bold text-slate-700 mb-3">
+                                Ministry Program <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <select id="program"
+                                    class="w-full appearance-none border border-slate-200 rounded-xl px-4 py-3.5 bg-white text-slate-700 font-medium focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all cursor-pointer">
+                                    <option selected disabled>Choose a department...</option>
+                                    <option>Sabbath School</option>
+                                    <option>Personal Ministries</option>
+                                    <option>Youth Ministries</option>
+                                    <option>Children's Ministries</option>
+                                    <option>Women's Ministries</option>
+                                    <option>Men's Ministries</option>
+                                    <option>Family Ministries</option>
+                                    <option>Health Ministries</option>
+                                    <option>Stewardship</option>
+                                    <option>Communication</option>
+                                    <option>Education</option>
+                                    <option>Publishing</option>
+                                    <option>Ministerial</option>
+                                </select>
+                                <div
+                                    class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
 
-                        <select
-                            class="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700">
+                        <hr class="border-slate-100">
 
-                            <option selected disabled>Select a program</option>
+                        <!-- Statistics Grid -->
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line text-emerald-600"></i>
+                                Key Performance Indicators
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
 
-                            <option>Sabbath School</option>
-                            <option>Personal Ministries</option>
-                            <option>Youth Ministries</option>
-                            <option>Children's Ministries</option>
-                            <option>Women's Ministries</option>
-                            <option>Men's Ministries</option>
-                            <option>Family Ministries</option>
-                            <option>Health Ministries</option>
-                            <option>Stewardship</option>
-                            <option>Communication</option>
-                            <option>Education</option>
-                            <option>Publishing</option>
-                            <option>Ministerial</option>
+                                <div class="space-y-2">
+                                    <label
+                                        class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Churches
+                                        in Prayer Programs</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">10 Days of Prayer, 777 Prayer, Bible Studies
+                                    </p>
+                                </div>
 
-                        </select>
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Prayer
+                                        Walk Programs</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Number of local churches conducting</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label
+                                        class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Functional
+                                        Care Groups</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Organized and currently active</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label
+                                        class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Churches
+                                        of Hope</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Active implementation count</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">New
+                                        Member Classes</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Churches holding active classes</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Life
+                                        Coach Training</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Reclaimer Ministry Training sessions</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label
+                                        class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Mission
+                                        Reach Programs</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Involved churches count</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">People
+                                        Groups</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Specific groups engaged this period</p>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide">Other
+                                        Activities</label>
+                                    <input type="number" placeholder="0"
+                                        class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 font-semibold placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-600 transition-all" />
+                                    <p class="text-[10px] text-slate-400">Total count of supplementary activities</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="p-8 pt-6 grid grid-cols-3 gap-6">
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Churhces Engaged in 10 Days
-                                of Prayer, 777 Prayer and Bible Studies</label>
-                            <input type="number" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
+                    <!-- Form Actions -->
+                    <div
+                        class="px-8 py-6 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="flex items-center gap-2 text-slate-400 text-xs font-medium">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Ensure all required fields are filled before submitting.
                         </div>
-
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Local Churches conducting
-                                Prayer Walk Program</label>
-                            <input type="number" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <!-- <button type="button"
+                                class="flex-1 sm:flex-none px-6 py-3 rounded-xl border border-slate-200 text-slate-600 font-bold text-sm hover:bg-white hover:border-slate-300 transition-all">
+                                Save as Draft
+                            </button> -->
+                            <button type="submit"
+                                class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 transition-all text-white font-bold px-8 py-3 rounded-xl shadow-lg shadow-emerald-600/20 active:scale-[0.98]">
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                                Submit Report
+                            </button>
                         </div>
-
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Organized and Functional Care
-                                Groups</label>
-                            <input type="number" min="0" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Churhces Implementing
-                                Churches of Hope</label>
-                            <input type="number" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
-                        </div>
-
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Churches Conducting New
-                                member Class</label>
-                            <input type="number" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
-                        </div>
-
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Churches Holding Life Coach
-                                Reclaimer Ministry Training</label>
-                            <input type="number" min="0" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Churhces Involved in Mission
-                                Reach Programs</label>
-                            <input type="number" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
-                        </div>
-
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">People Groups</label>
-                            <input type="number" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
-                        </div>
-
-                        <div class="col-span-1">
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Other Activities
-                                Conducted</label>
-                            <input type="number" min="0" placeholder="0"
-                                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-700/20 focus:border-emerald-700" />
-                        </div>
-                    </div>
-
-                    <div class="flex items-center justify-between px-8 py-5 bg-slate-50 border-t border-slate-100">
-                        <button type="submit"
-                            class="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 transition-colors text-white font-semibold px-6 py-3 rounded-xl shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                            Submit field report
-                        </button>
                     </div>
                 </form>
             </div>
 
-            <!-- Sidebar: recent reports / drafts -->
-            <aside class="w-80 shrink-0">
-                <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden sticky top-24">
-
-                    <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
-                        <span class="text-xs font-bold text-slate-400 tracking-wider">RECENT REPORTS</span>
-                        <a href="#" class="text-xs font-semibold text-emerald-700 hover:text-emerald-800">View all</a>
+            <!-- Right Sidebar: Recent & Drafts -->
+            <aside class="w-full xl:w-80 shrink-0 space-y-6">
+                <!-- Recent Activity Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                        <span class="text-[10px] font-bold text-slate-500 tracking-widest uppercase">Recent
+                            Reports</span>
+                        <a href="#"
+                            class="text-[10px] font-bold text-emerald-600 hover:text-emerald-700 uppercase tracking-wider">View
+                            All</a>
                     </div>
 
-                    <ul class="divide-y divide-slate-100">
-
-                        <!-- Draft item -->
-                        <li class="px-6 py-4 hover:bg-slate-50 transition-colors cursor-pointer">
+                    <ul class="divide-y divide-slate-50">
+                        <!-- Draft Item -->
+                        <li class="group px-6 py-4 hover:bg-slate-50 transition-all cursor-pointer">
                             <div class="flex items-start justify-between gap-3">
                                 <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-slate-900 truncate">Youth Ministries</p>
-                                    <p class="text-xs text-slate-400 mt-0.5">Last edited Jul 19, 2026</p>
+                                    <p
+                                        class="text-sm font-bold text-slate-900 truncate group-hover:text-emerald-700 transition-colors">
+                                        Youth Ministries</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
+                                        <i class="fa-regular fa-clock"></i>
+                                        Edited Jul 19, 2026
+                                    </p>
                                 </div>
                                 <span
-                                    class="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">Draft</span>
+                                    class="shrink-0 text-[9px] font-black px-2 py-0.5 rounded bg-amber-100 text-amber-700 uppercase tracking-tighter">Draft</span>
                             </div>
                         </li>
 
-                        <!-- Submitted item -->
-                        <li class="px-6 py-4 hover:bg-slate-50 transition-colors cursor-pointer">
+                        <!-- Submitted Item -->
+                        <li class="group px-6 py-4 hover:bg-slate-50 transition-all cursor-pointer">
                             <div class="flex items-start justify-between gap-3">
                                 <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-slate-900 truncate">Sabbath School</p>
-                                    <p class="text-xs text-slate-400 mt-0.5">Submitted Jul 14, 2026</p>
+                                    <p
+                                        class="text-sm font-bold text-slate-900 truncate group-hover:text-emerald-700 transition-colors">
+                                        Sabbath School</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-check-double text-emerald-500"></i>
+                                        Submitted Jul 14
+                                    </p>
                                 </div>
                                 <span
-                                    class="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">Submitted</span>
+                                    class="shrink-0 text-[9px] font-black px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 uppercase tracking-tighter">Sent</span>
                             </div>
                         </li>
 
-                        <!-- Submitted item -->
-                        <li class="px-6 py-4 hover:bg-slate-50 transition-colors cursor-pointer">
+                        <!-- Submitted Item -->
+                        <li class="group px-6 py-4 hover:bg-slate-50 transition-all cursor-pointer">
                             <div class="flex items-start justify-between gap-3">
                                 <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-slate-900 truncate">Personal Ministries</p>
-                                    <p class="text-xs text-slate-400 mt-0.5">Submitted Jul 07, 2026</p>
+                                    <p
+                                        class="text-sm font-bold text-slate-900 truncate group-hover:text-emerald-700 transition-colors">
+                                        Personal Ministries</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-check-double text-emerald-500"></i>
+                                        Submitted Jul 07
+                                    </p>
                                 </div>
                                 <span
-                                    class="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">Submitted</span>
+                                    class="shrink-0 text-[9px] font-black px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 uppercase tracking-tighter">Sent</span>
                             </div>
                         </li>
-
-                        <!-- Draft item -->
-                        <li class="px-6 py-4 hover:bg-slate-50 transition-colors cursor-pointer">
-                            <div class="flex items-start justify-between gap-3">
-                                <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-slate-900 truncate">Health Ministries</p>
-                                    <p class="text-xs text-slate-400 mt-0.5">Last edited Jun 30, 2026</p>
-                                </div>
-                                <span
-                                    class="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700">Draft</span>
-                            </div>
-                        </li>
-
-                        <!-- Submitted item -->
-                        <li class="px-6 py-4 hover:bg-slate-50 transition-colors cursor-pointer">
-                            <div class="flex items-start justify-between gap-3">
-                                <div class="min-w-0">
-                                    <p class="text-sm font-semibold text-slate-900 truncate">Stewardship</p>
-                                    <p class="text-xs text-slate-400 mt-0.5">Submitted Jun 21, 2026</p>
-                                </div>
-                                <span
-                                    class="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700">Submitted</span>
-                            </div>
-                        </li>
-
                     </ul>
 
-                    <div class="px-6 py-4 bg-slate-50 border-t border-slate-100">
-                        <p class="text-xs text-slate-400">Drafts are saved automatically. Tap a report to continue
-                            editing or view details.</p>
-                    </div>
-
+                    <!-- <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-100">
+                        <p class="text-[10px] text-slate-400 leading-relaxed font-medium">
+                            Drafts are saved automatically to your local session. Click any entry to view or continue
+                            editing.
+                        </p>
+                    </div> -->
                 </div>
             </aside>
-
         </div>
     </main>
-</div>

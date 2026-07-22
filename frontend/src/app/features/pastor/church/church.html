@@ -1,1 +1,246 @@
-<p>church works!</p>
+<main class="flex-1 px-4 py-6">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+        <ol class="flex items-center">
+            <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">Church Works</li>
+            <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
+            <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">
+                Church Report</li>
+        </ol>
+    </nav>
+
+    <!-- Church Info Section -->
+    <div class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+            <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-2">Church Activities</h1>
+            <p class="text-slate-500 text-sm">View and filter church activities by department and category</p>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm mb-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Church Filter -->
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Church</label>
+                <select
+                    class="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option>All Churches</option>
+                    <option>Isabela District</option>
+                    <option>Nueva Vizcaya District</option>
+                    <option>Quirino District</option>
+                    <option>Santiago District</option>
+                </select>
+            </div>
+
+            <!-- Department Filter -->
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Department</label>
+                <select
+                    class="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option>All Departments</option>
+                    <option>Worship</option>
+                    <option>Youth Ministry</option>
+                    <option>Outreach</option>
+                    <option>Administration</option>
+                    <option>Discipleship</option>
+                    <option>Pastoral Care</option>
+                </select>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Category</label>
+                <select
+                    class="w-full px-3 py-2.5 border border-slate-200 rounded-xl bg-white text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <option>All Categories</option>
+                    <option>Service</option>
+                    <option>Event</option>
+                    <option>Meeting</option>
+                    <option>Training</option>
+                    <option>Community Work</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-slate-200 bg-slate-50">
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">Church
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">
+                            Department</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">
+                            Category</th>
+                        <th class="px-6 py-4 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    <!-- Row 1 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Isabela District', 'Worship', 'Service', 1850)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Isabela District</td>
+                        <td class="px-6 py-4 text-slate-600">Sabbath School</td>
+                        <td class="px-6 py-4 text-slate-600">Cradleroll</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">100</td>
+                    </tr>
+
+                    <!-- Row 2 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Isabela District', 'Youth Ministry', 'Meeting', 680)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Isabela District</td>
+                        <td class="px-6 py-4 text-slate-600">Youth Ministry</td>
+                        <td class="px-6 py-4 text-slate-600">Meeting</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">680</td>
+                    </tr>
+
+                    <!-- Row 3 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Isabela District', 'Outreach', 'Community Work', 920)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Isabela District</td>
+                        <td class="px-6 py-4 text-slate-600">Outreach</td>
+                        <td class="px-6 py-4 text-slate-600">Community Work</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">920</td>
+                    </tr>
+
+                    <!-- Row 4 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Nueva Vizcaya District', 'Discipleship', 'Training', 540)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Nueva Vizcaya District</td>
+                        <td class="px-6 py-4 text-slate-600">Discipleship</td>
+                        <td class="px-6 py-4 text-slate-600">Training</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">540</td>
+                    </tr>
+
+                    <!-- Row 5 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Nueva Vizcaya District', 'Pastoral Care', 'Service', 380)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Nueva Vizcaya District</td>
+                        <td class="px-6 py-4 text-slate-600">Pastoral Care</td>
+                        <td class="px-6 py-4 text-slate-600">Service</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">380</td>
+                    </tr>
+
+                    <!-- Row 6 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Quirino District', 'Worship', 'Training', 420)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Quirino District</td>
+                        <td class="px-6 py-4 text-slate-600">Worship</td>
+                        <td class="px-6 py-4 text-slate-600">Training</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">420</td>
+                    </tr>
+
+                    <!-- Row 7 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Santiago District', 'Administration', 'Meeting', 280)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Santiago District</td>
+                        <td class="px-6 py-4 text-slate-600">Administration</td>
+                        <td class="px-6 py-4 text-slate-600">Meeting</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">280</td>
+                    </tr>
+
+                    <!-- Row 8 -->
+                    <tr class="hover:bg-slate-50 transition-colors cursor-pointer"
+                        (click)="openModal('Santiago District', 'Outreach', 'Event', 650)">
+                        <td class="px-6 py-4 text-slate-900 font-medium">Santiago District</td>
+                        <td class="px-6 py-4 text-slate-600">Outreach</td>
+                        <td class="px-6 py-4 text-slate-600">Event</td>
+                        <td class="px-6 py-4 text-right text-slate-900 font-bold">650</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- Modal -->
+@if (modalOpen()) {
+<div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+     (click)="closeModal()">
+    <div class="bg-white rounded-2xl shadow-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto"
+         (click)="$event.stopPropagation()">
+        <!-- Modal Header -->
+        <div class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900">{{ modalData().church }}</h2>
+                <p class="text-xs text-slate-500 uppercase tracking-wider">
+                    {{ modalData().department }} - {{ modalData().category }}
+                </p>
+            </div>
+            <button (click)="closeModal()" class="text-slate-400 hover:text-slate-600 text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Modal Content -->
+        <div class="p-6">
+            <!-- Quarterly Summary Table -->
+            <div class="mb-6">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Quarterly Breakdown</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-slate-200 bg-slate-50">
+                                <th
+                                    class="px-4 py-3 text-left text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    Programs</th>
+                                <th
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    Q1</th>
+                                <th
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    Q2</th>
+                                <th
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    Q3</th>
+                                <th
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    Q4</th>
+                                <th
+                                    class="px-4 py-3 text-right text-xs font-bold text-slate-900 uppercase tracking-wider">
+                                    Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-4 py-3 text-slate-900 font-medium">Activities</td>
+                                <td class="px-4 py-3 text-right text-slate-600">12</td>
+                                <td class="px-4 py-3 text-right text-slate-600">14</td>
+                                <td class="px-4 py-3 text-right text-slate-600">10</td>
+                                <td class="px-4 py-3 text-right text-slate-600">8</td>
+                                <td class="px-4 py-3 text-right text-slate-900 font-bold">44</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-4 py-3 text-slate-900 font-medium">Attendance</td>
+                                <td class="px-4 py-3 text-right text-slate-600">450</td>
+                                <td class="px-4 py-3 text-right text-slate-600">520</td>
+                                <td class="px-4 py-3 text-right text-slate-600">480</td>
+                                <td class="px-4 py-3 text-right text-slate-600">400</td>
+                                <td class="px-4 py-3 text-right text-slate-900 font-bold">{{ modalData().total | number }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200">
+                <button (click)="closeModal()"
+                    class="px-4 py-2 text-sm font-bold text-slate-700 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
+                    Close
+                </button>
+                <!-- <button
+                    class="px-4 py-2 text-sm font-bold text-white bg-emerald-600 rounded-lg hover:bg-emerald-700 transition-colors">
+                    <i class="fa-solid fa-download mr-2"></i>
+                    Ok
+                </button> -->
+            </div>
+        </div>
+    </div>
+</div>
+}

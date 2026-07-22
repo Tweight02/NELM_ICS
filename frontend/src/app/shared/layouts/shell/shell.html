@@ -1,7 +1,27 @@
-<!-- Sidebar (navbar component) -->
-<app-navbar [items]="nav.navItems()" [portalLabel]="nav.portalLabel()" />
+<!-- Mobile top bar -->
+<header
+    class="lg:hidden h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 fixed top-0 left-0 right-0 z-30">
+    <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg bg-emerald-900 flex items-center justify-center text-white">
+            <i class="fa-solid fa-book-open text-sm" aria-hidden="true"></i>
+        </div>
+        <span class="font-bold text-slate-900 text-sm">NELM Portal</span>
+    </div>
+    <button (click)="toggleSidebar()" class="text-slate-600 p-2" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars text-lg"></i>
+    </button>
+</header>
+
+<!-- Mobile overlay -->
+@if (sidebarOpen()) {
+    <div class="lg:hidden fixed inset-0 bg-black/40 z-30" (click)="closeSidebar()"></div>
+}
+
+<!-- Sidebar -->
+<app-navbar [items]="nav.navItems()" [portalLabel]="nav.portalLabel()" [open]="sidebarOpen()"
+    (linkClicked)="closeSidebar()" />
 
 <!-- Main content -->
-<main class="pt-6">
+<main class="lg:ml-72 pt-16 lg:pt-0 min-h-screen">
     <router-outlet />
 </main>
