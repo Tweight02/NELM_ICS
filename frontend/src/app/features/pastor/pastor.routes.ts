@@ -24,5 +24,13 @@ export const pastorRoutes: Routes = [
         path: 'announcement',
         component: Announement
     },
+    {
+        path: 'church-report',
+        component: Church
+    },
+    {
+        path: 'report-summary',
+        component: Tasks
+    },
     {path: '', redirectTo: 'home', pathMatch: 'full'}
 ]
