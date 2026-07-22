@@ -6,9 +6,6 @@
             </h1>
             <p class="text-sm text-gray-500 mt-1">Publish and manage church-wide announcements</p>
         </div>
-        <button class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl text-sm flex items-center gap-2">
-            <i class="fa-solid fa-plus"></i> New Announcement
-        </button>
     </div>
 
     <!-- Filters -->
@@ -50,18 +47,6 @@
                     <i class="fa-solid fa-user-tie text-gray-400"></i>
                     {{ a.author }}
                 </div>
-                <div class="flex items-center gap-1.5">
-                    <button (click)="view(a)" class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100"
-                        title="View">
-                        <i class="fa-solid fa-eye"></i>
-                    </button>
-                    <button class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-100" title="Edit">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
-                    <button class="w-8 h-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-100" title="Delete">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
             </div>
         </div>
         }
@@ -94,14 +79,6 @@
                     <span><i class="fa-solid fa-calendar mr-1"></i>{{ selected()!.date }}</span>
                 </div>
                 <p class="text-gray-700 leading-relaxed">{{ selected()!.content }}</p>
-            </div>
-            <div class="flex justify-end gap-2 px-6 py-4 border-t border-gray-100">
-                <button (click)="close()"
-                    class="px-4 py-2 rounded-xl border border-gray-200 text-sm hover:bg-gray-50">Close</button>
-                <button
-                    class="px-4 py-2 rounded-xl bg-amber-500 text-white text-sm hover:bg-amber-600 flex items-center gap-2">
-                    <i class="fa-solid fa-share"></i> Share
-                </button>
             </div>
         </div>
     </div>
