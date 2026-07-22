@@ -29,7 +29,7 @@ export const pastorRoutes: Routes = [
         component: Church
     },
     {
-        path: 'report-summary',
+        path: 'calendar',
         component: Tasks
     },
     {path: '', redirectTo: 'home', pathMatch: 'full'}
