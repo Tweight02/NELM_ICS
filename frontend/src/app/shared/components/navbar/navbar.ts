@@ -11,4 +11,5 @@ import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 })
 export class Navbar {
   items = input.required<NavItem[]>();
+  portalLabel = input<string>('');
 }

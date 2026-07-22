@@ -5,9 +5,9 @@ import { Shell } from './shared/layouts/shell/shell';
 
 export const routes: Routes = [
     {
-        path: '', 
+        path: 'pastor', 
         component: Shell,
         // canActivate: [roleGuard(['pastor'])],
-        loadChildren: () => import('./features/pastor/pastor.routes').then(r=>pastorRoutes)
+        loadChildren: () => import('./features/pastor/pastor.routes').then(r=>r.pastorRoutes)
     }
 ];

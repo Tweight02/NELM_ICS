@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { NavigationService } from '../../../core/services/navigation/nav-service';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from '../../components/navbar/navbar';
@@ -9,6 +9,7 @@ import { Navbar } from '../../components/navbar/navbar';
   templateUrl: './shell.html',
   styleUrl: './shell.css',
 })
+
 export class Shell {
   nav = inject(NavigationService);
 }
