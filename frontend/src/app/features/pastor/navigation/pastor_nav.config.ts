@@ -5,5 +5,4 @@ export const pastor_nav_items: NavItem[] = [
     { label: 'Field Report', path: '/pastor/field-report', icon: 'fa-clipboard-list', roles: ['pastor']},
     { label: 'Church Report', path: '/pastor/church-report', icon: 'fa-church', roles: ['pastor'] },
     { label: 'Calendar', path: '/pastor/calendar', icon: 'fa-calendar', roles: ['pastor']},
-    { label: 'Announcements', path: '/pastor/announcement', icon: 'fa-bullhorn', roles: ['pastor']},
 ];
