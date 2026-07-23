@@ -1,107 +1,115 @@
 <div class="p-4 sm:p-6 space-y-6">
-      <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <i class="fa-solid fa-calendar-days text-emerald-600"></i> Calendar
+            <i class="fa-solid fa-calendar-days text-emerald-600"></i> Calendar
         </h1>
-        <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm flex items-center gap-2">
-          <i class="fa-solid fa-plus"></i> Add Event
+        <button
+            class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Add Event
         </button>
-      </div>
+    </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <!-- Calendar Grid -->
         <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-          <div class="flex items-center justify-between mb-4">
-            <button (click)="prev()" class="w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700">
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <h2 class="text-lg font-semibold text-gray-800">{{ monthLabel() }}</h2>
-            <button (click)="next()" class="w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-          </div>
+            <div class="flex items-center justify-between mb-4">
+                <button (click)="prev()" class="w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <h2 class="text-lg font-semibold text-gray-800">{{ monthLabel() }}</h2>
+                <button (click)="next()" class="w-9 h-9 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
 
-          <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-gray-500 mb-2">
-            @for (d of weekdays; track d) { <div>{{ d }}</div> }
-          </div>
+            <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-gray-500 mb-2">
+                @for (d of weekdays; track d) { <div>{{ d }}</div> }
+            </div>
 
-          <div class="grid grid-cols-7 gap-1">
-            @for (day of days(); track $index) {
-              <button (click)="day && selectDay(day)"
-                class="aspect-square rounded-lg text-sm relative"
-                [class]="dayClass(day)">
-                @if (day) {
-                  <span>{{ day }}</span>
-                  @if (hasEvent(day)) {
-                    <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                  }
+            <div class="grid grid-cols-7 gap-1">
+                @for (day of days(); track $index) {
+                <button (click)="day && selectDay(day)" class="aspect-square rounded-lg text-sm relative"
+                    [class]="dayClass(day)">
+                    @if (day) {
+                    <span>{{ day }}</span>
+                    @if (hasEvent(day)) {
+                    <span
+                        class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                    }
+                    }
+                </button>
                 }
-              </button>
-            }
-          </div>
+            </div>
         </div>
 
         <!-- Events List -->
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-list-check text-emerald-600"></i> Events
-            @if (selectedDay()) { <span class="text-sm text-gray-500 ml-auto">{{ monthLabel() }} {{ selectedDay() }}</span> }
-          </h3>
-          <div class="space-y-3 max-h-[420px] overflow-y-auto">
-            @for (e of visibleEvents(); track e.title) {
-              <div (click)="openEvent(e)" class="p-3 rounded-xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
-                <div class="flex items-start gap-3">
-                  <div class="w-10 h-10 rounded-lg flex items-center justify-center" [class]="typeBg(e.type)">
-                    <i class="fa-solid text-white" [class]="typeIcon(e.type)"></i>
-                  </div>
-                  <div class="flex-1">
-                    <p class="text-sm font-semibold text-gray-800">{{ e.title }}</p>
-                    <p class="text-xs text-gray-500"><i class="fa-solid fa-clock mr-1"></i>{{ e.time }}</p>
-                    <p class="text-xs text-gray-500"><i class="fa-solid fa-location-dot mr-1"></i>{{ e.location }}</p>
-                  </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-emerald-600"></i> Events
+                @if (selectedDay()) { <span class="text-sm text-gray-500 ml-auto">{{ monthLabel() }} {{ selectedDay()
+                    }}</span> }
+            </h3>
+            <div class="space-y-3 max-h-[420px] overflow-y-auto">
+                @for (e of visibleEvents(); track e.title) {
+                <div (click)="openEvent(e)"
+                    class="p-3 rounded-xl border border-gray-100 hover:bg-gray-50 cursor-pointer">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center" [class]="typeBg(e.type)">
+                            <i class="fa-solid text-white" [class]="typeIcon(e.type)"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-gray-800">{{ e.title }}</p>
+                            <p class="text-xs text-gray-500"><i class="fa-solid fa-clock mr-1"></i>{{ e.time }}</p>
+                            <p class="text-xs text-gray-500"><i class="fa-solid fa-location-dot mr-1"></i>{{ e.location
+                                }}</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            }
-            @if (visibleEvents().length === 0) {
-              <div class="text-center py-10 text-gray-400">
-                <i class="fa-solid fa-calendar-xmark text-3xl mb-2"></i>
-                <p class="text-sm">No events</p>
-              </div>
-            }
-          </div>
+                }
+                @if (visibleEvents().length === 0) {
+                <div class="text-center py-10 text-gray-400">
+                    <i class="fa-solid fa-calendar-xmark text-3xl mb-2"></i>
+                    <p class="text-sm">No events</p>
+                </div>
+                }
+            </div>
         </div>
-      </div>
+    </div>
 
-      <!-- Event Modal -->
-      @if (selectedEvent()) {
-        <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
+    <!-- Event Modal -->
+    @if (selectedEvent()) {
+    <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md">
             <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-              <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                <i class="fa-solid fa-calendar-check text-emerald-600"></i> Event Details
-              </h3>
-              <button (click)="selectedEvent.set(null)" class="text-gray-400 hover:text-gray-700">
-                <i class="fa-solid fa-xmark text-xl"></i>
-              </button>
+                <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check text-emerald-600"></i> Event Details
+                </h3>
+                <button (click)="selectedEvent.set(null)" class="text-gray-400 hover:text-gray-700">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
             </div>
             <div class="p-6 space-y-3">
-              <h2 class="text-xl font-bold text-gray-800">{{ selectedEvent()!.title }}</h2>
-              <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium" [class]="typeBadge(selectedEvent()!.type)">
-                {{ selectedEvent()!.type }}
-              </span>
-              <div class="space-y-2 text-sm text-gray-600 pt-2">
-                <p><i class="fa-solid fa-calendar-day text-emerald-600 mr-2"></i> {{ selectedEvent()!.date }}</p>
-                <p><i class="fa-solid fa-clock text-emerald-600 mr-2"></i> {{ selectedEvent()!.time }}</p>
-                <p><i class="fa-solid fa-location-dot text-emerald-600 mr-2"></i> {{ selectedEvent()!.location }}</p>
-              </div>
+                <h2 class="text-xl font-bold text-gray-800">{{ selectedEvent()!.title }}</h2>
+                <span class="inline-block px-2.5 py-1 rounded-full text-xs font-medium"
+                    [class]="typeBadge(selectedEvent()!.type)">
+                    {{ selectedEvent()!.type }}
+                </span>
+                <div class="space-y-2 text-sm text-gray-600 pt-2">
+                    <p><i class="fa-solid fa-calendar-day text-emerald-600 mr-2"></i> {{ selectedEvent()!.date }}</p>
+                    <p><i class="fa-solid fa-clock text-emerald-600 mr-2"></i> {{ selectedEvent()!.time }}</p>
+                    <p><i class="fa-solid fa-location-dot text-emerald-600 mr-2"></i> {{ selectedEvent()!.location }}
+                    </p>
+                </div>
             </div>
             <div class="flex justify-end gap-2 px-6 py-4 border-t border-gray-100">
-              <button (click)="selectedEvent.set(null)" class="px-4 py-2 rounded-xl border border-gray-200 text-sm hover:bg-gray-50">Close</button>
-              <button class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-sm hover:bg-emerald-700 flex items-center gap-2">
-                <i class="fa-solid fa-pen"></i> Edit
-              </button>
+                <button (click)="selectedEvent.set(null)"
+                    class="px-4 py-2 rounded-xl border border-gray-200 text-sm hover:bg-gray-50">Close</button>
+                <button
+                    class="px-4 py-2 rounded-xl bg-emerald-600 text-white text-sm hover:bg-emerald-700 flex items-center gap-2">
+                    <i class="fa-solid fa-pen"></i> Edit
+                </button>
             </div>
-          </div>
         </div>
-      }
     </div>
+    }
+</div>
