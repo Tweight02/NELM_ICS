@@ -1,0 +1,46 @@
+<main class="flex-1 px-4 py-3 ">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+        <ol class="flex items-center">
+            <li class="text-slate-400 uppercase text-[10px] font-bold tracking-widest">District Pastor</li>
+            <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
+            <li class="text-emerald-600 font-bold uppercase text-[10px] tracking-widest" aria-current="page">
+                Field Reports Edits 
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="mb-3 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+            <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-2">Update or Create a Field Report</h1>
+            <p class="text-slate-500 text-sm">View and filter all reports by department and program</p>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="flex items-end justify-between gap-4 mb-6 flex-wrap py-3 px-3">
+            <div>
+                <p class="text-xs uppercase tracking-widest mb-1 text-stone-400">Editing report for</p>
+                <select class="px-3 py-2 rounded-md border border-stone-300 bg-white" [(ngModel)]="selectedDept"
+                    (ngModelChange)="onDeptChange()">
+                    <option *ngFor="let d of departments" [value]="d">{{ d }}</option>
+                </select>
+            </div>
+            <div class="flex gap-2">
+                <button class="px-4 py-2 rounded-md text-sm border border-stone-300 text-white bg-red-600" (click)="cancel()">
+                    Cancel
+                </button>
+                <button class="px-4 py-2 rounded-md text-sm bg-indigo-900 text-stone-50 disabled:opacity-50"
+                    [disabled]="saving" (click)="save()">
+                    {{ saving ? 'Saving...' : 'Save' }}
+                </button>
+            </div>
+        </div>
+
+        <p class="text-sm text-stone-500 mb-4">{{ selectedDept }} — edit record</p>
+
+        <app-table [sections]="template" [accentClass]="accent" [valuesByRow]="myValuesByRow" [editable]="true"
+            (valuesByRowChange)="onValuesChange($event)" />
+    </div>
+</main>

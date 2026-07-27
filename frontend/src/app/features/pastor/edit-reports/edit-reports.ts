@@ -1,45 +1,40 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { TEMPLATES, ACCENT } from '../../../core/constants/report-template.constant';
 import { Table } from '../../../shared/components/table/table';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TableService } from '../../../core/services/table/table-service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-reports',
+  selector: 'app-edit-reports',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, Table],
-  templateUrl: './reports.html',
+  imports: [CommonModule, Table, FormsModule],
+  templateUrl: './edit-reports.html',
+  styleUrl: './edit-reports.css',
 })
-export class Reports implements OnInit {
+export class EditReports implements OnInit {
+  private router = inject(Router);
+  private reportService = inject(TableService);
+  // currentUser = inject(AuthService).currentUser;
   currentUser = {
     id: 'pastor-01',
     name: 'Pastor Reyes',
-    role: 'pastor', // try 'director' to see the difference
+    role: 'pastor',
     departmentId: 'Pastoral (District)',
   };
-  // private auth = inject(AuthService);
-  private reportService = inject(TableService);
 
-  // currentUser = this.auth.currentUser; // adjust () if this is a signal
-
-  // All departments available to filter by (comes from the template config)
   departments: string[] = Object.keys(TEMPLATES);
-
-  // Defaults to the user's own department, but can be changed via the dropdown
   selectedDept: string = this.currentUser.departmentId;
 
   myValuesByRow: Record<string, number[]> = {};
+  saving = false;
 
   get template() {
     return TEMPLATES[this.selectedDept];
   }
   get accent() {
     return ACCENT[this.selectedDept];
-  }
-  get canEdit(): boolean {
-    return ['pastor', 'church_representative'].includes(this.currentUser.role);
   }
 
   ngOnInit() {
@@ -55,5 +50,24 @@ export class Reports implements OnInit {
       this.selectedDept,
       this.currentUser.id
     );
+  }
+
+  onValuesChange(updated: Record<string, number[]>) {
+    this.myValuesByRow = updated;
+  }
+
+  async save() {
+    this.saving = true;
+    await this.reportService.saveValues(
+      this.selectedDept,
+      this.currentUser.id,
+      this.myValuesByRow
+    );
+    this.saving = false;
+    this.router.navigate(['/reports']);
+  }
+
+  cancel() {
+    this.router.navigate(['/reports']);
   }
 }

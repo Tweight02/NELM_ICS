@@ -1,26 +1,25 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
-import { Reports } from './reports/reports';
-import { Tasks } from './tasks/tasks';
-import { Church } from './church/church';
 
 export const pastorRoutes: Routes = [
-    {path: 'home', component: Home,
-        children: [
-
-        ]
+    {
+        path: 'home',
+        loadComponent: () => import('./home/home').then(m => m.Home),
     },
     {
-        path: 'field-report',
-        component: Reports
+        path: 'field-reports',
+        loadComponent: () => import('./reports/reports').then(m => m.Reports),
+    },
+    {
+        path: 'field-reports-edit',
+        loadComponent: () => import('./edit-reports/edit-reports').then(m => m.EditReports),
     },
     {
         path: 'church-report',
-        component: Church
+        loadComponent: () => import('./church/church').then(m => m.Church),
     },
     {
         path: 'calendar',
-        component: Tasks
+        loadComponent: () => import('./tasks/tasks').then(m => m.Tasks),
     },
-    {path: '', redirectTo: 'home', pathMatch: 'full'}
-]
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+];

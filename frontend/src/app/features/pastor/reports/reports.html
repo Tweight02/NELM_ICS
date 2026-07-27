@@ -8,4 +8,42 @@
                 Field Reports</li>
         </ol>
     </nav>
+
+    <!-- Header Section -->
+    <div class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+            <h1 class="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-2">Field Report Summary</h1>
+            <p class="text-slate-500 text-sm">View and filter all reports by department and program</p>
+        </div>
+    </div>
+
+        <div class="">
+
+            <div class="flex items-end justify-between gap-4 mb-6 flex-wrap py-3 px-3">
+                <div>
+                    <p class="text-xs uppercase tracking-widest mb-1 text-stone-400">Viewing report for</p>
+                    <select
+                    class="px-3 py-2 rounded-md border border-stone-300 bg-white"
+                    [(ngModel)]="selectedDept"
+                    (ngModelChange)="onDeptChange()">
+                    <option *ngFor="let d of departments" [value]="d">{{ d }}</option>
+                    </select>
+                </div>
+                <p class="text-sm text-stone-500">{{ selectedDept }} — your record</p>
+            </div>
+
+            <div class="">
+                <div class="flex items-center justify-between mb-4">
+                    <p class="text-sm text-stone-500">{{ currentUser.departmentId }} — your record</p>
+
+                    <a *ngIf="canEdit" [routerLink]="['/pastor/field-reports-edit']" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium
+                    bg-indigo-900 text-stone-50 hover:bg-indigo-800 transition-colors">
+                        Edit report
+                    </a>
+                </div>
+
+                <app-table [sections]="template" [accentClass]="accent" [valuesByRow]="myValuesByRow" />
+            </div>
+
+        </div>
 </main>
