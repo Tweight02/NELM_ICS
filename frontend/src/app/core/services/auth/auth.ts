@@ -19,4 +19,9 @@ export class AuthService {
     logout() {
         this._currentUser.set(null);
     }
+
+    // Matches the dropdown in your template
+    setRole(role: User['role']) {
+        this.currentUser.update(u => ({ ...u, role }));
+    }
 }
