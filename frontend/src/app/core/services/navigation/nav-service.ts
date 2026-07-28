@@ -10,13 +10,18 @@ const PORTAL_LABELS: Record<string, string> = {
     admin: 'Administrator Portal',
 };
 
+const NAVIGATION_MAP: Record<string, any[]> = {
+    pastor: pastor_nav_items,
+};
+
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
     private auth = inject(AuthService);
 
     readonly navItems = computed(() => {
-        const role = this.auth.currentUser()?.role;
-        return pastor_nav_items.filter(item => item.roles.includes(role ?? ''));
+    const role = this.auth.currentUser()?.role ?? '';
+
+    return NAVIGATION_MAP[role] ?? [];
     });
 
     readonly portalLabel = computed(() => {
