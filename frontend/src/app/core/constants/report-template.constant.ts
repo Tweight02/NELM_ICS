@@ -14,7 +14,7 @@ export const TEMPLATES: Record<string, ReportSection[]> = {
             name: 'Demographic profile', rows: [
                 { id: 'r1', label: 'No. of organized churches', rowNumber: 1, hasTotal: true },
                 { id: 'r2', label: 'Total church membership', rowNumber: 2, hasTotal: true },
-                { id: 'r3', label: 'Attendance on 2nd Sabbath', rowNumber: 3, hasTotal: false },
+                { id: 'r3', label: 'Attendance on 2nd Sabbath', rowNumber: 3, hasTotal: true },
             ]
         },
         {
