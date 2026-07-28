@@ -10,12 +10,9 @@ export const routes: Routes = [
         // canActivate: [roleGuard(['pastor'])],
         loadChildren: () => import('./features/pastor/pastor.routes').then(r=>r.pastorRoutes)
     },
-
     {
-        path: 'church_rep', 
+        path: 'secretary',
         component: Shell,
-        // canActivate: [roleGuard(['church_rep'])],
-        loadChildren: () => import('./features/church_rep/churchRep.routes').then(r=>r.churchRepRoutes)
-    },
-
+        loadChildren: () =>import('./features/secretary/secretary.routes').then(r=>r.secretary)
+    }
 ];
