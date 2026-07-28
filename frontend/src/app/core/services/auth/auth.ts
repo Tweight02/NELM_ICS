@@ -10,7 +10,7 @@ export interface User {
 export class AuthService {
     private _currentUser = signal<User | null>(null);
     // readonly currentUser = this._currentUser.asReadonly();
-    readonly currentUser = signal<{ role: string } | null>({ role: 'pastor' }); // temp for testing
+    readonly currentUser = signal<{ role: string } | null>({ role: 'church_rep' }); // temp for testing
 
     login(user: User) {
         this._currentUser.set(user);
