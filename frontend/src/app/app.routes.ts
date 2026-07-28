@@ -14,7 +14,7 @@ export const routes: Routes = [
     {
         path: 'church_rep', 
         component: Shell,
-        // canActivate: [roleGuard(['pastor'])],
+        // canActivate: [roleGuard(['church_rep'])],
         loadChildren: () => import('./features/church_rep/churchRep.routes').then(r=>r.churchRepRoutes)
     },
 
