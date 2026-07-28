@@ -1,1 +1,249 @@
-<p>home works!</p>
+<!-- Main Content -->
+    <main id="main-content" class="flex-1 px-4 py-3 ">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+            <ol class="flex items-center">
+                <li class="text-slate-400 uppercase text-xs font-semibold">Church Representative</li>
+                <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
+                <li class="text-emerald-600 font-semibold uppercase text-xs" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+
+        <!-- Hero -->
+        <section
+            class="relative overflow-hidden bg-emerald-900 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-10 ring-1 ring-white/10 shadow-2xl shadow-emerald-900/20">
+            <!-- Decorative Gradient -->
+            <div
+                class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/40 to-transparent">
+            </div>
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-emerald-800 rounded-full blur-3xl opacity-50"></div>
+
+            <div class="relative max-w-lg">
+                <div
+                    class="inline-flex items-center gap-2 bg-white/10 text-amber-200 font-semibold text-xs tracking-[0.15em] uppercase px-4 py-1.5 rounded-full mb-6 border border-white/15 backdrop-blur-sm">
+                    <i class="fa-solid fa-location-dot text-sm" aria-hidden="true"></i>
+                    Isabela District
+                </div>
+
+                <h1 class="font-serif text-3xl md:text-4xl font-semibold text-white mb-4 leading-[1.15] tracking-tight">
+                    Welcome, <span class="text-amber-200">Pastor John Doe</span>
+                </h1>
+
+                <p class="text-emerald-50/70 leading-relaxed mb-0">
+                    Manage field reports, respond to report requests, receive announcements, and track assigned tasks
+                    and deadlines.
+                </p>
+            </div>
+
+            <div class="aura aura-rainbow relative flex flex-col items-start md:items-end gap-4 shrink-0">
+                <button type="button"
+                    class="group flex items-center gap-2 bg-white hover:bg-amber-200 active:scale-[0.98] transition-all duration-200 text-emerald-900 font-semibold px-6 py-3.5 rounded-xl shadow-xl shadow-black/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-600">
+                    <i class="fa-solid fa-plus text-sm motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:rotate-90"
+                        aria-hidden="true"></i>
+                    Create Field Report
+                </button>
+            </div>
+        </section>
+
+        <!-- Stat cards -->
+        <section aria-label="Overview statistics" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-6">
+
+            <div
+                class="group bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="text-orange-600 font-semibold text-sm">Pending Requests</div>
+                    <div class="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform"
+                        aria-hidden="true">
+                        <i class="fa-solid fa-clipboard-list text-lg text-orange-500"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-serif text-4xl font-semibold text-slate-900 mb-2">2</div>
+                    <div class="text-slate-400 text-xs uppercase tracking-wide font-medium">From leadership</div>
+                </div>
+            </div>
+
+            <div
+                class="group bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="text-emerald-600 font-semibold text-sm">Reports Submitted</div>
+                    <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform"
+                        aria-hidden="true">
+                        <i class="fa-solid fa-file-lines text-lg text-emerald-600"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-serif text-4xl font-semibold text-slate-900 mb-2">2</div>
+                    <div class="text-slate-400 text-xs uppercase tracking-wide font-medium">This quarter</div>
+                </div>
+            </div>
+
+            <div
+                class="group bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="text-rose-500 font-semibold text-sm">Returned for Revision</div>
+                    <div class="w-11 h-11 rounded-xl bg-rose-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform"
+                        aria-hidden="true">
+                        <i class="fa-solid fa-triangle-exclamation text-lg text-rose-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-serif text-4xl font-semibold text-slate-900 mb-2">0</div>
+                    <div class="text-slate-400 text-xs uppercase tracking-wide font-medium">Needs attention</div>
+                </div>
+            </div>
+
+            <div
+                class="group bg-white rounded-2xl p-6 border border-slate-200/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col justify-between">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="text-amber-600 font-semibold text-sm">Upcoming Deadlines</div>
+                    <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform"
+                        aria-hidden="true">
+                        <i class="fa-solid fa-calendar-days text-lg text-amber-500"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-serif text-4xl font-semibold text-slate-900 mb-2">3</div>
+                    <div class="text-slate-400 text-xs uppercase tracking-wide font-medium">Next: Jan 30</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Reports table + Deadlines list -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6 items-stretch">
+
+            <!-- Recent field reports table -->
+            <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col">
+                <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+                    <h2 class="flex items-center gap-2.5 font-serif text-lg font-semibold text-slate-900">
+                        <span class="w-1 h-5 rounded-full bg-emerald-600" aria-hidden="true"></span>
+                        Recent Field Reports
+                    </h2>
+                    <a href="#"
+                        class="flex items-center gap-1.5 text-sm font-semibold text-emerald-600 hover:text-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded transition-colors">
+                        View all
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+                <div class="overflow-x-auto flex-1">
+                    <table class="w-full text-sm">
+                        <caption class="sr-only">Recent field reports and their status</caption>
+                        <thead>
+                            <tr class="text-left text-slate-500 text-xs uppercase tracking-wide border-b border-slate-100 bg-slate-50/50">
+                                <th scope="col" class="px-6 py-4 font-semibold">Report</th>
+                                <th scope="col" class="px-6 py-4 font-semibold">Period</th>
+                                <th scope="col" class="px-6 py-4 font-semibold">Submitted</th>
+                                <th scope="col" class="px-6 py-4 font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="px-6 py-4 font-medium text-slate-900">Quarterly Statistical Report</td>
+                                <td class="px-6 py-4 text-slate-500">Q4 2025</td>
+                                <td class="px-6 py-4 text-slate-500">Jan 12, 2026</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600" aria-hidden="true"></span>
+                                        Approved
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="px-6 py-4 font-medium text-slate-900">Tithes &amp; Offerings Summary</td>
+                                <td class="px-6 py-4 text-slate-500">Q4 2025</td>
+                                <td class="px-6 py-4 text-slate-500">Jan 15, 2026</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 bg-amber-50 text-amber-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500" aria-hidden="true"></span>
+                                        Under Review
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="px-6 py-4 font-medium text-slate-900">Church Membership Update</td>
+                                <td class="px-6 py-4 text-slate-500">December 2025</td>
+                                <td class="px-6 py-4 text-slate-500">Dec 30, 2025</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600" aria-hidden="true"></span>
+                                        Approved
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Upcoming deadlines list -->
+            <div class="lg:col-span-1 bg-white rounded-2xl border border-slate-200/60 shadow-sm flex flex-col">
+                <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+                    <h2 class="flex items-center gap-2.5 font-serif text-lg font-semibold text-slate-900">
+                        <span class="w-1 h-5 rounded-full bg-amber-500" aria-hidden="true"></span>
+                        Upcoming Deadlines
+                    </h2>
+                </div>
+                <ul class="divide-y divide-slate-100 flex-1">
+                    <li class="px-6 py-5 flex items-start justify-between gap-3 hover:bg-slate-50 transition-colors">
+                        <div>
+                            <div class="text-sm font-semibold text-slate-900">Q1 Statistical Report</div>
+                            <div class="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock"></i>
+                                Jan 30, 2026 · 5:00 PM
+                            </div>
+                        </div>
+                        <span class="shrink-0 bg-rose-50 text-rose-600 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md border border-rose-100">9 days</span>
+                    </li>
+                    <li class="px-6 py-5 flex items-start justify-between gap-3 hover:bg-slate-50 transition-colors">
+                        <div>
+                            <div class="text-sm font-semibold text-slate-900">Baptism Records Submission</div>
+                            <div class="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock"></i>
+                                Feb 6, 2026 · 5:00 PM
+                            </div>
+                        </div>
+                        <span class="shrink-0 bg-amber-50 text-amber-600 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md border border-amber-100">16 days</span>
+                    </li>
+                    <li class="px-6 py-5 flex items-start justify-between gap-3 hover:bg-slate-50 transition-colors">
+                        <div>
+                            <div class="text-sm font-semibold text-slate-900">Sabbath School Records</div>
+                            <div class="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock"></i>
+                                Feb 20, 2026 · 5:00 PM
+                            </div>
+                        </div>
+                        <span class="shrink-0 bg-slate-100 text-slate-500 text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-md border border-slate-200">30 days</span>
+                    </li>
+                </ul>
+                <div class="px-6 py-4 border-t border-slate-100 bg-slate-50/30">
+                    <a href="#"
+                        class="flex items-center gap-1.5 text-sm font-semibold text-emerald-600 hover:text-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded transition-colors">
+                        View all deadlines
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer
+        <footer
+            class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
+            <p>&copy; 2026 Isabela District. All rights reserved.</p>
+            <nav aria-label="Footer" class="flex items-center gap-6">
+                <a href="#"
+                    class="hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded">Help
+                    &amp; Support</a>
+                <a href="#"
+                    class="hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded">Privacy
+                    Policy</a>
+                <span class="px-2 py-1 bg-slate-100 rounded text-slate-500">v1.4.0</span>
+            </nav>
+        </footer> -->
+
+    </main>
