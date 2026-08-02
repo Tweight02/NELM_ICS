@@ -15,14 +15,12 @@ export class Church {
   churches = CHURCHES;
   departments = DEPARTMENTS;
   programs = PROGRAMS;
-  statuses = STATUSES;
 
   // Current filter state — each one is a signal
   search = signal('');
   selectedChurch = signal('');
   selectedDepartment = signal('');
   selectedProgram = signal('');
-  selectedStatus = signal('');
 
   // Mock data — replace with a service call, e.g. inject(ChurchReportService).getAll()
   allReports = signal<ChurchReportEntry[]>([
@@ -40,7 +38,6 @@ export class Church {
       (!this.selectedChurch() || r.church === this.selectedChurch()) &&
       (!this.selectedDepartment() || r.department === this.selectedDepartment()) &&
       (!this.selectedProgram() || r.program === this.selectedProgram()) &&
-      (!this.selectedStatus() || true) && // wire this to a real status field once your model has one
       (!search ||
         r.church.toLowerCase().includes(search) ||
         r.department.toLowerCase().includes(search) ||
@@ -53,6 +50,5 @@ export class Church {
     this.selectedChurch.set('');
     this.selectedDepartment.set('');
     this.selectedProgram.set('');
-    this.selectedStatus.set('');
   }
 }

@@ -1,11 +1,13 @@
-import { Component, input, ChangeDetectionStrategy, output} from '@angular/core';
+import { Component, input, ChangeDetectionStrategy, output, inject } from '@angular/core';
 import { NavItem } from '../../../core/models/navigation/nav-item.model';
-import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../core/services/auth/auth';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './navbar.html',
 })
@@ -14,4 +16,7 @@ export class Navbar {
   portalLabel = input<string>('');
   open = input<boolean>(false);
   linkClicked = output<void>();
+
+  auth = inject(AuthService); // public — used directly in the template
+  currentUser = this.auth.currentUser;
 }
