@@ -14,5 +14,9 @@ export const routes: Routes = [
         path: 'secretary',
         component: Shell,
         loadChildren: () =>import('./features/secretary/secretary.routes').then(r=>r.secretary)
+    },
+    {
+        path: 'login',
+        loadComponent: () =>import('./auth/login/login').then(m=>m.Login)
     }
 ];
