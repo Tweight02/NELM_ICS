@@ -37,24 +37,7 @@
 
     <!-- Bottom section -->
     <div class="border-t border-emerald-800 pt-4 flex flex-col gap-3">
-        <div class="flex items-center gap-3 px-3 py-2 rounded-md bg-emerald-800/40">
-            <img src="https://i.pravatar.cc/80?img=13" [alt]="currentUser().name"
-                class="w-9 h-9 rounded-full object-cover shrink-0" />
-            <div class="leading-tight flex-1 min-w-0">
-                <div class="font-semibold text-white text-sm truncate">{{ currentUser().name }}</div>
-                <select
-                    [ngModel]="currentUser().role"
-                    (ngModelChange)="auth.setRole($event)"
-                    class="text-xs bg-transparent text-emerald-300 border-none focus:outline-none focus:ring-0 p-0 w-full cursor-pointer"
-                >
-                    <option value="pastor" class="text-slate-900">Pastor</option>
-                    <option value="church_rep" class="text-slate-900">Church Representative</option>
-                    <option value="director" class="text-slate-900">Director</option>
-                </select>
-            </div>
-        </div>
-
-        <button
+        <button type="button" (click)="logout()"
             class="flex items-center gap-3 w-full rounded-md px-3 py-2 text-sm font-medium text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-colors">
             <i class="fa-solid fa-arrow-right-from-bracket h-4 w-4 shrink-0" aria-hidden="true"></i>
             <span>Log out</span>

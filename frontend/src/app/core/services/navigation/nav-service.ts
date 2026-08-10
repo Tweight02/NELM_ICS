@@ -8,8 +8,8 @@ import { NavItem } from '../../models/navigation/nav-item.model';
 
 const PORTAL_LABELS: Record<string, string> = {
     pastor: 'District Pastor Portal',
-    secretary: 'Secretary Portal',
-    director: 'Director Portal',
+    secretary: 'Administrative Secretary Portal',
+    director: 'Administrative Director Portal',
     admin: 'Administrator Portal',
     church_rep: 'Church Representative Portal',
 };

@@ -1,6 +1,6 @@
 import { Component, input, ChangeDetectionStrategy, output, inject } from '@angular/core';
 import { NavItem } from '../../../core/models/navigation/nav-item.model';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth/auth';
 
@@ -19,4 +19,29 @@ export class Navbar {
 
   auth = inject(AuthService); // public — used directly in the template
   currentUser = this.auth.currentUser;
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  logout(): void {
+
+    this.authService.logout().subscribe({
+
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+
+      error: () => {
+
+        // Even if Laravel fails,
+        // clear local authentication.
+        localStorage.removeItem('token');
+
+        this.router.navigate(['/login']);
+
+      }
+
+    });
+  }
 }

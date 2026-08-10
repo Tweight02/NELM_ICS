@@ -81,7 +81,7 @@
                         </div>
 
                         <!-- Design-only form: no (ngSubmit), no validators, no backend binding -->
-                        <form class="space-y-3.5">
+                        <form (ngSubmit)="login()" class="space-y-3.5">
 
                             <!-- Email -->
                             <div>
@@ -91,11 +91,10 @@
                                     <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-400">
                                         <i class="fa-solid fa-envelope text-sm"></i>
                                     </span>
-                                    <input id="email" type="email" placeholder="Enter your email address"
+                                    <input id="email" type="email" name="email" [(ngModel)]="email" placeholder="Enter your email address"
                                         [class]="'w-full rounded-lg border bg-neutral-50 focus:bg-white pl-10 pr-3.5 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#2F6B45]/20 focus:border-[#2F6B45] transition-colors ' + (showEmailErrorExample ? 'border-red-400' : 'border-neutral-300')" />
                                 </div>
 
-                                <!-- error message example (visual only, toggled from the reference panel below) -->
                                 <p *ngIf="showEmailErrorExample"
                                     class="mt-1 text-xs text-red-600 flex items-center gap-1.5">
                                     <i class="fa-solid fa-circle-exclamation"></i>
@@ -111,10 +110,10 @@
                                     <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-neutral-400">
                                         <i class="fa-solid fa-lock text-sm"></i>
                                     </span>
-                                    <input id="password" [type]="showPassword ? 'text' : 'password'"
+                                    <input id="password" name="password" [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'"
                                         placeholder="Enter your password"
                                         class="w-full rounded-lg border border-neutral-300 bg-neutral-50 focus:bg-white pl-10 pr-11 py-2.5 text-sm text-neutral-900 placeholder:text-neutral-400
-                         focus:outline-none focus:ring-2 focus:ring-[#2F6B45]/20 focus:border-[#2F6B45] transition-colors" />
+                        focus:outline-none focus:ring-2 focus:ring-[#2F6B45]/20 focus:border-[#2F6B45] transition-colors" />
                                     <button type="button" (click)="togglePasswordVisibility()"
                                         class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors">
                                         <i class="fa-solid text-sm"
@@ -123,24 +122,26 @@
                                 </div>
                             </div>
 
-                            <!-- remember me / forgot password -->
-                            <div class="flex items-center justify-between">
-                                <label class="flex items-center gap-2 cursor-pointer select-none">
-                                    <input type="checkbox"
-                                        class="w-4 h-4 rounded border-neutral-300 text-[#1B4A2C] focus:ring-[#2F6B45]/30" />
-                                    <span class="text-sm text-neutral-600">Remember me</span>
-                                </label>
-                                <a href="#"
-                                    class="text-sm font-medium text-[#1B4A2C] hover:text-[#0B1F14] transition-colors">Forgot
-                                    Password?</a>
-                            </div>
-
+                            @if (errorMessage) {
+                                <div class="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-exclamation"></i>
+                                    {{ errorMessage }}
+                                </div>
+                            }
                             <!-- primary action -->
-                            <button type="button"
-                                class="w-full bg-[#123321] hover:bg-[#1B4A2C] active:bg-[#0B1F14] text-white text-sm font-semibold py-2.5 rounded-lg
-                     transition-colors shadow-md shadow-[#123321]/20 flex items-center justify-center gap-2">
-                                Sign In
-                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            <button
+                                type="submit"
+                                [disabled]="isLoading"
+                                class="w-full bg-[#123321] hover:bg-[#1B4A2C] active:bg-[#0B1F14] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold py-2.5 rounded-lg transition-colors shadow-md shadow-[#123321]/20 flex items-center justify-center gap-2">
+
+                                @if (isLoading) {
+                                    <i class="fa-solid fa-spinner fa-spin text-xs"></i>
+                                    Signing In...
+                                } @else {
+                                    Sign In
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                }
+
                             </button>
                         </form>
 
