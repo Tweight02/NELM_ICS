@@ -16,7 +16,31 @@ class UserSeeder extends Seeder
     {
         //
         $users = [
-            ['name' => 'John Doe', 'email' => 'pastor2@example.com', 'role' => 'pastor',],
+                [
+                    'name' => 'Juan Dela Cruz',
+                    'email' => 'pastor@example.com',
+                    'role' => 'pastor',
+                ],
+                [
+                    'name' => 'Maria Santos',
+                    'email' => 'secretary@example.com',
+                    'role' => 'secretary',
+                ],
+                [
+                    'name' => 'Daniel Ramos',
+                    'email' => 'director@example.com',
+                    'role' => 'director',
+                ],
+                [
+                    'name' => 'Jose Mendoza',
+                    'email' => 'representative@example.com',
+                    'role' => 'church_representative',
+                ],
+                [
+                    'name' => 'John Doe',
+                    'email' => 'pastor2@example.com',
+                    'role' => 'pastor',
+                ],
         ];
         foreach ($users as $user) {
             User::create(['name' => $user['name'], 'email' => $user['email'], 'role' => $user['role'], 'password' => Hash::make('123'),]);
