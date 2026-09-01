@@ -11,13 +11,13 @@ const PORTAL_LABELS: Record<string, string> = {
     secretary: 'Administrative Secretary Portal',
     director: 'Administrative Director Portal',
     admin: 'Administrator Portal',
-    church_rep: 'Church Representative Portal',
+    church_representative: 'Church Representative Portal',
 };
 
 const NAVIGATION_MAP: Record<string, NavItem[]> = {
     pastor: pastor_nav_items,
     secretary: secretary_nav_items,
-    church_rep: church_rep_nav_items
+    church_representative: church_rep_nav_items
 };
 
 @Injectable({ providedIn: 'root' })
