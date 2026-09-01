@@ -55,6 +55,10 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          
+          "options": {
+            "allowedHosts": ["app.icsnelm.test"]
+          },
           "configurations": {
             "production": {
               "buildTarget": "frontend:build:production"

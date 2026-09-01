@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, switchMap, tap, catchError, of } from 'rxjs';
 
 export interface User {
     id: number;
@@ -10,9 +10,7 @@ export interface User {
 }
 
 export interface LoginResponse {
-    message: string;
     user: User;
-    token: string;
 }
 
 @Injectable({
@@ -20,12 +18,11 @@ export interface LoginResponse {
 })
 export class AuthService {
 
-    private apiUrl = 'http://localhost:8000/api';
+    // main-api is the only app that handles login/logout/csrf
+    private mainApiUrl = 'http://api.icsnelm.test:8001';
+    private rootUrl = 'http://api.icsnelm.test:8001'; // for /sanctum/csrf-cookie
 
-    // Current logged-in user
     currentUser = signal<User | null>(null);
-
-    // Used to know whether Angular is checking the existing login
     isLoading = signal<boolean>(true);
 
     constructor(private http: HttpClient) {
@@ -33,89 +30,60 @@ export class AuthService {
     }
 
     /**
+     * Sanctum's CSRF cookie endpoint — must be called before login/logout
+     */
+    private csrf(): Observable<unknown> {
+        return this.http.get(`${this.rootUrl}/sanctum/csrf-cookie`, { withCredentials: true });
+    }
+
+    /**
      * Login
      */
     login(email: string, password: string): Observable<LoginResponse> {
-
-        console.time('API LOGIN');
-
-        return this.http.post<LoginResponse>(
-            `${this.apiUrl}/login`,
-            {
-                email,
-                password
-            }
-        ).pipe(
-
+        return this.csrf().pipe(
+            switchMap(() =>
+                this.http.post<LoginResponse>(
+                    `${this.mainApiUrl}/login`,
+                    { email, password },
+                    { withCredentials: true }
+                )
+            ),
             tap(response => {
-
-                console.timeEnd('API LOGIN');
-
-                console.log('Login response:', response);
-
-                localStorage.setItem('token', response.token);
-
                 this.currentUser.set(response.user);
-
                 this.isLoading.set(false);
-
             })
-
         );
     }
 
     /**
-     * Restore user when browser is refreshed
+     * Restore user on page refresh — ask the server, since there's no
+     * token to check locally. The cookie (if valid) is sent automatically.
      */
     private restoreUser(): void {
-        const token = localStorage.getItem('token');
-        // No token means nobody is logged in
-        if (!token) {
-            this.isLoading.set(false);
-            return;
-        }
-        // Token exists, ask Laravel who the user is
-        this.http.get<User>(
-            `${this.apiUrl}/user`
-        ).subscribe({
-            next: (user) => {
-                this.currentUser.set(user);
-                this.isLoading.set(false);
-            },
-            error: () => {
-                // Token is invalid/expired
-                localStorage.removeItem('token');
+        this.http.get<User>(`${this.mainApiUrl}/user`, { withCredentials: true }).pipe(
+            catchError(() => {
                 this.currentUser.set(null);
-                this.isLoading.set(false);
-            }
+                return of(null);
+            })
+        ).subscribe(user => {
+            this.currentUser.set(user);
+            this.isLoading.set(false);
         });
     }
 
     /**
      * Logout
      */
-    logout(): Observable<any> {
-        return this.http.post(
-            `${this.apiUrl}/logout`,
-            {}
-        ).pipe(
-            tap(() => {
-                localStorage.removeItem('token');
-                this.currentUser.set(null);
-            })
-        );
+    logout(): Observable<unknown> {
+        return this.http.post(`${this.mainApiUrl}/logout`, {}, { withCredentials: true })
+            .pipe(tap(() => this.currentUser.set(null)));
     }
 
     /**
-     * Check whether user is logged in
+     * Check whether user is logged in — no token to check locally,
+     * so this reflects whatever restoreUser()/login() last confirmed.
      */
     isLoggedIn(): boolean {
-        return !!localStorage.getItem('token');
-    }
-    /**
-     * Get token
-     */
-    getToken(): string | null {
-        return localStorage.getItem('token');
+        return this.currentUser() !== null;
     }
 }
