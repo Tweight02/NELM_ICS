@@ -17,6 +17,12 @@ export const routes: Routes = [
         loadChildren: () =>import('./features/secretary/secretary.routes').then(r=>r.secretary)
     },
     {
+        path: 'church_rep',
+        component: Shell,
+        // canActivate: [roleGuard('secretary')],
+        loadChildren: () =>import('./features/church_rep/churchRep.routes').then(r=>r.churchRepRoutes)
+    },
+    {
         path: 'login',
         loadComponent: () =>import('./auth/login/login').then(m=>m.Login)
     }
