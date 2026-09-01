@@ -114,6 +114,16 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'shared_auth' => [
+            'driver' => 'mysql',
+            'host' => env('AUTH_DB_HOST', '127.0.0.1'),
+            'port' => env('AUTH_DB_PORT', '3306'),
+            'database' => env('AUTH_DB_DATABASE', 'icsnelm_auth'),
+            'username' => env('AUTH_DB_USERNAME'),
+            'password' => env('AUTH_DB_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+        ],
     ],
 
     /*
