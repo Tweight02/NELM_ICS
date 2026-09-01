@@ -28,8 +28,6 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $connection = 'shared_auth';
-
     /**
      * The attributes that should be hidden for serialization.
      *
