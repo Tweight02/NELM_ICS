@@ -52,6 +52,9 @@ export class Login {
           case 'church_representative':
             this.router.navigate(['/church_rep/home']);
             break;
+          case 'director':
+            this.router.navigate(['/director/home']);
+            break;
           default:
             this.router.navigate(['/login']);
             break;
