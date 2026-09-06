@@ -13,6 +13,9 @@ start "Pastor API - 8002" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\chu
 echo Starting Secretary API...
 start "Pastor API - 8003" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\secretary-api && php artisan serve --host=api.icsnelm.test --port=8003"
 
+echo Starting Director API...
+start "Pastor API - 8004" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\director-api && php artisan serve --host=api.icsnelm.test --port=8004"
+
 echo Starting Angular...
 start "Angular - 4200" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\frontend && ng serve --host=app.icsnelm.test --port=4200"
 
