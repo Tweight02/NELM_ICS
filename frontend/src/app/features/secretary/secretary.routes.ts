@@ -4,7 +4,6 @@ export const secretary: Routes = [
     {
         path: 'home',
         loadComponent: () => import('./home/home').then(m => m.Home),
-
     },
     {
         path: 'reports',
