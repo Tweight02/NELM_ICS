@@ -23,6 +23,12 @@ export const routes: Routes = [
         loadChildren: () =>import('./features/church_rep/churchRep.routes').then(r=>r.churchRepRoutes)
     },
     {
+        path: 'director',
+        component: Shell,
+        // canActivate: [roleGuard('secretary')],
+        loadChildren: () =>import('./features/director/director.routes').then(r=>r.directorRoutes)
+    },
+    {
         path: 'login',
         loadComponent: () =>import('./auth/login/login').then(m=>m.Login)
     }
