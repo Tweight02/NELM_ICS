@@ -1,71 +1,194 @@
 <!-- Main Content -->
-    <main id="main-content" class="flex-1 px-4 py-3 ">
+<main id="main-content" class="flex-1 px-4 py-3 ">
 
-        <!-- Breadcrumb -->
-        <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
-            <ol class="flex items-center">
-                <li class="text-slate-400 uppercase text-xs font-semibold">Church Representative</li>
-                <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
-                <li class="text-emerald-600 font-semibold uppercase text-xs" aria-current="page">Dashboard</li>
-            </ol>
-        </nav>
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+        <ol class="flex items-center">
+            <li class="text-slate-400 uppercase text-xs font-semibold">Church Representative</li>
+            <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
+            <li class="text-emerald-600 font-semibold uppercase text-xs" aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
 
-        <!-- Hero -->
-        <section
-            class="relative overflow-hidden bg-emerald-900 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row md:items-center justify-between gap-10 ring-1 ring-white/10 shadow-2xl shadow-emerald-900/20">
-            <!-- Decorative Gradient -->
-            <div
-                class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/40 to-transparent">
-            </div>
-            <div class="absolute -top-24 -right-24 w-64 h-64 bg-emerald-800 rounded-full blur-3xl opacity-50"></div>
+    <!-- Hero -->
+    <section
+        class="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 px-6 py-8 shadow-2xl shadow-emerald-950/20 ring-1 ring-white/10 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
+        <!-- Decorative glow -->
+        <div class="absolute -top-24 -right-24 w-72 h-72 bg-emerald-700/40 rounded-full blur-3xl"></div>
 
-            <div class="relative max-w-lg">
-                <div
-                    class="inline-flex items-center gap-2 bg-white/10 text-amber-200 font-semibold text-xs tracking-[0.15em] uppercase px-4 py-1.5 rounded-full mb-6 border border-white/15 backdrop-blur-sm">
-                    <i class="fa-solid fa-location-dot text-sm" aria-hidden="true"></i>
-                    Church Representative Portal
+        <!-- Content -->
+        <div class="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <!-- Welcome -->
+            <div class="max-w-2xl">
+                <!-- Organization -->
+                <div class="mb-5 flex items-center gap-2">
+                    <span class="h-1.5 w-1.5 rounded-full bg-amber-300"></span>
+                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200/70">
+                        Grace Community Church
+                    </p>
+                    <span class="text-emerald-300/30">&bull;</span>
+                    <p class="text-xs font-medium text-emerald-200/50">
+                        Isabela District
+                    </p>
                 </div>
 
-                <h1 class="font-serif text-3xl md:text-4xl font-semibold text-white mb-4 leading-[1.15] tracking-tight">
-                    Welcome, <span class="text-amber-200">{{ authService.currentUser()?.name }}</span>
+                <!-- Heading -->
+                <h1
+                    class="font-serif text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                    Welcome back,
+                    <span class="text-amber-200">
+                        {{ authService.currentUser()?.name }}
+                    </span>
                 </h1>
-
-                <p class="text-emerald-50/70 leading-relaxed mb-0">
-                    Manage field reports, respond to report requests, receive announcements, and track assigned tasks
-                    and deadlines.
-                </p>
             </div>
 
-            <div class="aura aura-rainbow relative flex flex-col items-start md:items-end gap-4 shrink-0">
-                <button type="button"
-                    class="group flex items-center gap-2 bg-white hover:bg-amber-200 active:scale-[0.98] transition-all duration-200 text-emerald-900 font-semibold px-6 py-3.5 rounded-xl shadow-xl shadow-black/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-600">
-                    <i class="fa-solid fa-plus text-sm motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:rotate-90"
+            <div class="hidden lg:block w-px self-stretch bg-white/10 my-1"></div>
+            <div
+                class="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-5 backdrop-blur-sm lg:w-auto lg:min-w-[220px]">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-amber-200">
+                    <i class="fa-solid fa-building-columns text-lg" aria-hidden="true"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="mb-1 text-[11px] font-semibold uppercase tracking-widest text-emerald-200/50">
+                        Department
+                    </p>
+                    <p class="font-serif text-xl font-semibold leading-tight text-white">
+                        Sabbath School
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Field Reports Table -->
+    <section aria-label="Your field reports" class="mt-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+                <h2 class="font-serif text-xl font-semibold text-slate-800">Your field reports</h2>
+                <p class="text-sm text-slate-400 mt-0.5">Reports you've submitted for Financial</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-xs"
                         aria-hidden="true"></i>
-                    Create Field Report
-                </button>
+                    <input type="text" placeholder="Search reports"
+                        class="pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent w-40 sm:w-52">
+                </div>
+                <a href="#"
+                    class="text-sm font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded px-1 shrink-0">
+                    View all
+                </a>
             </div>
-        </section>
+        </div>
 
-        <!-- Stat cards -->
-        <section aria-label="Overview statistics" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mt-6">
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-100">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th scope="col"
+                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
+                                Program</th>
+                            <th scope="col"
+                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
+                                Quarter</th>
+                            <th scope="col"
+                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
+                                Total</th>
+                            <th scope="col"
+                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
+                                Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
 
-           
-        </section>
+                        <tr class="hover:bg-slate-50/70 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
+                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="font-medium text-slate-800">Q3 Tithes &amp; Offerings Summary</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">1</td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                    Approved
+                                </span>
+                            </td>
+                        </tr>
 
+                        <tr class="hover:bg-slate-50/70 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
+                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="font-medium text-slate-800">Monthly Fund Disbursement Report</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">2</td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
 
-        <!-- Footer
-        <footer
-            class="mt-12 pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
-            <p>&copy; 2026 Isabela District. All rights reserved.</p>
-            <nav aria-label="Footer" class="flex items-center gap-6">
-                <a href="#"
-                    class="hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded">Help
-                    &amp; Support</a>
-                <a href="#"
-                    class="hover:text-emerald-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded">Privacy
-                    Policy</a>
-                <span class="px-2 py-1 bg-slate-100 rounded text-slate-500">v1.4.0</span>
-            </nav>
-        </footer> -->
+                        <tr class="hover:bg-slate-50/70 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
+                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="font-medium text-slate-800">Building Fund Expense Report</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">4</td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                                    Rejected
+                                </span>
+                            </td>
+                        </tr>
 
-    </main>
+                        <tr class="hover:bg-slate-50/70 transition-colors">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <span
+                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
+                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="font-medium text-slate-800">Annual Audit Preparation Report</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">5</td>
+                            <td class="px-6 py-4">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                    Approved
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+</main>
