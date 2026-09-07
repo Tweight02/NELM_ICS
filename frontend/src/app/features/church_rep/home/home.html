@@ -1,194 +1,442 @@
-<!-- Main Content -->
-<main id="main-content" class="flex-1 px-4 py-3 ">
+<div class=" mx-auto px-4 sm:px-6 py-8 space-y-5">
 
     <!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" class="text-sm mb-6 tracking-wide">
+    <nav aria-label="Breadcrumb" class="text-sm tracking-wide">
         <ol class="flex items-center">
             <li class="text-slate-400 uppercase text-xs font-semibold">Church Representative</li>
             <li class="text-slate-300 mx-2" aria-hidden="true">/</li>
-            <li class="text-emerald-600 font-semibold uppercase text-xs" aria-current="page">Dashboard</li>
+            <li class="text-emerald-700 font-semibold uppercase text-xs" aria-current="page">Quarterly Report</li>
         </ol>
     </nav>
 
-    <!-- Hero -->
-    <section
-        class="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 px-6 py-8 shadow-2xl shadow-emerald-950/20 ring-1 ring-white/10 sm:px-8 sm:py-10 lg:px-12 lg:py-12">
-        <!-- Decorative glow -->
-        <div class="absolute -top-24 -right-24 w-72 h-72 bg-emerald-700/40 rounded-full blur-3xl"></div>
+    <!-- ============ HEADER CARD: banner + church info + status row ============ -->
+    <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
 
-        <!-- Content -->
-        <div class="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <!-- Welcome -->
-            <div class="max-w-2xl">
-                <!-- Organization -->
-                <div class="mb-5 flex items-center gap-2">
-                    <span class="h-1.5 w-1.5 rounded-full bg-amber-300"></span>
-                    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-200/70">
-                        Grace Community Church
-                    </p>
-                    <span class="text-emerald-300/30">&bull;</span>
-                    <p class="text-xs font-medium text-emerald-200/50">
-                        Isabela District
+        <!-- Banner -->
+        <div
+            class="relative overflow-hidden bg-gradient-to-br from-emerald-950 via-emerald-900 to-emerald-800 px-6 py-5 sm:px-8 sm:py-6">
+            <div class="absolute -top-16 -right-16 w-56 h-56 bg-emerald-700/30 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-wrap items-start justify-between gap-4">
+                <div>
+                    <h1 class="font-serif text-lg sm:text-xl font-bold uppercase tracking-wide text-white">{{ churchName
+                        }}</h1>
+                    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-200/70 mt-1">
+                        {{ department }} Quarterly Report
                     </p>
                 </div>
+                <div class="text-right">
+                    <div class="text-[11px] font-semibold uppercase tracking-widest text-emerald-200/60 mb-1">Year</div>
+                    <span class="inline-block px-3 py-1 rounded-md bg-amber-300 text-emerald-950 font-bold text-sm">{{
+                        year }}</span>
+                </div>
+            </div>
+        </div>
 
-                <!-- Heading -->
-                <h1
-                    class="font-serif text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-                    Welcome back,
-                    <span class="text-amber-200">
-                        {{ authService.currentUser()?.name }}
+        <!-- Church info fields -->
+        <div class="px-6 py-5 sm:px-8 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+            <div class="border-l-2 border-amber-400 pl-3">
+                <div class="text-[11px] uppercase tracking-wide text-slate-400 font-semibold mb-0.5">Church</div>
+                <div class="text-sm font-semibold text-slate-800">{{ churchName }}</div>
+            </div>
+            <div class="border-l-2 border-amber-400 pl-3">
+                <div class="text-[11px] uppercase tracking-wide text-slate-400 font-semibold mb-0.5">Representative
+                </div>
+                <div class="text-sm font-semibold text-slate-800">{{ representative }}</div>
+            </div>
+            <div class="border-l-2 border-amber-400 pl-3">
+                <div class="text-[11px] uppercase tracking-wide text-slate-400 font-semibold mb-0.5">District</div>
+                <div class="text-sm font-semibold text-slate-800">{{ district }}</div>
+            </div>
+            <div class="border-l-2 border-amber-400 pl-3">
+                <div class="text-[11px] uppercase tracking-wide text-slate-400 font-semibold mb-0.5">Mission/Conference
+                </div>
+                <div class="text-sm font-semibold text-slate-800">{{ mission }}</div>
+            </div>
+        </div>
+
+        <!-- Status row -->
+        <div class="border-t border-slate-100 px-6 py-4 sm:px-8 flex flex-wrap items-center gap-2.5">
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-slate-400 mr-1">Status:</span>
+            <span *ngFor="let q of quarterKeys"
+                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide"
+                [ngClass]="statusMeta[quarters[q].status].badge">
+                <span class="text-slate-400 font-semibold normal-case tracking-normal">{{ quarterShort[q] }}</span>
+
+                <svg *ngIf="statusMeta[quarters[q].status].icon === 'check'" class="w-3 h-3" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M20 6L9 17l-5-5" />
+                </svg>
+                <svg *ngIf="statusMeta[quarters[q].status].icon === 'warn'" class="w-3 h-3" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="M12 9v4M12 17h.01" />
+                    <path d="M10.3 3.9L2.5 18a2 2 0 001.8 3h15.4a2 2 0 001.8-3L13.7 3.9a2 2 0 00-3.4 0z" />
+                </svg>
+                <svg *ngIf="statusMeta[quarters[q].status].icon === 'edit'" class="w-3 h-3" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z" />
+                </svg>
+                <svg *ngIf="statusMeta[quarters[q].status].icon === 'clock'" class="w-3 h-3" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.4">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 3" />
+                </svg>
+                <svg *ngIf="statusMeta[quarters[q].status].icon === 'dash'" class="w-3 h-3" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.4">
+                    <circle cx="12" cy="12" r="9" />
+                </svg>
+
+                {{ statusMeta[quarters[q].status].label }}
+
+                <svg *ngIf="!isEditableStatus(quarters[q].status)" class="w-3 h-3 opacity-70" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.4">
+                    <rect x="5" y="11" width="14" height="9" rx="2" />
+                    <path d="M8 11V7a4 4 0 018 0v4" />
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <!-- ============ YEAR + QUARTER TABS ============ -->
+    <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm px-4 py-3 flex flex-wrap items-center gap-3">
+
+        <div class="flex items-center gap-2 pr-3 border-r border-slate-200">
+            <span class="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Year</span>
+            <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-bold text-slate-700">
+                {{ year }}
+                <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.2">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </span>
+        </div>
+
+        <div class="flex flex-wrap gap-1.5">
+            <button type="button" class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide"
+                [ngClass]="selected === 'annual' ? 'bg-emerald-900 text-white' : 'border border-slate-200 text-slate-600 hover:border-emerald-400'"
+                (click)="selectQuarter('annual')">Annual</button>
+
+            <button type="button" *ngFor="let q of quarterKeys"
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide"
+                [ngClass]="selected === q ? 'bg-emerald-900 text-white' : 'border border-slate-200 text-slate-600 hover:border-emerald-400'"
+                (click)="selectQuarter(q)">
+                <span class="w-1.5 h-1.5 rounded-full" [ngClass]="dotColor[quarters[q].status]"></span>
+                {{ quarterShort[q] }}
+            </button>
+        </div>
+
+        <div class="flex-1"></div>
+
+        <ng-container *ngIf="selectedQuarterKey as sq">
+            <span
+                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wide"
+                [ngClass]="statusMeta[activeStatus!].badge">{{ statusMeta[activeStatus!].label }}</span>
+            <span class="text-[11px] font-bold uppercase tracking-wide"
+                [ngClass]="activeEditable ? 'text-amber-600' : 'text-slate-400'">
+                &bull; {{ editableTag() }}
+            </span>
+        </ng-container>
+    </div>
+
+    <!-- ============ WORKSPACE ============ -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5 items-start min-w-0">
+
+        <!-- TABLE PANEL -->
+        <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden min-w-0">
+            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between gap-3">
+                <h2 class="font-serif text-sm font-bold uppercase tracking-wide text-emerald-950">
+                    {{ selected === 'annual' ? ('Annual Report Overview — ' + year) : (quarterLabels[selected] + '
+                    Report') }}
+                </h2>
+
+                <span *ngIf="selected === 'annual'"
+                    class="text-[11px] font-semibold uppercase tracking-wide text-slate-400">Read-only</span>
+
+                <span *ngIf="selectedQuarterKey as sq2" class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wide"
+                        [ngClass]="activeEditable ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-200' : 'bg-slate-100 text-slate-400 ring-1 ring-slate-200'">
+                        {{ activeEditable ? 'Editing' : 'Locked' }}
                     </span>
-                </h1>
+                    <span class="text-[11px] text-slate-400 font-medium" *ngIf="quarters[sq2].lastUpdated">
+                        Updated: {{ quarters[sq2].lastUpdated | uppercase }}
+                    </span>
+                </span>
             </div>
 
-            <div class="hidden lg:block w-px self-stretch bg-white/10 my-1"></div>
-            <div
-                class="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-5 backdrop-blur-sm lg:w-auto lg:min-w-[220px]">
-                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-amber-200">
-                    <i class="fa-solid fa-building-columns text-lg" aria-hidden="true"></i>
+            <!-- LOCK / RETURNED BANNER -->
+            <ng-container *ngIf="selectedQuarterKey as sq3">
+                <div *ngIf="!activeEditable || activeStatus === 'returned'"
+                    class="mx-6 mt-4 flex gap-3 items-start p-3.5 rounded-lg"
+                    [ngClass]="activeStatus === 'returned' ? 'bg-rose-50 border border-rose-100 text-rose-700' : 'bg-sky-50 border border-sky-100 text-sky-700'">
+                    <span class="mt-0.5">
+                        <svg *ngIf="activeStatus === 'returned'" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M12 9v4M12 17h.01" />
+                            <path d="M10.3 3.9L2.5 18a2 2 0 001.8 3h15.4a2 2 0 001.8-3L13.7 3.9a2 2 0 00-3.4 0z" />
+                        </svg>
+                        <svg *ngIf="activeStatus !== 'returned'" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <rect x="5" y="11" width="14" height="9" rx="2" />
+                            <path d="M8 11V7a4 4 0 018 0v4" />
+                        </svg>
+                    </span>
+                    <div class="text-sm" *ngIf="activeStatus === 'returned'; else lockedMsg">
+                        <span class="block font-semibold mb-0.5">Returned for revision</span>
+                        Your district pastor sent this report back with a comment. Update the flagged figures and
+                        resubmit — see Review &amp; Comments.
+                    </div>
+                    <ng-template #lockedMsg>
+                        <div class="text-sm">
+                            <span class="block font-semibold mb-0.5">This quarter is read-only</span>
+                            This report is marked "{{ statusMeta[activeStatus!].label }}" and can no longer be edited.
+                            Contact your district pastor if a correction is needed.
+                        </div>
+                    </ng-template>
                 </div>
-                <div class="min-w-0">
-                    <p class="mb-1 text-[11px] font-semibold uppercase tracking-widest text-emerald-200/50">
-                        Department
-                    </p>
-                    <p class="font-serif text-xl font-semibold leading-tight text-white">
-                        Sabbath School
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </ng-container>
 
-    <!-- Field Reports Table -->
-    <section aria-label="Your field reports" class="mt-8">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-            <div>
-                <h2 class="font-serif text-xl font-semibold text-slate-800">Your field reports</h2>
-                <p class="text-sm text-slate-400 mt-0.5">Reports you've submitted for Financial</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-xs"
-                        aria-hidden="true"></i>
-                    <input type="text" placeholder="Search reports"
-                        class="pl-9 pr-3 py-2 text-sm rounded-lg border border-slate-200 text-slate-600 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent w-40 sm:w-52">
-                </div>
-                <a href="#"
-                    class="text-sm font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 rounded px-1 shrink-0">
-                    View all
-                </a>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-slate-100">
-                    <thead class="bg-slate-50">
+            <div class="max-h-[560px] overflow-auto mt-3">
+                <table class="w-full text-sm border-collapse">
+                    <thead>
                         <tr>
-                            <th scope="col"
-                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
-                                Program</th>
-                            <th scope="col"
-                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
-                                Quarter</th>
-                            <th scope="col"
-                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
-                                Total</th>
-                            <th scope="col"
-                                class="text-left text-xs font-semibold text-slate-500 uppercase tracking-wide px-6 py-3.5">
-                                Status</th>
+                            <th
+                                class="text-left text-[11px] font-bold uppercase tracking-wide text-slate-400 px-4 py-2.5 border-b border-slate-200 bg-white sticky top-0 min-w-[220px]">
+                                Indicator
+                            </th>
+                            <th *ngFor="let q of visibleQuarterKeys"
+                                class="text-right text-[11px] font-bold uppercase tracking-wide px-4 py-2.5 border-b border-slate-200 bg-white sticky top-0"
+                                [ngClass]="activeQuarter === q ? 'bg-emerald-50 text-emerald-800' : 'text-slate-400'">{{
+                                quarterShort[q] }}</th>
+                            <th
+                                class="text-right text-[11px] font-bold uppercase tracking-wide text-amber-700 px-4 py-2.5 border-b border-slate-200 bg-amber-50/70 sticky top-0">
+                                Total
+                            </th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody>
+                        <ng-container *ngFor="let section of sections">
+                            <tr>
+                                <td [attr.colspan]="visibleQuarterKeys.length + 2"
+                                    class="bg-amber-50/60 border-l-4 border-amber-400 px-4 py-2.5">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-950">{{
+                                        section.title }}</span>
+                                </td>
+                            </tr>
 
-                        <tr class="hover:bg-slate-50/70 transition-colors">
-                            <td class="px-6 py-4">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
-                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="font-medium text-slate-800">Q3 Tithes &amp; Offerings Summary</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
-                            <td class="px-6 py-4 text-sm text-slate-500">1</td>
-                            <td class="px-6 py-4">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                    Approved
-                                </span>
-                            </td>
-                        </tr>
+                            <ng-container *ngFor="let row of section.rows">
+                                <tr *ngIf="row.type === 'subhead'">
+                                    <td [attr.colspan]="visibleQuarterKeys.length + 2" class="pl-9 pt-2 pb-1 px-4">
+                                        <span class="text-xs italic text-slate-400 font-medium">{{ row.label }}</span>
+                                    </td>
+                                </tr>
 
-                        <tr class="hover:bg-slate-50/70 transition-colors">
-                            <td class="px-6 py-4">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
-                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="font-medium text-slate-800">Monthly Fund Disbursement Report</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
-                            <td class="px-6 py-4 text-sm text-slate-500">2</td>
-                            <td class="px-6 py-4">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                                    Pending
-                                </span>
-                            </td>
-                        </tr>
+                                <tr *ngIf="row.type !== 'subhead'"
+                                    class="border-b border-slate-50 hover:bg-slate-50/70">
+                                    <td class="px-4 py-2.5">
+                                        <span class="flex items-center gap-1.5"
+                                            [ngClass]="row.indent ? 'pl-4 text-slate-500 text-[13px]' : 'text-slate-800'">
+                                            {{ row.label }}
+                                            <span *ngIf="row.tip" [title]="row.tip"
+                                                class="w-3.5 h-3.5 inline-flex items-center justify-center rounded-full border border-slate-300 text-slate-400 text-[9px] font-bold cursor-help">i</span>
+                                        </span>
+                                    </td>
 
-                        <tr class="hover:bg-slate-50/70 transition-colors">
-                            <td class="px-6 py-4">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
-                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="font-medium text-slate-800">Building Fund Expense Report</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
-                            <td class="px-6 py-4 text-sm text-slate-500">4</td>
-                            <td class="px-6 py-4">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-                                    Rejected
-                                </span>
-                            </td>
-                        </tr>
+                                    <td *ngFor="let q of visibleQuarterKeys" class="px-4 py-2.5"
+                                        [ngClass]="activeQuarter === q ? 'bg-emerald-50/60' : ''">
+                                        <ng-container *ngIf="isCellEditable(row, q); else readonlyCell">
+                                            <div class="flex justify-end">
+                                                <input type="number" min="0"
+                                                    class="w-20 text-right px-2 py-1.5 border border-slate-300 rounded-md text-sm font-semibold text-slate-800 focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+                                                    [value]="getDisplayValue(row, q) ?? ''" placeholder="—"
+                                                    (input)="onInputChange(row, q, $event)" />
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #readonlyCell>
+                                            <ng-container *ngIf="getDisplayValue(row, q) as val; else emptyCell">
+                                                <span class="block text-right tabular-nums"
+                                                    [ngClass]="row.type === 'computed' ? 'font-semibold text-emerald-700' : 'text-slate-500'">{{
+                                                    val | number }}</span>
+                                            </ng-container>
+                                            <ng-template #emptyCell>
+                                                <span class="block text-right text-slate-300">—</span>
+                                            </ng-template>
+                                        </ng-template>
+                                    </td>
 
-                        <tr class="hover:bg-slate-50/70 transition-colors">
-                            <td class="px-6 py-4">
-                                <div class="flex items-center gap-3">
-                                    <span
-                                        class="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700">
-                                        <i class="fa-regular fa-file-lines text-sm" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="font-medium text-slate-800">Annual Audit Preparation Report</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-sm text-slate-500">Financial</td>
-                            <td class="px-6 py-4 text-sm text-slate-500">5</td>
-                            <td class="px-6 py-4">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                    Approved
-                                </span>
-                            </td>
-                        </tr>
+                                    <td class="px-4 py-2.5 bg-amber-50/40">
+                                        <ng-container *ngIf="getTotal(row) as tot">
+                                            <span *ngIf="tot.value === null"
+                                                class="block text-right text-slate-300">—</span>
+                                            <span *ngIf="tot.value !== null"
+                                                class="block text-right font-bold text-amber-800 tabular-nums"
+                                                [title]="tot.source ? ('As of ' + tot.source) : 'Sum of all quarters'">{{
+                                                tot.value | number }}</span>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </section>
 
-</main>
+            <!-- ACTIONS -->
+            <div class="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-t border-slate-100">
+                <ng-container *ngIf="selected === 'annual'">
+                    <span class="text-xs text-slate-400">Select a quarter above to view or edit its report.</span>
+                </ng-container>
+
+                <ng-container *ngIf="selectedQuarterKey">
+                    <ng-container *ngIf="!activeEditable; else editableActions">
+                        <span class="text-xs text-slate-400">
+                            No actions available while this quarter is {{ statusMeta[activeStatus!].label.toLowerCase()
+                            }}.
+                        </span>
+                    </ng-container>
+                    <ng-template #editableActions>
+                        <span class="text-xs text-slate-400">Totals are calculated automatically and can't be edited
+                            directly.</span>
+                        <div class="flex gap-2">
+                            <button type="button"
+                                class="px-4 py-2 rounded-lg text-sm font-semibold border border-slate-300 text-slate-700 hover:bg-slate-50"
+                                (click)="saveDraft()">Save Draft</button>
+                            <button type="button"
+                                class="px-4 py-2 rounded-lg text-sm font-semibold bg-emerald-800 text-white hover:bg-emerald-900"
+                                (click)="openSubmitModal()">Submit Report</button>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </div>
+        </div>
+
+        <!-- SIDE COLUMN -->
+        <div class="flex flex-col gap-5 min-w-0">
+
+            <!-- REVIEW & COMMENTS -->
+            <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
+                <div class="px-5 py-4 border-b border-slate-100">
+                    <h2 class="font-serif text-sm font-bold text-slate-800">Review &amp; Comments</h2>
+                    <div class="text-xs text-slate-400 mt-0.5">
+                        {{ selected === 'annual' ? 'Most recent feedback across all quarters' : (quarterLabels[selected]
+                        + ' feedback') }}
+                    </div>
+                </div>
+
+                <div class="py-4">
+                    <ng-container *ngIf="selected === 'annual'; else quarterComments">
+                        <ng-container *ngIf="allComments.length === 0; else annualCommentsBlock">
+                            <div
+                                class="mx-5 mb-4 p-5 text-center text-sm text-slate-400 border border-dashed border-slate-200 rounded-lg">
+                                No officer comments yet.
+                            </div>
+                        </ng-container>
+                        <ng-template #annualCommentsBlock>
+                            <ng-container [ngTemplateOutlet]="commentCardTpl"
+                                [ngTemplateOutletContext]="{ $implicit: allComments[0] }"></ng-container>
+                            <div class="px-5 pb-1" *ngIf="allComments.length > 1">
+                                <button type="button"
+                                    class="text-xs font-semibold text-emerald-700 hover:text-emerald-800"
+                                    (click)="showOlderComments = !showOlderComments">
+                                    {{ showOlderComments ? 'Hide Previous Comments' : 'View Previous Comments (' +
+                                    (allComments.length - 1) + ')' }}
+                                </button>
+                                <div class="mt-3 -mx-5" *ngIf="showOlderComments">
+                                    <ng-container *ngFor="let c of allComments.slice(1)">
+                                        <ng-container [ngTemplateOutlet]="commentCardTpl"
+                                            [ngTemplateOutletContext]="{ $implicit: c }"></ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+
+                    <ng-template #quarterComments>
+                        <ng-container *ngIf="selectedQuarterKey as sq">
+                            <ng-container *ngIf="comments[sq].length === 0; else quarterCommentsBlock">
+                                <div
+                                    class="mx-5 mb-4 p-5 text-center text-sm text-slate-400 border border-dashed border-slate-200 rounded-lg">
+                                    No comments yet for {{ quarterLabels[sq] }}.
+                                </div>
+                            </ng-container>
+                            <ng-template #quarterCommentsBlock>
+                                <ng-container *ngFor="let c of comments[sq]">
+                                    <ng-container [ngTemplateOutlet]="commentCardTpl"
+                                        [ngTemplateOutletContext]="{ $implicit: c }"></ng-container>
+                                </ng-container>
+                            </ng-template>
+                        </ng-container>
+                    </ng-template>
+
+                    <!-- Reusable comment card -->
+                    <ng-template #commentCardTpl let-c>
+                        <div class="mx-5 mb-3 p-4 rounded-lg border-l-4"
+                            [ngClass]="c.status === 'returned' ? 'border-rose-400 bg-rose-50' : 'border-emerald-500 bg-emerald-50'">
+                            <div class="flex items-start justify-between gap-3 mb-2">
+                                <div>
+                                    <div class="text-sm font-semibold text-slate-900">{{ c.author }}</div>
+                                    <div class="text-xs text-slate-500">{{ c.role }}</div>
+                                </div>
+                                <div class="text-xs text-slate-400 whitespace-nowrap">{{ c.date }}</div>
+                            </div>
+                            <div class="text-xs font-bold mb-1.5"
+                                [ngClass]="c.status === 'returned' ? 'text-rose-600' : 'text-emerald-700'">
+                                {{ statusLabel(c.status) }}
+                            </div>
+                            <p class="text-sm leading-relaxed"
+                                [ngClass]="c.status === 'returned' ? 'text-rose-900/80' : 'text-emerald-900/80'">
+                                &ldquo;{{ c.text }}&rdquo;
+                            </p>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+
+            <!-- REPORT ACTIVITY -->
+            <div class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
+                <div class="px-5 py-4 border-b border-slate-100">
+                    <h2 class="font-serif text-sm font-bold text-slate-800">Report Activity</h2>
+                    <div class="text-xs text-slate-400 mt-0.5">What's happened to this report</div>
+                </div>
+                <div class="px-5 py-5">
+                    <div class="relative border-l-2 border-slate-100 ml-1 pl-4 space-y-5">
+                        <div class="relative" *ngFor="let t of timeline">
+                            <span
+                                class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-emerald-700 ring-4 ring-emerald-50"></span>
+                            <div class="text-[11px] font-semibold text-slate-400">{{ t.date }}</div>
+                            <div class="text-sm font-semibold text-slate-900">{{ t.title }}</div>
+                            <div class="text-xs text-slate-500">{{ t.sub }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- SUBMIT CONFIRMATION MODAL -->
+<div *ngIf="submitModalOpen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-5"
+    (click)="closeSubmitModal()">
+    <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-xl" (click)="$event.stopPropagation()">
+        <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Submit this report?</h3>
+        <p class="text-sm text-slate-500 leading-relaxed mb-5">{{ modalBodyText }}</p>
+        <div class="flex justify-end gap-2">
+            <button type="button"
+                class="px-4 py-2 rounded-lg text-sm font-semibold border border-slate-300 text-slate-700 hover:bg-slate-50"
+                (click)="closeSubmitModal()">Cancel</button>
+            <button type="button"
+                class="px-4 py-2 rounded-lg text-sm font-semibold bg-emerald-800 text-white hover:bg-emerald-900"
+                (click)="confirmSubmit()">Submit Report</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 transition-all duration-300 z-[200] bg-emerald-950 text-white px-5 py-3 rounded-lg text-sm flex items-center gap-2 shadow-xl"
+    [ngClass]="toastVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'">
+    <svg class="w-4 h-4 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M20 6L9 17l-5-5" />
+    </svg>
+    <span>{{ toastMessage }}</span>
+</div>
