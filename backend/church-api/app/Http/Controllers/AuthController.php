@@ -2,47 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Log in and issue an API token.
      */
-    public function index()
+    public function login(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        if (!Auth::attempt($credentials)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+
+        $user = User::where('email', $credentials['email'])->firstOrFail();
+
+        // Optional: wipe old tokens so a user only has one active session/device.
+        // $user->tokens()->delete();
+
+        $token = $user->createToken('api-token')->plainTextToken;
+
+        return response()->json([
+            'user'  => $user,
+            'token' => $token,
+        ], 200);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Log out (revoke the current token).
      */
-    public function store(Request $request)
+    public function logout(Request $request)
     {
-        //
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out successfully.'], 200);
     }
 
     /**
-     * Display the specified resource.
+     * Get the currently authenticated user.
      */
-    public function show(string $id)
+    public function me(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json($request->user(), 200);
     }
 }
