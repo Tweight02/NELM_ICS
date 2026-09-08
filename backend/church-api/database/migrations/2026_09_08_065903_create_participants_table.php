@@ -12,8 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('participants', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('participant_id');
+            $table->foreignId('event_id')
+                ->constrained('events', 'event_id')
+                ->cascadeOnDelete();
+            $table->foreignId('church_id')
+                ->constrained('churches', 'church_id')
+                ->cascadeOnDelete();
+            $table->string('registration_status');
+            $table->string('first_name');
+            $table->string('middle_name');
+            $table->string('last_name');
+            $table->string('extension_name')->nullable();
+            $table->date('birthdate');
+            $table->int('age');
+            $table->string('gender');
         });
     }
 
