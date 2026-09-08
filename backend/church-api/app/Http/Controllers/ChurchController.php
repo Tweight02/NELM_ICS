@@ -7,13 +7,14 @@ use App\Models\User;
 
 class ChurchController extends Controller
 {
+    private const ROLE = 'church_representative';
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        return response()->json(User::where('role','church_representative'), 200);
+        return response()->json(User::where('role', self::ROLE)->get(), 200);
     }
 
     /**
@@ -21,10 +22,15 @@ class ChurchController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $data = $request->all();
-        $data['role'] = 'church_rep'; // enforce role, don't trust the request body for this
-        $churchRep = User::create($data);
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $validated['role'] = self::ROLE; // enforce role, don't trust the request body for this
+        $churchRep = User::create($validated);
+
         return response()->json($churchRep, 201);
     }
 
@@ -33,8 +39,7 @@ class ChurchController extends Controller
      */
     public function show($id)
     {
-        //
-        $churchRep = User::where('role', 'church_rep')->find($id);
+        $churchRep = User::where('role', self::ROLE)->find($id);
         if (is_null($churchRep)) {
             return response()->json(['message' => 'Church representative not found.'], 404);
         }
@@ -46,12 +51,19 @@ class ChurchController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-        $churchRep = User::where('role', 'church_rep')->find($id);
+        $churchRep = User::where('role', self::ROLE)->find($id);
         if (is_null($churchRep)) {
             return response()->json(['message' => 'Church representative not found.'], 404);
         }
-        $churchRep->update($request->all());
+
+        $validated = $request->validate([
+            'name'     => 'sometimes|string|max:255',
+            'email'    => 'sometimes|email|unique:users,email,' . $id,
+            'password' => 'sometimes|string|min:8',
+        ]);
+
+        $churchRep->update($validated); // 'role' isn't in $validated, so it can't be overwritten
+
         return response()->json($churchRep, 200);
     }
 
@@ -60,12 +72,12 @@ class ChurchController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-        $churchRep = User::where('role', 'church_rep')->find($id);
+        $churchRep = User::where('role', self::ROLE)->find($id);
         if (is_null($churchRep)) {
             return response()->json(['message' => 'Church representative not found.'], 404);
         }
         $churchRep->delete();
+
         return response()->json(null, 204);
     }
 }
