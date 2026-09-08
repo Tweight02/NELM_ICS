@@ -12,8 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('event_id');
+            $table->foreignId('par_item_id')
+                ->constrained('particular_items', 'par_item_id')
+                ->cascadeOnDelete();
+            $table->string('type');
+            $table->string('title');
+            $table->date('date_start');
+            $table->date('date_end');
+            $table->string('description');
+            $table->string('status');
+            $table->time('time');
+            $table->string('address');
         });
     }
 

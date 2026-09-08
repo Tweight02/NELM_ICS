@@ -12,8 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('baptisms', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('baptism_id');
+            $table->foreignId('churches_id')
+                ->constrained('churches', 'church_id')
+                ->cascadeOnDelete();
+            $table->string('first_name');
+            $table->string('middle_name');
+            $table->string('last_name');
+            $table->string('extension_name')->nullable();
+            $table->date('birthdate');
+            $table->string('gender');
+            $table->string('address');
+            $table->string('church');
+            $table->string('officiating_minister');
+            $table->string('place_of_baptism');
+            $table->date('date_of_baptism');
+            $table->int('age');
+            $table->string('marital');
+            $table->boolean('is_reclaimed');
         });
     }
 

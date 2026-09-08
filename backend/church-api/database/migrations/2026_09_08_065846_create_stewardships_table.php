@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('stewardships', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('stewardship_id');
+            $table->foreignId('par_item_id')
+                ->constrained('particular_items', 'par_item_id')
+                ->cascadeOnDelete();
+            $table->string('type');
+            $table->string('month');
+            $table->string('value');
         });
     }
 

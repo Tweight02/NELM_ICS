@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('announce_by')
+                ->constrained('users', 'user_id')
+                ->cascadeOnDelete();
+            $table->foreignId('church_id')
+                ->constrained('churches', 'church_id')
+                ->cascadeOnDelete();
+            $table->string('details');
+            $table->date('date_announced');
         });
     }
 

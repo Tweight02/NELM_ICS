@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('comment_id');
+            $table->foreignId('par_item_id')
+                ->constrained('particular_items', 'par_item_id')
+                ->cascadeOnDelete();
+            $table->foreignId('commented_by')
+                ->constrained('users', 'user_id')
+                ->cascadeOnDelete();
+            $table->string('details');
+            $table->date('date');
         });
     }
 
