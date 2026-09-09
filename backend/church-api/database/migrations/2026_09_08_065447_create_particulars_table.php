@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('particulars', function (Blueprint $table) {
             $table->id('particular_id');
-            $table->foreignId('program_id');
+            $table->foreignId('program_id')
+                ->constrained('programs','program_id')
+                ->cascadeOnDelete();
+            $table->string('particular_name');
         });
     }
 
