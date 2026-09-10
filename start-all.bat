@@ -2,13 +2,13 @@
 title ICS NELM Development Servers
 
 echo Starting Main API...
-start "Main API - 8001" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\main-api && php artisan serve --host=api.icsnelm.test --port=8001"
+start "Main API - 8001" cmd /k "cd /d D:\4th year [ 1st sem ]\capstone\NELM_ICS\backend\main-api && php artisan serve --host=api.icsnelm.test --port=8001"
 
 @REM echo Starting Pastor API...
 @REM start "Pastor API - 8000" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\pastor-api && php artisan serve --host=api.icsnelm.test --port=8000"
 
 echo Starting Church API...
-start "Pastor API - 8002" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\church-api && php artisan serve --host=api.icsnelm.test --port=8002"
+start "Pastor API - 8002" cmd /k "cd /d D:\4th year [ 1st sem ]\capstone\NELM_ICS\backend\church-api && php artisan serve --host=api.icsnelm.test --port=8002"
 
 @REM echo Starting Secretary API...
 @REM start "Pastor API - 8003" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\secretary-api && php artisan serve --host=api.icsnelm.test --port=8003"
@@ -17,7 +17,7 @@ start "Pastor API - 8002" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\chu
 @REM start "Pastor API - 8004" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\backend\director-api && php artisan serve --host=api.icsnelm.test --port=8004"
 
 echo Starting Angular...
-start "Angular - 4200" cmd /k "cd /d C:\Users\pc\Desktop\ICS_NELM\frontend && ng serve --host=app.icsnelm.test --port=4200"
+start "Angular - 4200" cmd /k "cd /d D:\4th year [ 1st sem ]\capstone\NELM_ICS\frontend && ng serve --host=app.icsnelm.test --port=4200"
 
 echo.
 echo All servers are starting...
