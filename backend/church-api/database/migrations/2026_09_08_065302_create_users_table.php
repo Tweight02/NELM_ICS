@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('department_id')
                 ->constrained('departments','department_id')
                 ->cascadeOnDelete();
+            $table->foreignId('church_id')
+                ->constrained('churches', 'church_id')
+                ->cascadeOnDelete();
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
@@ -23,6 +26,9 @@ return new class extends Migration
             $table->date('birthdate');
             $table->string('gender');
             $table->string('role');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->rememberToken();
             
             // Indexes
             $table->index('role');

@@ -21,11 +21,19 @@ class User extends Authenticatable
      */
 
     public $timestamps = false;
+    protected $primaryKey = 'user_id';
 
     protected $fillable = [
-        'name',
-        'email',
+        'department_id',
+        'church_id',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'extension_name',
+        'birthdate',
+        'gender',
         'role',
+        'email',
         'password',
     ];
 
@@ -47,6 +55,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'birthdate'         => 'date',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];

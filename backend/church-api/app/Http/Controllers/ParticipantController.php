@@ -9,11 +9,17 @@ class ParticipantController extends Controller
 {
     private const ROLE = 'participant';
 
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         return response()->json(User::where('role', self::ROLE)->get(), 200);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -28,6 +34,9 @@ class ParticipantController extends Controller
         return response()->json($participant, 201);
     }
 
+    /**
+     * Display the specified resource.
+     */
     public function show($id)
     {
         $participant = User::where('role', self::ROLE)->find($id);
@@ -37,6 +46,9 @@ class ParticipantController extends Controller
         return response()->json($participant, 200);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, string $id)
     {
         $participant = User::where('role', self::ROLE)->find($id);
@@ -55,6 +67,9 @@ class ParticipantController extends Controller
         return response()->json($participant, 200);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
         $participant = User::where('role', self::ROLE)->find($id);
