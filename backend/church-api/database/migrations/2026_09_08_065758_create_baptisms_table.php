@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('officiating_minister');
             $table->string('place_of_baptism');
             $table->date('date_of_baptism');
-            $table->int('age');
+            $table->integer('age');
             $table->string('marital');
             $table->boolean('is_reclaimed');
         });

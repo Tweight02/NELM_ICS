@@ -23,7 +23,7 @@ class ChurchController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'     => 'required|string|max:255',
+            'first_name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
         ]);
@@ -57,7 +57,7 @@ class ChurchController extends Controller
         }
 
         $validated = $request->validate([
-            'name'     => 'sometimes|string|max:255',
+            'first_name'     => 'sometimes|string|max:255',
             'email'    => 'sometimes|email|unique:users,email,' . $id,
             'password' => 'sometimes|string|min:8',
         ]);

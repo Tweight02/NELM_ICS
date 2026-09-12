@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('extension_name')->nullable();
             $table->date('birthdate');
-            $table->int('age');
+            $table->integer('age');
             $table->string('gender');
         });
     }

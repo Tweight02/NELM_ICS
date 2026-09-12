@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('churches', function (Blueprint $table) {
             $table->id('church_id');
             $table->string('name');
-            $table->string('address');
-            $table->int('parent_id');
+            $table->string('address')->nullable();
+            $table->integer('parent_id')->nullable();
 
             // Indexes
             $table->index('name');

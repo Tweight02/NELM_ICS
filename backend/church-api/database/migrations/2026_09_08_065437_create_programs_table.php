@@ -17,7 +17,7 @@ return new class extends Migration
                 ->constrained('departments','department_id')
                 ->cascadeOnDelete();
             $table->string('program_name');
-            $table->int('parent_id')->nullable();
+            $table->integer('parent_id')->nullable();
         });
     }
 
