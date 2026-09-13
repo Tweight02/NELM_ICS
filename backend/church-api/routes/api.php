@@ -9,21 +9,7 @@ use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\SecretaryController;
 
-// Public
-Route::post('/login', [AuthController::class, 'login']);
-
-// Protected
-Route::middleware('auth:sanctum')->group(function () {
-    // Route::get('/user', function (Request $request) {
-    //     return $request->user();
-    // });
-    // or, now that AuthController exists:
-    Route::get('/me', [AuthController::class, 'me']);
-
-    Route::post('/logout', [AuthController::class, 'logout']);
-});
-
-Route::middleware(['auth:sanctum', 'role:church_rep'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:church_representative'])->group(function () {
     Route::apiResource('church-representative', ChurchController::class);
 });
 
