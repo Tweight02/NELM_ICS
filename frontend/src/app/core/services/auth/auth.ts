@@ -1,10 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap, tap, catchError, of } from 'rxjs';
 
 export interface User {
     id: number;
-    name: string;
+    first_name: string;
     email: string;
     role: string;
 }
@@ -22,11 +23,19 @@ export class AuthService {
     private mainApiUrl = 'http://api.icsnelm.test:8001';
     private rootUrl = 'http://api.icsnelm.test:8001'; // for /sanctum/csrf-cookie
 
+    private platformId = inject(PLATFORM_ID);
+
     currentUser = signal<User | null>(null);
     isLoading = signal<boolean>(true);
 
     constructor(private http: HttpClient) {
-        this.restoreUser();
+        if (isPlatformBrowser(this.platformId)) {
+            this.restoreUser();
+        } else {
+            // SSR pass has no browser cookies to check — don't call the API,
+            // and don't leave isLoading stuck true forever on the server render
+            this.isLoading.set(false);
+        }
     }
 
     /**
@@ -58,14 +67,27 @@ export class AuthService {
     /**
      * Restore user on page refresh — ask the server, since there's no
      * token to check locally. The cookie (if valid) is sent automatically.
+     * Only ever called client-side (see constructor) — never during SSR.
      */
-    private restoreUser(): void {
-        this.http.get<User>(`${this.mainApiUrl}/user`, { withCredentials: true }).pipe(
-            catchError(() => {
+    public restoreUser(): void {
+        this.isLoading.set(true);
+
+        this.http.get<User>(
+            `${this.mainApiUrl}/user`,
+            { withCredentials: true }
+        ).pipe(
+            catchError(error => {
+                console.error('RESTORE USER ERROR:', error);
+                console.error('Status:', error.status);
+                console.error('Response:', error.error);
                 this.currentUser.set(null);
+                this.isLoading.set(false);
+
                 return of(null);
             })
         ).subscribe(user => {
+            console.log('RESTORED USER:', user);
+
             this.currentUser.set(user);
             this.isLoading.set(false);
         });
