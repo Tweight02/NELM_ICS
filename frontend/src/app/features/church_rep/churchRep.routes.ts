@@ -17,5 +17,4 @@ export const churchRepRoutes: Routes = [
         path: 'announcement',
         loadComponent: () => import('./announcement/announcement').then(m=>m.Announcement)
     },
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

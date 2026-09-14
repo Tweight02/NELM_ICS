@@ -6,8 +6,32 @@ import { Observable, switchMap, tap, catchError, of } from 'rxjs';
 export interface User {
     id: number;
     first_name: string;
+    middle_name: string;
+    last_name: string;
     email: string;
+    birthdate: Date;
+    gender: string;
     role: string;
+    department_id: number;
+    church_id: number;
+    church?: {
+        church_id: number;
+        name: string;
+        address?: string;
+        parent_id?: number;
+        district?: {
+            church_id: number;
+            name: string;
+            address?: string;
+            parent_id?: number;
+        };
+    };
+    department?: Department;
+}
+
+export interface Department {
+    department_id: number;
+    department_name: string;
 }
 
 export interface LoginResponse {
@@ -29,11 +53,7 @@ export class AuthService {
     isLoading = signal<boolean>(true);
 
     constructor(private http: HttpClient) {
-        if (isPlatformBrowser(this.platformId)) {
-            this.restoreUser();
-        } else {
-            // SSR pass has no browser cookies to check — don't call the API,
-            // and don't leave isLoading stuck true forever on the server render
+        if (!isPlatformBrowser(this.platformId)) {
             this.isLoading.set(false);
         }
     }
@@ -107,5 +127,26 @@ export class AuthService {
      */
     isLoggedIn(): boolean {
         return this.currentUser() !== null;
+    }
+
+    /**
+     * Role-based helpers — centralize this logic here rather than
+     * repeating role checks across components.
+     */
+    canEdit(): boolean {
+        const role = this.currentUser()?.role;
+        return role === 'church_representative' || role === 'pastor';
+    }
+
+    isReadOnly(): boolean {
+        return !this.canEdit();
+    }
+
+    isDirector(): boolean {
+        return this.currentUser()?.role === 'director';
+    }
+
+    isSecretary(): boolean {
+        return this.currentUser()?.role === 'secretary';
     }
 }
