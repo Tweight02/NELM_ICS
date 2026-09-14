@@ -60,4 +60,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'department_id');
+    }
+
+    public function church()
+    {
+        return $this->belongsTo(Church::class, 'church_id', 'church_id');
+    }
 }

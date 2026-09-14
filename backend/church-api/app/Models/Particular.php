@@ -25,4 +25,9 @@ class Particular extends Model
     {
         return $this->belongsTo(Program::class, 'program_id', 'program_id');
     }
+
+    public function items()
+    {
+        return $this->hasMany(ParticularItem::class, 'particular_id', 'particular_id');
+    }
 }
