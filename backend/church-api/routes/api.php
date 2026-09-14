@@ -8,9 +8,13 @@ use App\Http\Controllers\PastorController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\SecretaryController;
+use App\Http\Controllers\Api\ReportController;
 
+// routes/api.php
 Route::middleware(['auth:sanctum', 'role:church_representative'])->group(function () {
-    Route::apiResource('church-representative', ChurchController::class);
+    Route::get('church_representative/home', [ReportController::class, 'getPrograms']);
+    Route::post('church_representative/report-value',[ReportController::class, 'saveReportValue']);
+    Route::apiResource('church_representative', ChurchController::class);
 });
 
 Route::middleware(['auth:sanctum', 'role:pastor'])->group(function () {
@@ -28,3 +32,4 @@ Route::middleware(['auth:sanctum', 'role:participant'])->group(function () {
 Route::middleware(['auth:sanctum', 'role:secretary'])->group(function () {
     Route::apiResource('secretary', SecretaryController::class);
 });
+

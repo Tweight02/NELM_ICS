@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('particular_id')
                 ->constrained('particulars', 'particular_id')
                 ->cascadeOnDelete();
-            $table->foreignId('approved_by')
+            $table->foreignId('approved_by')->nullable()
                 ->constrained('users', 'user_id')
                 ->cascadeOnDelete();
-            $table->foreignId('endorsed_by')
+            $table->foreignId('endorsed_by')->nullable()
                 ->constrained('users', 'user_id')
                 ->cascadeOnDelete();
             $table->foreignId('submitted_by')
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('quarter');
             $table->string('year');
             $table->date('date_submitted');
-            $table->date('date_approved');
+            $table->date('date_approved')->nullable();
             $table->string('particulars_value');
             $table->string('status');
         });

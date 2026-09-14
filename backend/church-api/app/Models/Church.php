@@ -16,4 +16,9 @@ class Church extends Model
         'address',
         'parent_id'
     ];
+
+    public function district()
+    {
+        return $this->belongsTo(Church::class, 'parent_id', 'church_id');
+    }
 }

@@ -13,7 +13,7 @@ class ParticularPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class ParticularPolicy
      */
     public function view(User $user, Particular $particular): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class ParticularPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return in_array($user->role, ['pastor', 'church_representative']);
     }
 
     /**
@@ -37,7 +37,7 @@ class ParticularPolicy
      */
     public function update(User $user, Particular $particular): bool
     {
-        return false;
+        return in_array($user->role, ['pastor', 'church_representative']);
     }
 
     /**
@@ -45,7 +45,7 @@ class ParticularPolicy
      */
     public function delete(User $user, Particular $particular): bool
     {
-        return false;
+        return in_array($user->role, ['pastor', 'church_representative']);
     }
 
     /**
