@@ -26,7 +26,16 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return response()->json(['user' => Auth::user()]);
+        $user = Auth::user();
+
+        if (! $user instanceof User) {
+            throw ValidationException::withMessages([
+                'email' => ['Invalid credentials.'],
+            ]);
+        }
+        
+
+        return response()->json(['user' => $user->load(['department', 'church.district'])]);
     }
 
     public function logout(Request $request)
@@ -40,6 +49,10 @@ class AuthController extends Controller
 
     public function me(Request $request)
     {
-        return response()->json($request->user());
+        $user = $request->user();
+        if (! $user instanceof User) {
+            return response()->json(null);
+        }
+        return response()->json($user->load(['department', 'church.district']));
     }
 }
