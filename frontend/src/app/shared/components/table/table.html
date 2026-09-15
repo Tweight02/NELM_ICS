@@ -1,0 +1,41 @@
+<div class="rounded-xl overflow-hidden border border-stone-200 bg-white">
+    <table class="w-full border-collapse text-sm">
+        <thead>
+            <tr class="border-b border-stone-200">
+                <th class="p-2"></th>
+                <th class="p-2 text-left font-serif text-stone-600">Item</th>
+                <th class="p-2 text-center text-stone-400 tabular-nums" *ngFor="let q of quarters">{{ q }}</th>
+                <th class="p-2 text-center text-stone-400 tabular-nums">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let section of sections">
+                <tr>
+                    <td [attr.colspan]="3 + quarters.length"
+                        [class]="'px-3 py-1.5 font-serif font-medium border-l-4 ' + accentClass">
+                        {{ section.name }}
+                    </td>
+                </tr>
+                <tr class="border-b border-stone-100" *ngFor="let row of section.rows">
+                    <td class="p-2 text-right text-xs font-serif text-stone-300 tabular-nums">{{ row.rowNumber }}</td>
+                    <td class="p-2 px-3">{{ row.label }}</td>
+
+                    <td class="p-1 text-center" *ngFor="let q of quarters; let i = index">
+                        <ng-container *ngIf="editable; else readonlyCell">
+                            <input type="number" min="0" class="w-14 text-center tabular-nums rounded border border-stone-300 py-1
+                       focus:outline-none focus:ring-1 focus:ring-indigo-500" [(ngModel)]="getValues(row.id)[i]"
+                                (ngModelChange)="onCellChange()" />
+                        </ng-container>
+                        <ng-template #readonlyCell>
+                            <span class="tabular-nums">{{ getValues(row.id)[i] }}</span>
+                        </ng-template>
+                    </td>
+
+                    <td class="p-2 text-center font-medium tabular-nums">
+                        {{ row.hasTotal ? rowTotal(row.id) : '—' }}
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>
