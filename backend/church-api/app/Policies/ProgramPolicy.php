@@ -13,7 +13,7 @@ class ProgramPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class ProgramPolicy
      */
     public function view(User $user, Program $program): bool
     {
-        return false;
+        return true;
     }
 
     /**

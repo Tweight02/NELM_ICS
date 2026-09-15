@@ -13,7 +13,7 @@ class ParticularItemPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class ParticularItemPolicy
      */
     public function view(User $user, ParticularItem $particularItem): bool
     {
-        return false;
+        return in_array($user->role, ['pastor', 'church_representative', 'secretary', 'director']);
     }
 
     /**
@@ -29,7 +29,7 @@ class ParticularItemPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return in_array($user->role, ['pastor', 'church_representative']);
     }
 
     /**
