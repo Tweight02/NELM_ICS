@@ -355,16 +355,6 @@ export class Home implements OnInit {
         //
         this.loading = false;
 
-
-        // ------------------------------------------------------
-        // 15. TELL ANGULAR TO UPDATE THE SCREEN
-        // ------------------------------------------------------
-        //
-        // Required because we're using OnPush change detection.
-        //
-        // Without this, Angular may not immediately refresh the
-        // screen after the API response.
-        //
         this.cdr.markForCheck();
       },
 
@@ -374,13 +364,6 @@ export class Home implements OnInit {
       // ========================================================
       error: (err) => {
 
-        // ------------------------------------------------------
-        // 16. LOG ERROR FOR DEVELOPERS
-        // ------------------------------------------------------
-        //
-        // Open browser DevTools → Console to see the actual
-        // error.
-        //
         console.error('Failed to load programs:', err);
 
 

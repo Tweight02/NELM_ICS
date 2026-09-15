@@ -1,1 +1,413 @@
-<p>events works!</p>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full px-6 py-6">
+
+    <!-- Calendar -->
+    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+
+            <button type="button" (click)="previousMonth()" class="w-10 h-10 flex items-center justify-center rounded-lg
+               hover:bg-gray-100 text-gray-600 text-2xl">
+                ‹
+            </button>
+
+            <h2 class="text-xl font-semibold text-gray-800">
+                {{ monthName }} {{ currentYear }}
+            </h2>
+
+            <button type="button" (click)="nextMonth()" class="w-10 h-10 flex items-center justify-center rounded-lg
+               hover:bg-gray-100 text-gray-600 text-2xl">
+                ›
+            </button>
+
+        </div>
+
+        <!-- Weekdays -->
+        <div class="grid grid-cols-7 mb-2">
+
+            <div *ngFor="let day of weekdays" class="text-center text-sm font-semibold text-gray-500 py-2">
+                {{ day }}
+            </div>
+
+        </div>
+
+        <!-- Days -->
+        <div class="grid grid-cols-7 gap-1">
+
+            <div *ngFor="let day of calendarDays" class="aspect-square flex flex-col items-center justify-center">
+
+                <button *ngIf="day" type="button" (click)="selectDate(day)" class="w-10 h-10 rounded-full flex items-center justify-center
+                 text-sm transition" [ngClass]="{
+            'bg-gray-900 text-white': selectedDate === day,
+            'border-2 border-gray-900 font-semibold': isToday(day) && selectedDate !== day,
+            'text-gray-700 hover:bg-gray-100': selectedDate !== day}">
+                    {{ day }}
+                </button>
+
+                <span *ngIf="hasEvents(day)" class="w-1.5 h-1.5 rounded-full bg-blue-600 -mt-1"></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Side Panel -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            {{ selectedDate ? monthName + ' ' + selectedDate : 'Select a date' }}
+        </h2>
+
+        <div *ngIf="!selectedDate" class="text-gray-500 text-sm">
+            Select a date from the calendar to view the schedule.
+        </div>
+
+        <div *ngIf="selectedDate">
+
+            <div class="border-t border-gray-200 my-4"></div>
+
+            <h3 class="font-semibold text-gray-700 mb-3">
+                Schedule
+            </h3>
+
+            <div *ngIf="selectedDateEvents.length === 0" class="text-sm text-gray-500">
+                No events for this date.
+            </div>
+
+
+            <div *ngFor="let event of selectedDateEvents" (click)="openEventModal(event)"
+                class="group mb-4 cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-300 hover:shadow-md">
+                <!-- Event Date -->
+                <div class="flex items-center gap-3 border-b border-gray-100 bg-gray-50 px-4 py-3">
+
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+
+                    <div class="min-w-0">
+                        <p class="text-xs font-medium uppercase tracking-wide text-gray-500">
+                            Event Date
+                        </p>
+
+                        <p class="text-sm font-semibold text-gray-800">
+                            {{ event.date_start | date:'MMM d, y' }}
+
+                            <span class="mx-1 text-gray-400">→</span>
+
+                            {{ event.date_end | date:'MMM d, y' }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Event Details -->
+                <div class="p-4">
+
+                    <div class="flex items-start justify-between gap-3">
+
+                        <h3 class="text-base font-semibold text-gray-900 group-hover:text-gray-700">
+                            {{ event.title }}
+                        </h3>
+                    </div>
+
+                    <!-- Time -->
+                    <div *ngIf="event.time" class="mt-3 flex items-center gap-2 text-sm text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+
+                        <span>{{ event.time }}</span>
+                    </div>
+
+                    <!-- Address -->
+                    <div *ngIf="event.address" class="mt-2 flex items-center gap-2 text-sm text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.657 16.657L13.414 21a2 2 0 01-2.828 0l-4.243-4.343a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </svg>
+
+                        <span class="truncate">{{ event.address }}</span>
+                    </div>
+
+                    <!-- Click hint -->
+                    <div class="mt-4 flex items-center justify-end">
+                        <span class="text-xs font-medium text-gray-400 group-hover:text-gray-600">
+                            Click to view details →
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <a routerLink="create-event">
+                <button type="button"
+                    class="mt-6 w-full bg-gray-900 text-white rounded-lg px-4 py-2.5 text-sm font-medium hover:bg-gray-800 transition">
+                    + Add Event
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+<!-- Event Details Modal -->
+<div
+    *ngIf="selectedEvent"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+    (click)="closeEventModal()"
+>
+    <!-- Modal -->
+    <div
+        class="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl"
+        (click)="$event.stopPropagation()"
+    >
+
+        <!-- Modal Header -->
+        <div class="flex items-start justify-between border-b border-gray-100 px-6 py-5">
+
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    Event Details
+                </p>
+
+                <h2 class="mt-1 text-xl font-bold text-gray-900">
+                    {{ selectedEvent.title }}
+                </h2>
+            </div>
+
+            <!-- Close -->
+            <button
+                type="button"
+                (click)="closeEventModal()"
+                class="flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-700"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                    />
+                </svg>
+            </button>
+
+        </div>
+
+        <!-- Modal Body -->
+        <div class="space-y-5 px-6 py-6">
+
+            <!-- Date -->
+            <div class="flex items-start gap-4">
+
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-100">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 text-gray-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                    </svg>
+                </div>
+
+                <div>
+                    <p class="text-xs font-medium text-gray-400">
+                        Date
+                    </p>
+
+                    <p class="mt-1 text-sm font-semibold text-gray-800">
+                        {{ selectedEvent.date_start | date:'MMMM d, y' }}
+                        <span class="mx-1 text-gray-400">→</span>
+                        {{ selectedEvent.date_end | date:'MMMM d, y' }}
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Time -->
+            <div
+                *ngIf="selectedEvent.time"
+                class="flex items-start gap-4"
+            >
+
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-100">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 text-gray-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                    </svg>
+                </div>
+
+                <div>
+                    <p class="text-xs font-medium text-gray-400">
+                        Time
+                    </p>
+
+                    <p class="mt-1 text-sm font-semibold text-gray-800">
+                        {{ selectedEvent.time }}
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Venue -->
+            <div
+                *ngIf="selectedEvent.address"
+                class="flex items-start gap-4"
+            >
+
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-100">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 text-gray-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17.657 16.657L13.414 21a2 2 0 01-2.828 0l-4.243-4.343a8 8 0 1111.314 0z"
+                        />
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                    </svg>
+                </div>
+
+                <div>
+                    <p class="text-xs font-medium text-gray-400">
+                        Venue
+                    </p>
+
+                    <p class="mt-1 text-sm font-semibold text-gray-800">
+                        {{ selectedEvent.address }}
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Participants -->
+            <div class="rounded-xl border border-gray-200 bg-gray-50 p-4">
+
+                <div class="flex items-center justify-between">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white shadow-sm">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 text-gray-600"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                                />
+                            </svg>
+                        </div>
+
+                        <div>
+                            <p class="text-xs font-medium text-gray-400">
+                                Total Participants
+                            </p>
+
+                            <p class="text-2xl font-bold text-gray-900">
+                                0
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <span class="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-600">
+                        Participants
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- Description -->
+            <div *ngIf="selectedEvent.description">
+
+                <p class="mb-2 text-xs font-medium uppercase tracking-wide text-gray-400">
+                    Description
+                </p>
+
+                <p class="text-sm leading-relaxed text-gray-600">
+                    {{ selectedEvent.description }}
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="flex gap-3 border-t border-gray-100 bg-gray-50 px-6 py-4">
+
+            <button
+                type="button"
+                (click)="closeEventModal()"
+                class="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            >
+                Close
+            </button>
+
+            <button
+                type="button"
+                (click)="manageEvent(selectedEvent)"
+                class="flex-1 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-800"
+            >
+                Manage Event
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+
+</div>
