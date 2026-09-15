@@ -11,7 +11,15 @@ export const churchRepRoutes: Routes = [
     },
     {
         path: 'event',
-        loadComponent: () => import('./events/events').then(m=> m.Events)
+        loadComponent: () => import('./events/events').then(m=> m.Events),
+    },
+    {
+        path: 'event/create-event',
+        loadComponent: () => import('./create-event/create-event').then(m => m.CreateEvent),
+    },
+    {
+        path: 'event/manage-event/:event_id',
+        loadComponent: () => import('./manage-event/manage-event').then(m => m.ManageEvent),
     },
     {
         path: 'announcement',

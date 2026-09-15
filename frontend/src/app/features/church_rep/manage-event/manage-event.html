@@ -1,0 +1,36 @@
+<div *ngIf="event" class="p-6">
+
+    <h1 class="text-2xl font-bold">
+        {{ event.title }}
+    </h1>
+
+    <div class="mt-4 space-y-2 text-gray-600">
+
+        <p>
+            <strong>Start:</strong>
+            {{ event.date_start | date:'medium' }}
+        </p>
+
+        <p>
+            <strong>End:</strong>
+            {{ event.date_end | date:'medium' }}
+        </p>
+
+        <p *ngIf="event.time">
+            <strong>Time:</strong>
+            {{ event.time }}
+        </p>
+
+        <p *ngIf="event.address">
+            <strong>Venue:</strong>
+            {{ event.address }}
+        </p>
+
+        <p *ngIf="event.description">
+            <strong>Description:</strong>
+            {{ event.description }}
+        </p>
+
+    </div>
+
+</div>
