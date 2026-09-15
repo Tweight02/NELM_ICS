@@ -14,6 +14,7 @@ class ReportController extends Controller
     public function getPrograms()
     {
         $user = Auth::user();
+        
 
         $department = Department::where(
             'department_id',
@@ -86,15 +87,6 @@ class ReportController extends Controller
             ],
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Security check
-        |--------------------------------------------------------------------------
-        |
-        | Make sure the particular being submitted actually belongs
-        | to a program under the logged-in user's department.
-        |
-        */
         $particular = Particular::where(
             'particular_id',
             $validated['particular_id']
@@ -111,15 +103,7 @@ class ReportController extends Controller
                 'message' => 'You are not authorized to save this report value.'
             ], 403);
         }
-        /*
-        |--------------------------------------------------------------------------
-        | Save / Update report value
-        |--------------------------------------------------------------------------
-        |
-        | One record per:
-        | church + particular + quarter + year
-        |
-        */
+
         $report = ParticularItem::updateOrCreate(
             [
                 'particular_id' => $validated['particular_id'],
