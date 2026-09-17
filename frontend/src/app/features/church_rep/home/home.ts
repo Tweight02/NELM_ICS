@@ -54,34 +54,63 @@ export class Home implements OnInit {
 
   /**
    * ============================================================
-   * LOAD REPORT PROGRAMS
+   * PREPARE PARTICULARS FOR A PROGRAM
    * ============================================================
    *
-   * PURPOSE:
-   * Loads the department's programs and their report particulars
-   * from the Laravel API, then prepares the data for the table.
+   * Works for BOTH parent and child programs.
    *
-   * DATA FLOW:
+   * Converts the raw quarter items for the current year into
+   * numbers (q1-q4) and precomputes the annual `total` ONCE,
+   * instead of recalculating it inside the HTML template on
+   * every change-detection pass.
    *
-   * Laravel API
-   *    ↓
-   * Department
-   *    ↓
-   * Parent Programs
-   *    ↓
-   * Child Programs
-   *    ↓
-   * Particulars
-   *    ↓
-   * Angular Report Table
-   *
-   *
-   * IMPORTANT:
-   * - This method runs when the Home page opens.
-   * - The API request is made through ReportService.
-   * - Annual totals are calculated ONCE here.
-   * - The HTML should only DISPLAY the prepared values.
-   *
+   * If a program has no `particulars` (e.g. a parent that is
+   * purely a section header with no report values of its own),
+   * this simply returns an empty array.
+   */
+  private mapParticulars(program: Program): ReportParticular[] {
+
+    const year = new Date().getFullYear();
+
+    const valueFor = (
+      particular: Particular,
+      quarter: 'Q1' | 'Q2' | 'Q3' | 'Q4'
+    ): number =>
+      Number(
+        particular.items?.find(
+          item =>
+            item.quarter === quarter &&
+            Number(item.year) === year
+        )?.particulars_value ?? 0
+      );
+
+    return (program.particulars ?? []).map((particular) => {
+
+      const q1 = valueFor(particular, 'Q1');
+      const q2 = valueFor(particular, 'Q2');
+      const q3 = valueFor(particular, 'Q3');
+      const q4 = valueFor(particular, 'Q4');
+
+      return {
+        ...particular,
+
+        q1,
+        q2,
+        q3,
+        q4,
+
+        // ANNUAL TOTAL
+        //
+        // Calculated once here instead of repeatedly inside
+        // the HTML template.
+        total: q1 + q2 + q3 + q4
+      };
+    });
+  }
+
+  /**
+   * ============================================================
+   * LOAD REPORT PROGRAMS
    * ============================================================
    */
   private loadPrograms() {
@@ -89,40 +118,18 @@ export class Home implements OnInit {
     // ----------------------------------------------------------
     // 1. START LOADING STATE
     // ----------------------------------------------------------
-    //
-    // loading = true tells the HTML to show the loading UI.
-    //
-    // If you change the loading design (spinner/skeleton/etc.),
-    // you normally DON'T need to change this line.
-    //
     this.loading = true;
 
 
     // ----------------------------------------------------------
     // 2. CLEAR PREVIOUS ERROR
     // ----------------------------------------------------------
-    //
-    // If a previous API request failed, remove that error before
-    // starting a new request.
-    //
     this.error = null;
 
 
     // ----------------------------------------------------------
     // 3. REQUEST DATA FROM LARAVEL
     // ----------------------------------------------------------
-    //
-    // IMPORTANT:
-    // If the report is taking a long time to load, this is one
-    // of the FIRST places to investigate.
-    //
-    // The actual API request is inside:
-    //
-    //     reportService.getProgram()
-    //
-    // DO NOT put database queries here.
-    // Database optimization belongs in Laravel.
-    //
     this.reportService.getProgram().subscribe({
 
       // ========================================================
@@ -133,47 +140,18 @@ export class Home implements OnInit {
         // ------------------------------------------------------
         // 4. SAVE DEPARTMENT DATA
         // ------------------------------------------------------
-        //
-        // Laravel returns something similar to:
-        //
-        // department
-        //   └── programs
-        //         └── children
-        //               └── particulars
-        //
-        // We save the complete department response here.
-        //
         this.department = data as Department;
 
 
         // ------------------------------------------------------
         // 5. GET PARENT PROGRAMS
         // ------------------------------------------------------
-        //
-        // `programs` contains the top-level programs returned
-        // by Laravel.
-        //
-        // `?? []` prevents an error if Laravel returns null.
-        //
-        // Example:
-        //
-        // programs:
-        //   - Administration
-        //   - Evangelism
-        //   - Youth Ministry
-        //
         const parentPrograms = this.department.programs ?? [];
 
 
         // ------------------------------------------------------
         // 6. RESET THE DISPLAY ARRAY
         // ------------------------------------------------------
-        //
-        // `this.programs` is the array actually used by the
-        // HTML table.
-        //
-        // We rebuild it from the API response.
-        //
         this.programs = [];
 
 
@@ -191,20 +169,21 @@ export class Home implements OnInit {
           // 8. ADD PARENT PROGRAM
           // ----------------------------------------------------
           //
-          // Parent programs are displayed as section headers.
+          // Parent programs now carry their OWN particulars too
+          // (via mapParticulars), in addition to being displayed
+          // as section headers. If a parent has no particulars
+          // of its own, mapParticulars simply returns [].
           //
-          // We intentionally give them an empty `particulars`
-          // array because the current report structure displays
-          // the CHILD programs' particulars.
+          // NOTE: `...parent` also spreads `children` onto this
+          // object, so each pushed parent still carries its full
+          // subtree. That's unchanged from before; drop it here
+          // with a destructure if it ever becomes a problem:
           //
-          // IMPORTANT:
-          // If your business logic changes and parent programs
-          // should also contain report values, this is one of
-          // the places you will need to modify.
+          //     const { children, ...parentFields } = parent;
           //
           this.programs.push({
             ...parent,
-            particulars: []
+            particulars: this.mapParticulars(parent)
           } as ReportProgram);
 
 
@@ -212,141 +191,23 @@ export class Home implements OnInit {
           // 9. LOOP THROUGH CHILD PROGRAMS
           // ====================================================
           //
-          // A parent may have multiple child programs.
-          //
-          // Example:
-          //
-          // Youth Ministry
-          //   ├── Bible Study
-          //   ├── Outreach
-          //   └── Fellowship
-          //
           for (const child of parent.children ?? []) {
 
 
             // --------------------------------------------------
-            // 10. PREPARE PARTICULARS
+            // 10. ADD CHILD PROGRAM TO DISPLAY ARRAY
             // --------------------------------------------------
-            //
-            // This is where we prepare the actual report rows.
-            //
-            // Instead of calculating the Annual Total inside
-            // the HTML every time Angular checks the page,
-            // we calculate it ONCE here.
-            //
-            const particulars: ReportParticular[] =
-              (child.particulars ?? []).map((particular) => {
-
-
-                // ----------------------------------------------
-                // 11. CONVERT QUARTER VALUES TO NUMBERS
-                // ----------------------------------------------
-                //
-                // Laravel/database values may arrive as strings.
-                //
-                // Example:
-                //
-                // q1 = "100"
-                //
-                // Number("100") = 100
-                //
-                // `?? 0` makes missing values zero.
-                //
-                const q1 = Number(
-                  particular.items?.find(
-                    item =>
-                      item.quarter === 'Q1' &&
-                      Number(item.year) === new Date().getFullYear()
-                  )?.particulars_value ?? 0
-                );
-
-                const q2 = Number(
-                  particular.items?.find(
-                    item =>
-                      item.quarter === 'Q2' &&
-                      Number(item.year) === new Date().getFullYear()
-                  )?.particulars_value ?? 0
-                );
-
-                const q3 = Number(
-                  particular.items?.find(
-                    item =>
-                      item.quarter === 'Q3' &&
-                      Number(item.year) === new Date().getFullYear()
-                  )?.particulars_value ?? 0
-                );
-
-                const q4 = Number(
-                  particular.items?.find(
-                    item =>
-                      item.quarter === 'Q4' &&
-                      Number(item.year) === new Date().getFullYear()
-                  )?.particulars_value ?? 0
-                );
-
-
-                // ----------------------------------------------
-                // 12. RETURN PREPARED PARTICULAR
-                // ----------------------------------------------
-                //
-                // We keep all original particular properties
-                // using:
-                //
-                //     ...particular
-                //
-                // Then we overwrite q1-q4 with real numbers and
-                // add a frontend-only `total`.
-                //
-                // Example:
-                //
-                // q1 = 100
-                // q2 = 200
-                // q3 = 150
-                // q4 = 50
-                //
-                // total = 500
-                //
-                return {
-                  ...particular,
-
-                  q1,
-                  q2,
-                  q3,
-                  q4,
-
-                  // ANNUAL TOTAL
-                  //
-                  // Calculated once here instead of repeatedly
-                  // inside the HTML template.
-                  total: q1 + q2 + q3 + q4
-                };
-              });
-
-
-            // --------------------------------------------------
-            // 13. ADD CHILD PROGRAM TO DISPLAY ARRAY
-            // --------------------------------------------------
-            //
-            // At this point the child program has:
-            //
-            // child
-            //   └── particulars
-            //         ├── q1
-            //         ├── q2
-            //         ├── q3
-            //         ├── q4
-            //         └── total
             //
             this.programs.push({
               ...child,
-              particulars
+              particulars: this.mapParticulars(child)
             } as ReportProgram);
           }
         }
 
 
         // ------------------------------------------------------
-        // 14. FINISH LOADING
+        // 11. FINISH LOADING
         // ------------------------------------------------------
         //
         // This tells the HTML:
@@ -368,7 +229,7 @@ export class Home implements OnInit {
 
 
         // ------------------------------------------------------
-        // 17. CREATE USER-FRIENDLY ERROR MESSAGE
+        // 12. CREATE USER-FRIENDLY ERROR MESSAGE
         // ------------------------------------------------------
         //
         // Prefer Laravel's error message if one exists.
@@ -381,7 +242,7 @@ export class Home implements OnInit {
 
 
         // ------------------------------------------------------
-        // 18. STOP LOADING STATE
+        // 13. STOP LOADING STATE
         // ------------------------------------------------------
         //
         // IMPORTANT:
@@ -392,7 +253,7 @@ export class Home implements OnInit {
 
 
         // ------------------------------------------------------
-        // 19. REFRESH ERROR UI
+        // 14. REFRESH ERROR UI
         // ------------------------------------------------------
         //
         // Tell Angular to display the error message.

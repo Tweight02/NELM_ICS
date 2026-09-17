@@ -22,7 +22,11 @@ export const churchRepRoutes: Routes = [
         loadComponent: () => import('./manage-event/manage-event').then(m => m.ManageEvent),
     },
     {
+        path: 'stewardship',
+        loadComponent: () => import('./stewarsdship/stewarsdship').then(m => m.Stewarsdship),
+    },
+    {
         path: 'announcement',
         loadComponent: () => import('./announcement/announcement').then(m=>m.Announcement)
     },
-];
+];  
