@@ -5,8 +5,6 @@
             <div class="flex justify-between items-start mb-6 flex-wrap gap-4">
                 <div>
                     <h1 class="text-2xl font-bold tracking-tight m-0 mb-1.5 text-[#0F4A30]">Announcements</h1>
-                    <p class="text-[13px] text-[#6B7280] m-0 max-w-md">All announcements posted by districts and
-                        churches across the mission.</p>
                 </div>
                 <div class="flex gap-2.5 flex-wrap items-center">
                     <div
@@ -64,8 +62,7 @@
                                                 [ngClass]="{
                         'bg-[#E9F4EE] text-[#14603E]': a.scope === 'district',
                         'bg-[#FBF0DD] text-[#8A5A14]': a.scope === 'mission',
-                        'bg-[#EEF2F7] text-[#3F5877]': a.scope === 'church'
-                      }">
+                        'bg-[#EEF2F7] text-[#3F5877]': a.scope === 'church'}">
                                                 {{ a.scope === 'mission' ? 'Mission' : a.scope === 'district' ?
                                                 'District' : 'Church' }}
                                             </span>

@@ -17,31 +17,20 @@ export class Navbar {
   open = input<boolean>(false);
   linkClicked = output<void>();
 
-  auth = inject(AuthService); // public — used directly in the template
-  currentUser = this.auth.currentUser;
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  authService = inject(AuthService); // public — used directly in the template
+  private router = inject(Router);
 
   logout(): void {
-
     this.authService.logout().subscribe({
-
       next: () => {
         this.router.navigate(['/login']);
       },
-
       error: () => {
-
         // Even if Laravel fails,
         // clear local authentication.
         localStorage.removeItem('token');
-
         this.router.navigate(['/login']);
-
-      }
-
+      },
     });
   }
 }
