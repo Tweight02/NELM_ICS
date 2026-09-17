@@ -16,37 +16,38 @@ class ReportController extends Controller
         $user = Auth::user();
         
 
-        $department = Department::where(
-            'department_id',
-            $user->department_id
-        )
-            ->with([
-                'programs' => function ($query) {
-                    $query
-                        ->whereNull('parent_id')
-                        ->select([
-                            'program_id',
-                            'department_id',
-                            'program_name',
-                            'parent_id'
-                        ])
-                        ->with([
-                            'children' => function ($query) {
-                                $query
-                                    ->select([
-                                        'program_id',
-                                        'department_id',
-                                        'program_name',
-                                        'parent_id'
-                                    ])
-                                    ->with([
-                                        'particulars.items'
-                                    ]);
-                            }
-                        ]);
-                }
-            ])
-            ->first();
+    $department = Department::where(
+        'department_id',
+        $user->department_id
+    )
+        ->with([
+            'programs' => function ($query) {
+                $query
+                    ->whereNull('parent_id')
+                    ->select([
+                        'program_id',
+                        'department_id',
+                        'program_name',
+                        'parent_id'
+                    ])
+                    ->with([
+                        'particulars.items',   // <-- add this: parent's own particulars
+                        'children' => function ($query) {
+                            $query
+                                ->select([
+                                    'program_id',
+                                    'department_id',
+                                    'program_name',
+                                    'parent_id'
+                                ])
+                                ->with([
+                                    'particulars.items'
+                                ]);
+                        }
+                    ]);
+            }
+        ])
+        ->first();
 
         if (!$department) {
             return response()->json([
