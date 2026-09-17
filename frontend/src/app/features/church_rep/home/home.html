@@ -15,62 +15,6 @@
         </ol>
     </nav>
 
-
-    <!-- CHURCH INFORMATION -->
-    <section class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
-
-        <!-- Header -->
-        <div class="bg-emerald-800 px-6 py-6 sm:px-8">
-            <h1 class="font-serif text-lg sm:text-xl font-bold uppercase tracking-wide text-white">
-                {{ authService.currentUser()?.church?.name }} Church
-            </h1>
-
-            <p class="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-200 mt-1">
-                {{ authService.currentUser()?.department?.department_name }}
-            </p>
-        </div>
-
-        <!-- Information -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 px-6 py-5 sm:px-8">
-
-            <div class="border-l-2 border-amber-400 pl-3">
-                <p class="text-[11px] uppercase tracking-wide text-slate-400 font-semibold">
-                    Representative
-                </p>
-
-                <p class="text-sm font-semibold text-slate-800">
-                    {{ authService.currentUser()?.first_name }}
-                    {{ authService.currentUser()?.middle_name }}
-                    {{ authService.currentUser()?.last_name }}
-                </p>
-            </div>
-
-
-            <div class="border-l-2 border-amber-400 pl-3">
-                <p class="text-[11px] uppercase tracking-wide text-slate-400 font-semibold">
-                    District
-                </p>
-
-                <p class="text-sm font-semibold text-slate-800">
-                    {{ authService.currentUser()?.church?.district?.name }}
-                </p>
-            </div>
-
-
-            <div class="border-l-2 border-amber-400 pl-3">
-                <p class="text-[11px] uppercase tracking-wide text-slate-400 font-semibold">
-                    Mission / Conference
-                </p>
-
-                <p class="text-sm font-semibold text-slate-800">
-                    Northeast Luzon Mission
-                </p>
-            </div>
-
-        </div>
-    </section>
-
-
     <!-- YEAR + QUARTER -->
     <section class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm px-4 py-3">
 
@@ -119,10 +63,10 @@
 
 
         <!-- REPORT TABLE -->
-        <section class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
+        <section class="bg-white overflow-hidden">
 
             <!-- TABLE HEADER -->
-            <div class="px-5 py-4 border-b border-slate-100">
+            <div class="px-2 py-1 border-b border-slate-100">
 
                 <h2 class="font-serif text-sm font-bold text-slate-800">
                     Quarterly Report
@@ -179,76 +123,52 @@
 
             <!-- TABLE -->
             @else {
-
             <div class="overflow-x-auto">
-
                 <table class="w-full text-sm">
-
                     <thead class="bg-emerald-900 text-white">
-
                         <tr>
-
                             <th class="px-5 py-3 text-left text-[11px] uppercase tracking-wide">
                                 #
                             </th>
-
                             <th class="px-5 py-3 text-left text-[11px] uppercase tracking-wide">
                                 Program / Particular
                             </th>
-
                             @if (selectedQuarter === 'annual') {
-
                             <th class="px-4 py-3 text-center text-[11px] uppercase tracking-wide">
                                 Q1
                             </th>
-
                             <th class="px-4 py-3 text-center text-[11px] uppercase tracking-wide">
                                 Q2
                             </th>
-
                             <th class="px-4 py-3 text-center text-[11px] uppercase tracking-wide">
                                 Q3
                             </th>
-
                             <th class="px-4 py-3 text-center text-[11px] uppercase tracking-wide">
                                 Q4
                             </th>
-
                             <th class="px-4 py-3 text-center text-[11px] uppercase tracking-wide bg-amber-500">
                                 Total
                             </th>
-
                             } @else {
-
                             <th class="px-4 py-3 text-center text-[11px] uppercase tracking-wide">
                                 {{ selectedQuarter }}
                             </th>
-
                             }
-
                         </tr>
-
                     </thead>
 
-
                     <tbody class="divide-y divide-slate-100">
-
                         @for (program of programs; track program.program_id; let programIndex = $index) {
-
                         <!-- PROGRAM -->
                         <tr class="bg-emerald-50">
-
                             <td class="px-5 py-3 font-bold text-emerald-800">
                                 {{ programIndex + 1 }}
                             </td>
-
                             <td [attr.colspan]="selectedQuarter === 'annual' ? 6 : 2"
                                 class="px-5 py-3 font-bold text-emerald-900">
                                 {{ program.program_name }}
                             </td>
-
                         </tr>
-
 
                         <!-- PARTICULARS -->
                         @for (
@@ -256,53 +176,39 @@
                         track particular.particular_id;
                         let particularIndex = $index
                         ) {
-
                         <tr class="hover:bg-emerald-50/30 transition">
-
                             <td class="px-5 py-3 text-slate-400">
                                 {{ programIndex + 1 }}.{{ particularIndex + 1 }}
                             </td>
-
-
                             <td class="px-5 py-3 pl-10 text-slate-700">
                                 {{ particular.particular_name }}
                             </td>
-
-
                             <!-- ANNUAL -->
                             @if (selectedQuarter === 'annual') {
-                                <td class="px-4 py-3 text-center">
+                                <td class="px-2 py-1 text-center">
                                     {{ particular.q1 ?? 0 }}
                                 </td>
-
-                                <td class="px-4 py-3 text-center">
+                                <td class="px-2 py-1 text-center">
                                     {{ particular.q2 ?? 0 }}
                                 </td>
-
-                                <td class="px-4 py-3 text-center">
+                                <td class="px-2 py-1 text-center">
                                     {{ particular.q3 ?? 0 }}
                                 </td>
-
-                                <td class="px-4 py-3 text-center">
+                                <td class="px-2 py-1 text-center">
                                     {{ particular.q4 ?? 0 }}
                                 </td>
-
-                                <td class="px-4 py-3 text-center font-bold text-amber-600">
+                                <td class="px-2 py-1 text-center font-bold text-amber-600">
                                     {{ particular.total }}
                                 </td>
-
                             }
-
-
                             <!-- SINGLE QUARTER -->
                             @else {
                                 <td class="px-4 py-3 text-center font-semibold text-slate-700">
-
                                     <input
                                         type="number"
                                         min="0"
                                         class="w-28 rounded-lg border border-slate-200
-                                            bg-white px-3 py-2 text-center
+                                            bg-white px-1 py-1 text-center
                                             outline-none transition
                                             focus:border-emerald-500 focus:ring-2
                                             focus:ring-emerald-500/20"
@@ -310,88 +216,57 @@
                                         (ngModelChange)="setQuarterValue(particular, $event)"
                                         (blur)="saveValue(particular, selectedQuarter)"
                                     />
-
                                 </td>
                             }
-
                         </tr>
-
                         }
-
                         }
                     </tbody>
-
                 </table>
-
             </div>
-
             }
-
         </section>
-
 
         <!-- REVIEW & COMMENTS -->
         <aside class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
-
             <div class="px-5 py-4 border-b border-slate-100">
-
                 <h2 class="font-serif text-sm font-bold text-slate-800">
                     Review & Comments
                 </h2>
-
-                <p class="text-xs text-slate-400 mt-0.5">
-                    Most recent feedback
-                </p>
-
             </div>
 
-
             <div class="py-4">
-
-                <div class="mx-5 p-4 rounded-lg border-l-4 border-rose-400 bg-rose-50">
-
+                <div class="mx-5 p-4 rounded-lg border-l-4 border-rose-400">
                     <div class="flex items-start justify-between gap-3 mb-2">
-
                         <div>
-
                             <p class="text-sm font-semibold text-slate-900">
                                 Pr. Ramon Alcantara
                             </p>
-
                             <p class="text-xs text-slate-500">
                                 District Pastor
                             </p>
-
                         </div>
-
                         <span class="text-xs text-slate-400 whitespace-nowrap">
                             June 28, 2026
                         </span>
-
                     </div>
-
 
                     <p class="text-xs font-bold text-rose-600 mb-1.5">
                         Returned for Revision
                     </p>
 
-                    <p class="text-sm leading-relaxed text-rose-900/80">
+                    <p class="text-sm leading-relaxed">
                         “Please verify the number of active members involved in
                         evangelism. The submitted value appears inconsistent with
                         the church's monthly evangelism report.”
                     </p>
-
                 </div>
 
 
                 <button type="button" class="mx-5 mt-4 text-xs font-semibold text-emerald-700 hover:text-emerald-900">
                     View Previous Comments (1)
                 </button>
-
             </div>
-
         </aside>
-
     </div>
-
 </div>
