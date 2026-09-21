@@ -52,22 +52,6 @@ export class Home implements OnInit {
     this.loadPrograms();
   }
 
-  /**
-   * ============================================================
-   * PREPARE PARTICULARS FOR A PROGRAM
-   * ============================================================
-   *
-   * Works for BOTH parent and child programs.
-   *
-   * Converts the raw quarter items for the current year into
-   * numbers (q1-q4) and precomputes the annual `total` ONCE,
-   * instead of recalculating it inside the HTML template on
-   * every change-detection pass.
-   *
-   * If a program has no `particulars` (e.g. a parent that is
-   * purely a section header with no report values of its own),
-   * this simply returns an empty array.
-   */
   private mapParticulars(program: Program): ReportParticular[] {
 
     const year = new Date().getFullYear();
@@ -93,16 +77,10 @@ export class Home implements OnInit {
 
       return {
         ...particular,
-
         q1,
         q2,
         q3,
         q4,
-
-        // ANNUAL TOTAL
-        //
-        // Calculated once here instead of repeatedly inside
-        // the HTML template.
         total: q1 + q2 + q3 + q4
       };
     });
@@ -120,12 +98,10 @@ export class Home implements OnInit {
     // ----------------------------------------------------------
     this.loading = true;
 
-
     // ----------------------------------------------------------
     // 2. CLEAR PREVIOUS ERROR
     // ----------------------------------------------------------
     this.error = null;
-
 
     // ----------------------------------------------------------
     // 3. REQUEST DATA FROM LARAVEL
@@ -142,57 +118,25 @@ export class Home implements OnInit {
         // ------------------------------------------------------
         this.department = data as Department;
 
-
         // ------------------------------------------------------
         // 5. GET PARENT PROGRAMS
         // ------------------------------------------------------
         const parentPrograms = this.department.programs ?? [];
-
 
         // ------------------------------------------------------
         // 6. RESET THE DISPLAY ARRAY
         // ------------------------------------------------------
         this.programs = [];
 
-
         // ======================================================
         // 7. LOOP THROUGH PARENT PROGRAMS
         // ======================================================
-        //
-        // Each parent program becomes a heading/section in
-        // the report.
-        //
         for (const parent of parentPrograms) {
-
-
-          // ----------------------------------------------------
-          // 8. ADD PARENT PROGRAM
-          // ----------------------------------------------------
-          //
-          // Parent programs now carry their OWN particulars too
-          // (via mapParticulars), in addition to being displayed
-          // as section headers. If a parent has no particulars
-          // of its own, mapParticulars simply returns [].
-          //
-          // NOTE: `...parent` also spreads `children` onto this
-          // object, so each pushed parent still carries its full
-          // subtree. That's unchanged from before; drop it here
-          // with a destructure if it ever becomes a problem:
-          //
-          //     const { children, ...parentFields } = parent;
-          //
-          this.programs.push({
-            ...parent,
-            particulars: this.mapParticulars(parent)
-          } as ReportProgram);
-
-
           // ====================================================
           // 9. LOOP THROUGH CHILD PROGRAMS
           // ====================================================
           //
           for (const child of parent.children ?? []) {
-
 
             // --------------------------------------------------
             // 10. ADD CHILD PROGRAM TO DISPLAY ARRAY
@@ -205,15 +149,9 @@ export class Home implements OnInit {
           }
         }
 
-
         // ------------------------------------------------------
         // 11. FINISH LOADING
         // ------------------------------------------------------
-        //
-        // This tells the HTML:
-        //
-        // "The API request and data preparation are finished."
-        //
         this.loading = false;
 
         this.cdr.markForCheck();
@@ -231,11 +169,6 @@ export class Home implements OnInit {
         // ------------------------------------------------------
         // 12. CREATE USER-FRIENDLY ERROR MESSAGE
         // ------------------------------------------------------
-        //
-        // Prefer Laravel's error message if one exists.
-        //
-        // Otherwise display a generic message.
-        //
         this.error =
           err?.error?.message ??
           'Failed to load department data.';
@@ -244,20 +177,12 @@ export class Home implements OnInit {
         // ------------------------------------------------------
         // 13. STOP LOADING STATE
         // ------------------------------------------------------
-        //
-        // IMPORTANT:
-        // If you forget this, the loading/skeleton UI can stay
-        // visible forever after an API error.
-        //
         this.loading = false;
 
 
         // ------------------------------------------------------
         // 14. REFRESH ERROR UI
         // ------------------------------------------------------
-        //
-        // Tell Angular to display the error message.
-        //
         this.cdr.markForCheck();
       }
     });
@@ -357,5 +282,10 @@ export class Home implements OnInit {
               console.error('Failed to save report value:', err);
           }
       });
+  }
+
+  get parentProgramName(): string {
+    const parentProgram = this.department?.programs?.find(p => p.parent_id === null);
+    return parentProgram?.program_name ?? 'Quarterly Report';
   }
 }

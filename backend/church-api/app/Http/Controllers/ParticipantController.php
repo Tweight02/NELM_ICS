@@ -15,6 +15,7 @@ class ParticipantController extends Controller
     public function index()
     {
         return response()->json(User::where('role', self::ROLE)->get(), 200);
+        
     }
 
     /**

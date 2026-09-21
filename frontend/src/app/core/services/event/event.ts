@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { EventParticipant } from '../../models/reports/participant.model';
 
 export interface EventChurch{
     event_id?: number,
@@ -8,11 +9,12 @@ export interface EventChurch{
     status?: string,
     type?: string,
     title: string,
-    date_start: Date,
-    date_end: Date,
+    date_start?: Date,
+    date_end?: Date,
     description: string,
     time: string,
-    address: string 
+    address: string,
+    participants?: EventParticipant[];
 }
 
 @Injectable({ providedIn: 'root' })
@@ -53,6 +55,37 @@ export class EventService {
         return this.http.put(
             `${this.apiUrl}/church_representative/event/manage-event/${eventId}`,
             data
+        );
+    }
+
+    updateEvent(eventId: number, data: any) {
+        return this.http.put(
+            `${this.apiUrl}church_representative/event/update/${eventId}`,
+            data,
+            {
+                withCredentials: true
+            }
+        );
+    }
+
+    viewParticipants(eventId: number) {
+        return this.http.get(
+            `${this.apiUrl}church_representative/event/participants`,
+            {
+            params: {
+                event_id: eventId
+            },
+            withCredentials: true
+            }
+        );
+    }
+
+    removeParticipant(participantId: number) {
+        return this.http.delete(
+            `${this.apiUrl}church_representative/event/participant/${participantId}`,
+            {
+                withCredentials: true
+            }
         );
     }
 }

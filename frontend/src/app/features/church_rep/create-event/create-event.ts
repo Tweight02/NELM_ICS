@@ -4,10 +4,11 @@ import { ReportService } from '../../../core/services/reports/report-service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventChurch, EventService } from '../../../core/services/event/event';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-event',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './create-event.html',
   styleUrl: './create-event.css',
 })

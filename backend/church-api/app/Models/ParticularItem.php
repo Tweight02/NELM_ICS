@@ -59,4 +59,9 @@ class ParticularItem extends Model
     {
         return $this->belongsTo(Church::class, 'churches_id', 'church_id');
     }
+
+    public function stewardships()
+    {
+        return $this->hasMany(Stewardship::class, 'par_item_id', 'par_item_id');
+    }
 }

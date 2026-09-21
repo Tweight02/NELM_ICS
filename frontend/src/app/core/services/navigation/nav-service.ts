@@ -5,6 +5,7 @@ import { secretary_nav_items } from '../../../features/secretary/navigation/secr
 import { AuthService } from '../auth/auth';
 import { church_rep_nav_items } from '../../../features/church_rep/navigation/church_nav.config';
 import { director_nav_items } from '../../../features/director/navigation/director_nav.config';
+
 import { NavItem } from '../../models/navigation/nav-item.model';
 
 const PORTAL_LABELS: Record<string, string> = {
@@ -25,15 +26,33 @@ const NAVIGATION_MAP: Record<string, NavItem[]> = {
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
     private auth = inject(AuthService);
-
     readonly navItems = computed(() => {
-    const role = this.auth.currentUser()?.role ?? '';
+        const user = this.auth.currentUser();
+        const role = user?.role ?? '';
+        const departmentId = user?.department_id;
+        const items = NAVIGATION_MAP[role] ?? [];
+        return items.filter(item => {
 
-    return NAVIGATION_MAP[role] ?? [];
+            // Hide navigation item from specific departments
+            if (
+                departmentId !== undefined &&
+                item.hiddenForDepartments?.includes(departmentId)
+            ) {
+                return false;
+            }
+
+            // Show navigation item only for a specific department
+            if (
+                item.departmentId !== undefined &&
+                item.departmentId !== departmentId
+            ) {
+                return false;
+            }
+            return true;
+        });
     });
-
     readonly portalLabel = computed(() => {
-    const role = this.auth.currentUser()?.role;
-    return PORTAL_LABELS[role ?? ''] ?? 'Portal';
+        const role = this.auth.currentUser()?.role;
+        return PORTAL_LABELS[role ?? ''] ?? 'Portal';
     });
 }
