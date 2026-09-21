@@ -8,7 +8,7 @@ export interface Particular {
     q2?: number | null;
     q3?: number | null;
     q4?: number | null;
-    total: number;
+    total?: number;
 
     items?: ParticularItem[];
 }
