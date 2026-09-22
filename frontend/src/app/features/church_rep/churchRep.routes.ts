@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ManageRole } from './manage-role/manage-role';
 
 export const churchRepRoutes: Routes = [
     {
@@ -28,5 +29,9 @@ export const churchRepRoutes: Routes = [
     {
         path: 'announcement',
         loadComponent: () => import('./announcement/announcement').then(m=>m.Announcement)
+    },
+    {
+        path: 'manage-roles',
+        loadComponent: () => import('./manage-role/manage-role').then(m=>ManageRole)
     },
 ];  

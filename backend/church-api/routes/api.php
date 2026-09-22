@@ -12,6 +12,7 @@ use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\SecretaryController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\StewardshipController;
+use App\Http\Controllers\Api\ManageRoleController;
 
 // routes/api.php
 
@@ -24,15 +25,20 @@ Route::middleware(['auth:sanctum', 'role:church_representative'])->group(functio
     Route::get('church_representative/event/{id}', [EventController::class, 'getEvents']);
     Route::get('church_representative/announcements', [AnnouncementController::class, 'viewAnnouncements']);
     Route::get('church_representative/stewardship', [StewardshipController::class, 'stewardshipParticular']);
+    // MANAGE ROLES
+    Route::get('church_representative/manage-roles', [ManageRoleController::class, 'index']);
 
     // PUT
     Route::put('church_representative/event/manage_event/{id}', [EventController::class, 'manageEvent']);
     Route::put('church_representative/event/update/{id}', [EventController::class, 'updateEvent']);
+        // MANAGE ROLES - ASSIGN DEPARTMENT
+    Route::put('church_representative/manage-roles/{departmentId}', [ManageRoleController::class, 'assignUser']);
 
     // POST
     Route::post('church_representative/report-value',[ReportController::class, 'saveReportValue']);
     Route::post('church_representative/save-event', [EventController::class, 'createEvent']);
     Route::post('church_representative/stewardship/monthly-values', [StewardshipController::class, 'saveMonthlyValues']);
+    Route::post('church_representative/manage-roles/add-user', [ManageRoleController::class, 'createUser']);
 
     //DELETE
     Route::delete('church_representative/event/participant/{participant_id}',[EventController::class, 'removeParticipant']);
