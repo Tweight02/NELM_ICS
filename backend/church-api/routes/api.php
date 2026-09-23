@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum', 'role:church_representative'])->group(functio
     Route::get('church_representative/stewardship', [StewardshipController::class, 'stewardshipParticular']);
     Route::get('church_representative/manage-roles', [ManageRoleController::class, 'index']);
     Route::get('church_representative/monitoring', [ReportMonitoringController::class, 'index']);
+    Route::get('church_representative/monitoring/{id}', [ReportMonitoringController::class, 'show']);
 
     // PUT
     Route::put('church_representative/event/manage_event/{id}', [EventController::class, 'manageEvent']);

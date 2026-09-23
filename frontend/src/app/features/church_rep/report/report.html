@@ -1,1 +1,411 @@
-<p>report works!</p>
+<div class="min-h-full bg-stone-50 p-6 md:p-8">
+
+    <!-- Header -->
+    <div class="mb-8 flex flex-col gap-4
+                md:flex-row md:items-end
+                md:justify-between">
+
+        <div>
+
+            <h1 class="text-3xl font-bold
+                       tracking-tight
+                       text-gray-900">
+
+                Report Monitoring
+
+            </h1>
+
+            <p class="mt-2 text-sm text-gray-500">
+
+                Monitor the reporting progress
+                of each department.
+
+            </p>
+
+        </div>
+
+
+        <!-- Year -->
+        <div class="flex items-center gap-3">
+
+            <label for="year" class="text-sm font-medium
+                       text-gray-600">
+
+                Year
+
+            </label>
+
+            <div class="rounded-lg
+                        border border-stone-200
+                        bg-white px-4 py-2
+                        text-sm font-semibold
+                        text-gray-700">
+
+                {{ year }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Loading -->
+    @if (loading) {
+
+    <div class="flex min-h-64
+                    items-center justify-center">
+
+        <div class="flex flex-col
+                        items-center gap-3">
+
+            <div class="h-8 w-8 animate-spin
+                            rounded-full border-4
+                            border-gray-200
+                            border-t-emerald-700">
+            </div>
+
+            <p class="text-sm text-gray-500">
+
+                Loading report monitoring...
+
+            </p>
+
+        </div>
+
+    </div>
+
+    }
+
+
+    <!-- Error -->
+    @if (!loading && errorMessage) {
+
+    <div class="rounded-xl
+                    border border-red-200
+                    bg-red-50 p-5
+                    text-sm text-red-700">
+
+        {{ errorMessage }}
+
+    </div>
+
+    }
+
+
+    <!-- Monitoring Table -->
+    @if (!loading && !errorMessage) {
+
+    <div class="overflow-hidden
+                    rounded-2xl
+                    border border-stone-200
+                    bg-white shadow-sm">
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full min-w-[950px]">
+
+                <!-- Header -->
+                <thead>
+
+                    <tr class="border-b
+                                   border-stone-200
+                                   bg-stone-100">
+
+                        <th class="px-8 py-5
+                                       text-left
+                                       text-xs font-semibold
+                                       uppercase
+                                       tracking-wider
+                                       text-stone-500">
+
+                            Department
+
+                        </th>
+
+
+                        <th class="px-6 py-5
+                                       text-left
+                                       text-xs font-semibold
+                                       uppercase
+                                       tracking-wider
+                                       text-stone-500">
+
+                            Q1
+
+                        </th>
+
+
+                        <th class="px-6 py-5
+                                       text-left
+                                       text-xs font-semibold
+                                       uppercase
+                                       tracking-wider
+                                       text-stone-500">
+
+                            Q2
+
+                        </th>
+
+
+                        <th class="px-6 py-5
+                                       text-left
+                                       text-xs font-semibold
+                                       uppercase
+                                       tracking-wider
+                                       text-stone-500">
+
+                            Q3
+
+                        </th>
+
+
+                        <th class="px-6 py-5
+                                       text-left
+                                       text-xs font-semibold
+                                       uppercase
+                                       tracking-wider
+                                       text-stone-500">
+
+                            Q4
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <!-- Departments -->
+                <tbody class="divide-y
+                                  divide-stone-200">
+
+                    @for (
+                    department of departments;
+                    track department.department_id
+                    ) {
+
+                    <tr [routerLink]="['/church_rep/monitoring', department.department_id]" class="group
+           cursor-pointer
+           transition-colors
+           hover:bg-emerald-50
+           active:bg-emerald-100">
+
+                        <!-- Department -->
+                        <td class="px-8 py-6">
+
+                            <div class="font-semibold
+                                                text-gray-900
+                                                group-hover:text-emerald-800">
+
+                                {{ department.department_name }}
+
+                            </div>
+
+
+                            @if (
+                            department.representative
+                            ) {
+
+                            <div class="mt-1
+                                                    text-xs
+                                                    text-gray-500">
+
+                                Handled by
+
+                                <span class="font-medium
+                                                         text-gray-700">
+
+                                    {{
+                                    department
+                                    .representative
+                                    ?.name
+                                    }}
+
+                                </span>
+
+                            </div>
+
+                            }
+
+                            @else {
+
+                            <div class="mt-1
+                                                    text-xs
+                                                    text-orange-600">
+
+                                No representative assigned
+
+                            </div>
+
+                            }
+
+                        </td>
+
+
+                        <!-- Q1 -->
+                        <td class="px-6 py-6">
+
+                            <ng-container *ngTemplateOutlet="
+                                            progressTemplate;
+                                            context: {
+                                                progress:
+                                                    department.quarters.Quarter1
+                                            }
+                                        " />
+
+                        </td>
+
+
+                        <!-- Q2 -->
+                        <td class="px-6 py-6">
+
+                            <ng-container *ngTemplateOutlet="
+                                            progressTemplate;
+                                            context: {
+                                                progress:
+                                                    department.quarters.Quarter2
+                                            }
+                                        " />
+
+                        </td>
+
+
+                        <!-- Q3 -->
+                        <td class="px-6 py-6">
+
+                            <ng-container *ngTemplateOutlet="
+                                            progressTemplate;
+                                            context: {
+                                                progress:
+                                                    department.quarters.Quarter3
+                                            }
+                                        " />
+
+                        </td>
+
+
+                        <!-- Q4 -->
+                        <td class="px-6 py-6">
+
+                            <ng-container *ngTemplateOutlet="
+                                            progressTemplate;
+                                            context: {
+                                                progress:
+                                                    department.quarters.Quarter4
+                                            }
+                                        " />
+
+                        </td>
+
+                    </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- Empty -->
+    @if (departments.length === 0) {
+
+    <div class="mt-6 rounded-xl
+                        border border-stone-200
+                        bg-white p-10
+                        text-center">
+
+        <p class="font-medium
+                          text-gray-700">
+
+            No departments found.
+
+        </p>
+
+    </div>
+
+    }
+
+    }
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- Progress Template -->
+<!-- ===================================================== -->
+
+<ng-template #progressTemplate let-progress="progress">
+
+    @if (!progress.has_report) {
+
+    <div class="flex items-center gap-2">
+
+        <span class="text-lg
+                         font-medium
+                         text-gray-400">
+
+            —
+
+        </span>
+
+        <span class="text-xs
+                         text-gray-400">
+
+            Not submitted
+
+        </span>
+
+    </div>
+
+    }
+
+    @else {
+
+    <div>
+
+        <!-- Percentage + bar -->
+
+        <div class="flex
+                        items-center gap-3">
+
+            <span class="w-10
+                             text-right
+                             text-sm
+                             font-semibold
+                             text-gray-900">
+
+                {{ progress.percentage }}%
+
+            </span>
+
+
+            <div class="h-2.5
+                            w-28
+                            overflow-hidden
+                            rounded-full
+                            bg-stone-200">
+
+                <div class="h-full
+                               rounded-full
+                               transition-all" [ngClass]="
+                            getProgressColor(
+                                progress.percentage
+                            )
+                        " [style.width.%]="
+                            progress.percentage ?? 0
+                        "></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    }
+
+</ng-template>

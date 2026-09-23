@@ -1,0 +1,499 @@
+<div class="min-h-full bg-stone-50 p-6 md:p-8">
+
+  <!-- Back -->
+  <a
+    routerLink="/church_rep/monitoring"
+    class="text-sm font-medium text-emerald-700 hover:text-emerald-900"
+  >
+    ← Back to Report Monitoring
+  </a>
+
+
+  <!-- Loading -->
+  @if (loading) {
+
+    <div class="py-10 text-center text-sm text-gray-500">
+      Loading department report...
+    </div>
+
+  }
+
+
+  <!-- Error -->
+  @if (!loading && errorMessage) {
+
+    <div class="mt-6 rounded-lg bg-red-50 p-4 text-sm text-red-700">
+      {{ errorMessage }}
+    </div>
+
+  }
+
+
+  <!-- Report -->
+  @if (!loading && !errorMessage && report) {
+
+    <!-- HEADER -->
+    <div class="my-6">
+
+      <h1 class="text-2xl font-bold text-gray-900">
+        {{ report.department?.department_name }}
+      </h1>
+
+      <p class="text-sm text-gray-500">
+        Department Report — {{ report.year }}
+      </p>
+
+    </div>
+
+
+    <!-- REPRESENTATIVE -->
+    <div
+      class="mb-5 rounded-xl border border-stone-200 bg-white p-4"
+    >
+
+      <span
+        class="text-xs font-semibold uppercase text-stone-500"
+      >
+        Representative
+      </span>
+
+      @if (report.representative) {
+
+        <p class="mt-1 font-medium text-gray-900">
+          {{ report.representative.name }}
+        </p>
+
+        <p class="text-sm text-gray-500">
+          {{ report.representative.email }}
+        </p>
+
+      } @else {
+
+        <p class="mt-1 text-sm text-orange-600">
+          No representative assigned.
+        </p>
+
+      }
+
+    </div>
+
+
+    <!-- ================================================================ -->
+    <!-- REPORT TABLE -->
+    <!-- ================================================================ -->
+
+    <div
+      class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm"
+    >
+
+      <table class="w-full min-w-[950px] border-collapse">
+
+        <!-- HEADER -->
+        <thead>
+
+          <tr class="bg-[#005C46] text-white">
+
+            <th
+              class="px-5 py-3 text-left text-xs font-bold uppercase"
+            >
+              Program / Particular
+            </th>
+
+            <th
+              class="w-32 px-3 py-3 text-center text-xs font-bold uppercase"
+            >
+              Q1
+            </th>
+
+            <th
+              class="w-32 px-3 py-3 text-center text-xs font-bold uppercase"
+            >
+              Q2
+            </th>
+
+            <th
+              class="w-32 px-3 py-3 text-center text-xs font-bold uppercase"
+            >
+              Q3
+            </th>
+
+            <th
+              class="w-32 px-3 py-3 text-center text-xs font-bold uppercase"
+            >
+              Q4
+            </th>
+
+            <th
+              class="w-32 bg-[#FF9D00] px-3 py-3 text-center text-xs font-bold uppercase"
+            >
+              TOTAL
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <!-- BODY -->
+        <tbody>
+
+          @for (
+            program of report.programs;
+            track program.program_id
+          ) {
+
+            <!-- ======================================================== -->
+            <!-- PROGRAM HEADER -->
+            <!-- ======================================================== -->
+
+            <tr class="bg-emerald-50">
+
+              <td
+                colspan="6"
+                class="px-5 py-3 text-sm font-bold text-emerald-900"
+              >
+                {{ program.program_name }}
+              </td>
+
+            </tr>
+
+
+            <!-- ======================================================== -->
+            <!-- PARTICULARS -->
+            <!-- ======================================================== -->
+
+            @for (
+              particular of program.particulars;
+              track particular.particular_id
+            ) {
+
+              <tr
+                class="border-b border-slate-100 hover:bg-slate-50"
+              >
+
+                <!-- NAME -->
+                <td
+                  class="px-5 py-4 text-sm text-slate-700"
+                >
+                  {{ particular.particular_name }}
+                </td>
+
+
+                <!-- ================================================== -->
+                <!-- Q1 -->
+                <!-- ================================================== -->
+
+                <td
+                  class="px-3 py-3 text-center align-top"
+                >
+
+                  @if (particular.monthly) {
+
+                    <div class="space-y-1 text-xs">
+
+                      <div class="flex justify-between gap-3">
+                        <span>Jan</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'January'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>Feb</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'February'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>Mar</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'March'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  } @else {
+
+                    <span class="text-sm text-slate-700">
+                      {{
+                        getQuarterValue(
+                          particular,
+                          'Quarter1'
+                        )
+                      }}
+                    </span>
+
+                  }
+
+                </td>
+
+
+                <!-- ================================================== -->
+                <!-- Q2 -->
+                <!-- ================================================== -->
+
+                <td
+                  class="px-3 py-3 text-center align-top"
+                >
+
+                  @if (particular.monthly) {
+
+                    <div class="space-y-1 text-xs">
+
+                      <div class="flex justify-between gap-3">
+                        <span>Apr</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'April'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>May</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'May'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>Jun</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'June'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  } @else {
+
+                    <span class="text-sm text-slate-700">
+                      {{
+                        getQuarterValue(
+                          particular,
+                          'Quarter2'
+                        )
+                      }}
+                    </span>
+
+                  }
+
+                </td>
+
+
+                <!-- ================================================== -->
+                <!-- Q3 -->
+                <!-- ================================================== -->
+
+                <td
+                  class="px-3 py-3 text-center align-top"
+                >
+
+                  @if (particular.monthly) {
+
+                    <div class="space-y-1 text-xs">
+
+                      <div class="flex justify-between gap-3">
+                        <span>Jul</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'July'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>Aug</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'August'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>Sep</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'September'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  } @else {
+
+                    <span class="text-sm text-slate-700">
+                      {{
+                        getQuarterValue(
+                          particular,
+                          'Quarter3'
+                        )
+                      }}
+                    </span>
+
+                  }
+
+                </td>
+
+
+                <!-- ================================================== -->
+                <!-- Q4 -->
+                <!-- ================================================== -->
+
+                <td
+                  class="px-3 py-3 text-center align-top"
+                >
+
+                  @if (particular.monthly) {
+
+                    <div class="space-y-1 text-xs">
+
+                      <div class="flex justify-between gap-3">
+                        <span>Oct</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'October'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>Nov</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'November'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                      <div class="flex justify-between gap-3">
+                        <span>Dec</span>
+
+                        <span class="font-medium">
+                          {{
+                            getMonthlyValue(
+                              particular,
+                              'December'
+                            )
+                          }}
+                        </span>
+                      </div>
+
+                    </div>
+
+                  } @else {
+
+                    <span class="text-sm text-slate-700">
+                      {{
+                        getQuarterValue(
+                          particular,
+                          'Quarter4'
+                        )
+                      }}
+                    </span>
+
+                  }
+
+                </td>
+
+
+                <!-- ================================================== -->
+                <!-- TOTAL -->
+                <!-- ================================================== -->
+
+                <td
+                  class="bg-orange-50 px-3 py-3 text-center align-top font-semibold text-orange-600"
+                >
+
+                  {{
+                    getParticularTotal(particular)
+                  }}
+
+                </td>
+
+              </tr>
+
+            }
+
+          } @empty {
+
+            <tr>
+
+              <td
+                colspan="6"
+                class="px-5 py-10 text-center text-sm text-gray-500"
+              >
+                No programs found for this department.
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  }
+
+</div>

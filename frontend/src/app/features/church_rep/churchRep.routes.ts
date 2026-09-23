@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ManageRole } from './manage-role/manage-role';
+import { Report } from './report/report';
 
 export const churchRepRoutes: Routes = [
     {
@@ -33,5 +34,13 @@ export const churchRepRoutes: Routes = [
     {
         path: 'manage-roles',
         loadComponent: () => import('./manage-role/manage-role').then(m=>ManageRole)
+    },
+    {
+        path: 'monitoring',
+        loadComponent: () => import('./report/report').then(m=>Report)
+    },
+    {
+        path: 'monitoring/:departmentId',
+        loadComponent: () => import('./report-monitoring/report-monitoring').then(m => m.ReportMonitoringComponent)
     },
 ];  
