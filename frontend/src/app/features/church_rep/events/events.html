@@ -1,0 +1,287 @@
+<div class="mx-auto px-4 sm:px-6 py-8 space-y-5">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb">
+        <ol class="flex items-center text-xs font-semibold uppercase tracking-wide">
+            <li class="text-slate-400">
+                Church Representative
+            </li>
+
+            <li class="mx-2 text-slate-300">/</li>
+
+            <li class="text-emerald-700">
+                Events
+            </li>
+        </ol>
+    </nav>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+        <!-- Calendar -->
+        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+
+            <!-- Header -->
+            <div class="flex items-start justify-between mb-6">
+
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                        Event Calendar
+                    </p>
+                    <h2 class="mt-1 font-serif text-2xl font-bold text-gray-900">
+                        {{ monthName }} {{ currentYear }}
+                    </h2>
+                    <p class="mt-0.5 text-xs text-gray-400">
+                        Upcoming event map
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button type="button" (click)="previousMonth()"
+                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-500 text-lg">
+                        ‹
+                    </button>
+                    <button type="button" (click)="nextMonth()"
+                        class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-500 text-lg">
+                        ›
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Weekdays -->
+            <div class="grid grid-cols-7 mb-1">
+                <div *ngFor="let day of weekdays"
+                    class="text-center text-xs font-semibold uppercase tracking-wide text-gray-400 py-2">
+                    {{ day }}
+                </div>
+            </div>
+
+            <!-- Days -->
+            <div class="grid grid-cols-7 gap-1.5">
+                <div *ngFor="let cell of calendarDays" (click)="cell.currentMonth && selectDate(cell)"
+                    class="min-h-[72px] rounded-xl p-1.5 flex flex-col items-center text-center transition" [ngClass]="{
+        'ring-2 ring-emerald-600': cell.currentMonth && selectedDate === cell.day,
+        'bg-emerald-50': cell.currentMonth && hasEvents(cell) && selectedDate !== cell.day,
+        'cursor-pointer hover:bg-gray-50': cell.currentMonth && selectedDate !== cell.day
+    }">
+                    <!-- Current month day number (no longer its own click target) -->
+                    <span *ngIf="cell.currentMonth"
+                        class="w-7 h-7 flex items-center justify-center rounded-full text-sm" [ngClass]="{
+            'font-bold text-gray-900': selectedDate === cell.day || isToday(cell),
+            'text-gray-700': selectedDate !== cell.day && !isToday(cell)
+        }">
+                        {{ cell.day }}
+                    </span>
+                    <!-- Adjacent month day (faded, not clickable) -->
+                    <span *ngIf="!cell.currentMonth"
+                        class="w-7 h-7 flex items-center justify-center text-sm text-gray-300">
+                        {{ cell.day }}
+                    </span>
+                    <div *ngIf="cell.currentMonth && hasEvents(cell)" class="mt-1 w-full space-y-1">
+                        <span *ngFor="let evt of getEventsForDay(cell) | slice:0:2"
+                            (click)="$event.stopPropagation(); openEventModal(evt)"
+                            class="block truncate rounded-md px-1.5 py-1 text-[10px] font-medium cursor-pointer transition hover:ring-1 hover:ring-emerald-400 hover:shadow-sm"
+                            [ngClass]="selectedDate === cell.day
+                ? 'bg-amber-100 text-amber-800'
+                : 'bg-emerald-100/70 text-emerald-800 border border-emerald-200'">
+                            {{ evt.title }}
+                        </span>
+                        <span *ngIf="getEventsForDay(cell).length > 2"
+                            class="block text-[10px] font-medium text-gray-400">
+                            +{{ getEventsForDay(cell).length - 2 }} more
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Side Panel -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+
+            <!-- EVENT DETAIL VIEW -->
+            <div *ngIf="selectedEvent">
+                <!-- Header -->
+                <div class="relative bg-emerald-900 px-6 pt-6 pb-8">
+                    <button type="button" (click)="closeEventModal()"
+                        class="mb-4 flex items-center gap-1 text-xs font-semibold text-emerald-200 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to calendar
+                    </button>
+
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="inline-block rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-emerald-100">
+                            Event Details
+                        </span>
+                        <span *ngIf="selectedEvent.status"
+                            class="inline-block rounded-full bg-amber-400/90 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-amber-950">
+                            {{ selectedEvent.status }}
+                        </span>
+                    </div>
+
+                    <h2 class="mt-3 text-2xl font-bold text-white">
+                        {{ selectedEvent.title }}
+                    </h2>
+
+                    <p class="mt-1 text-sm text-emerald-200">
+                        {{ selectedEvent.date_start | date:'MMM d, y' }}
+                        <span class="mx-1">→</span>
+                        {{ selectedEvent.date_end | date:'MMM d, y' }}
+                    </p>
+
+                </div>
+
+                <!-- Body -->
+                <div class="px-6 py-6 space-y-6">
+
+                    <!-- Date / Time / Location / Type grid -->
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <div class="rounded-xl bg-gray-50 px-4 py-3">
+                            <p class="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Date</p>
+                            <p class="mt-1 text-sm font-bold text-gray-900">
+                                {{ selectedEvent.date_start | date:'MMMM d, y' }}
+                            </p>
+                        </div>
+
+                        <div class="rounded-xl bg-gray-50 px-4 py-3" *ngIf="selectedEvent.time">
+                            <p class="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Time</p>
+                            <p class="mt-1 text-sm font-bold text-gray-900">
+                                {{ selectedEvent.time }}
+                            </p>
+                        </div>
+
+                        <div class="rounded-xl bg-gray-50 px-4 py-3" *ngIf="selectedEvent.address">
+                            <p class="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Location</p>
+                            <p class="mt-1 text-sm font-bold text-gray-900">
+                                {{ selectedEvent.address }}
+                            </p>
+                        </div>
+
+                        <div class="rounded-xl bg-gray-50 px-4 py-3" *ngIf="selectedEvent.type">
+                            <p class="text-[10px] font-semibold uppercase tracking-wide text-gray-400">Type</p>
+                            <p class="mt-1 text-sm font-bold text-gray-900">
+                                {{ selectedEvent.type }}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Manage button -->
+                    <button type="button" (click)="manageEvent(selectedEvent)"
+                        class="w-full rounded-xl bg-gray-900 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800">
+                        Manage Event
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- EMPTY STATE -->
+            <div *ngIf="!selectedEvent" class="flex flex-col items-center px-6 py-12 text-center">
+                <!-- Icon -->
+                <div class="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z" />
+                    </svg>
+                </div>
+                <h2 class="mt-4 font-serif text-lg font-bold text-gray-900">No event selected</h2>
+                <p class="mt-1 max-w-[16rem] text-sm text-gray-500">
+                    Pick a date or an event from the calendar to see its details here.
+                </p>
+                <!-- Divider -->
+                <div class="my-6 flex w-full items-center gap-3">
+                    <span class="h-px flex-1 bg-gray-200"></span>
+                    <span class="text-xs font-medium text-gray-400">or</span>
+                    <span class="h-px flex-1 bg-gray-200"></span>
+                </div>
+                <a routerLink="create-event"
+                    class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
+                    </svg>
+                    Add event
+                </a>
+            </div>
+
+        </div>
+    </div>
+<!-- Event List (table) -->
+<div class="rounded-xl border border-gray-200 bg-white shadow-sm">
+
+    <!-- Toolbar / filters -->
+    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 px-5 py-4">
+        <h3 class="font-serif text-lg font-bold text-gray-900">Events</h3>
+
+        <div class="inline-flex rounded-lg border border-gray-200 bg-gray-50 p-0.5">
+            <button type="button" *ngFor="let tab of filterTabs" (click)="setFilter(tab.key)"
+                class="rounded-md px-3 py-1.5 text-xs font-semibold transition"
+                [ngClass]="eventFilter === tab.key
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700'">
+                {{ tab.label }}
+                <span class="ml-1 text-gray-400">{{ countByStatus(tab.key) }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+        <table class="w-full min-w-[720px] text-left text-sm">
+            <thead class="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                <tr>
+                    <th class="px-5 py-3">Date</th>
+                    <th class="px-5 py-3">Event</th>
+                    <th class="px-5 py-3">Time</th>
+                    <th class="px-5 py-3">Location</th>
+                    <th class="px-5 py-3 text-right">Participants</th>
+                    <th class="px-5 py-3">Status</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-100">
+                <tr *ngFor="let evt of filteredEvents" class="transition hover:bg-gray-50"
+                    [ngClass]="{ 'bg-emerald-50/60': selectedEvent?.event_id === evt.event_id }">
+
+                    <td class="whitespace-nowrap px-5 py-3 font-medium text-gray-900">
+                        {{ evt.date_start | date:'MMM d, y' }}
+                    </td>
+
+                    <td class="px-5 py-3">
+                        <p class="font-semibold text-gray-900">{{ evt.title }}</p>
+                        <p *ngIf="evt.type" class="text-xs text-gray-500">{{ evt.type }}</p>
+                    </td>
+
+                    <td class="whitespace-nowrap px-5 py-3 text-gray-600">{{ evt.time || '—' }}</td>
+
+                    <td class="px-5 py-3 text-gray-600">{{ evt.address || '—' }}</td>
+
+                    <td class="px-5 py-3 text-right tabular-nums text-gray-600">
+                        {{ participantCount(evt) }}
+                    </td>
+
+                    <td class="px-5 py-3">
+                        <span class="inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize"
+                            [ngClass]="isUpcoming(evt)
+                                ? 'bg-emerald-100 text-emerald-800'
+                                : 'bg-gray-100 text-gray-600'">
+                            {{ evt.status }}
+                        </span>
+                    </td>
+                </tr>
+
+                <tr *ngIf="filteredEvents.length === 0">
+                    <td colspan="7" class="px-5 py-10 text-center text-sm text-gray-400">
+                        No events found.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

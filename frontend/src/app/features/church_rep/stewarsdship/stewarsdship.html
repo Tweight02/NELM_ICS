@@ -1,0 +1,323 @@
+<div class="mx-auto px-4 sm:px-6 py-6 space-y-3">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb">
+        <ol class="flex items-center text-xs font-semibold uppercase tracking-wide">
+            <li class="text-slate-400">
+                Church Representative
+            </li>
+            <li class="mx-2 text-slate-300">/</li>
+            <li class="text-emerald-700">
+                Stewardship
+            </li>
+        </ol>
+    </nav>
+
+    <!-- YEAR + QUARTER -->
+    <section class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm px-4 py-3">
+        <div class="flex flex-wrap items-center gap-3">
+
+            <!-- YEAR -->
+            <div class="flex items-center gap-2 pr-4 border-r border-slate-200">
+                <span class="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
+                    Year
+                </span>
+
+                <span class="px-3 py-1.5 rounded-lg border border-slate-200 text-sm font-bold text-slate-700">
+                    {{ selectedYear }}
+                </span>
+            </div>
+
+            <!-- QUARTERS -->
+            <div class="flex flex-wrap gap-2">
+
+                <button type="button" (click)="selectedQuarter = 'Quarter1'"
+                    [class.bg-emerald-900]="selectedQuarter === 'Quarter1'"
+                    [class.text-white]="selectedQuarter === 'Quarter1'"
+                    [class.border-emerald-900]="selectedQuarter === 'Quarter1'"
+                    class="px-4 py-2 rounded-lg border text-xs font-bold uppercase tracking-wide transition"
+                    [class.bg-white]="selectedQuarter !== 'Quarter1'"
+                    [class.text-slate-600]="selectedQuarter !== 'Quarter1'"
+                    [class.border-slate-200]="selectedQuarter !== 'Quarter1'">
+                    Q1
+                </button>
+
+                <button type="button" (click)="selectedQuarter = 'Quarter2'"
+                    [class.bg-emerald-900]="selectedQuarter === 'Quarter2'"
+                    [class.text-white]="selectedQuarter === 'Quarter2'"
+                    [class.border-emerald-900]="selectedQuarter === 'Quarter2'"
+                    class="px-4 py-2 rounded-lg border text-xs font-bold uppercase tracking-wide transition"
+                    [class.bg-white]="selectedQuarter !== 'Quarter2'"
+                    [class.text-slate-600]="selectedQuarter !== 'Quarter2'"
+                    [class.border-slate-200]="selectedQuarter !== 'Quarter2'">
+                    Q2
+                </button>
+
+                <button type="button" (click)="selectedQuarter = 'Quarter3'"
+                    [class.bg-emerald-900]="selectedQuarter === 'Quarter3'"
+                    [class.text-white]="selectedQuarter === 'Quarter3'"
+                    [class.border-emerald-900]="selectedQuarter === 'Quarter3'"
+                    class="px-4 py-2 rounded-lg border text-xs font-bold uppercase tracking-wide transition"
+                    [class.bg-white]="selectedQuarter !== 'Quarter3'"
+                    [class.text-slate-600]="selectedQuarter !== 'Quarter3'"
+                    [class.border-slate-200]="selectedQuarter !== 'Quarter3'">
+                    Q3
+                </button>
+
+                <button type="button" (click)="selectedQuarter = 'Quarter4'"
+                    [class.bg-emerald-900]="selectedQuarter === 'Quarter4'"
+                    [class.text-white]="selectedQuarter === 'Quarter4'"
+                    [class.border-emerald-900]="selectedQuarter === 'Quarter4'"
+                    class="px-4 py-2 rounded-lg border text-xs font-bold uppercase tracking-wide transition"
+                    [class.bg-white]="selectedQuarter !== 'Quarter4'"
+                    [class.text-slate-600]="selectedQuarter !== 'Quarter4'"
+                    [class.border-slate-200]="selectedQuarter !== 'Quarter4'">
+                    Q4
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-3 items-start">
+
+        <!-- REPORT TABLE -->
+        <div class="overflow-hidden">
+
+            <!-- LOADING -->
+            @if (loading) {
+
+            <div class="p-5 space-y-3">
+
+                <div class="h-4 w-40 bg-slate-200 rounded animate-pulse"></div>
+
+                @for (row of [1, 2, 3, 4, 5]; track row) {
+
+                <div class="flex gap-4 items-center">
+
+                    <div class="h-4 w-8 bg-slate-100 rounded animate-pulse"></div>
+
+                    <div class="h-4 flex-1 bg-slate-100 rounded animate-pulse"></div>
+
+                    <div class="h-4 w-16 bg-slate-100 rounded animate-pulse"></div>
+
+                </div>
+
+                }
+
+            </div>
+            }
+
+            <!-- ERROR -->
+            @else if (error) {
+
+            <div class="p-8 text-center">
+
+                <p class="text-sm text-rose-600">
+                    {{ error }}
+                </p>
+
+            </div>
+            }
+
+            <!-- TABLE -->
+            @else {
+
+            <table class="w-full border-collapse">
+
+                <!-- HEADER -->
+                <thead>
+                    <tr class="bg-[#005b48] text-white">
+                        <th class="px-5 py-2.5 text-left text-[11px] font-semibold">
+                            PROGRAM / PARTICULAR
+                        </th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <!-- PROGRAM -->
+                    <tr class="bg-[#e9faf3]">
+                        <td class="px-5 py-2.5 text-sm font-semibold text-[#005b48]">
+                            Stewardship Ministries
+                        </td>
+
+                    </tr>
+
+                    <!-- PARTICULARS -->
+                    @for (
+                    particular of particulars;
+                    track particular.particular_id;
+                    let i = $index
+                    ) {
+
+                    <!-- NORMAL PARTICULARS -->
+                    @if (
+                    particular.particular_id !== 47 &&
+                    particular.particular_id !== 48
+                    ) {
+
+                    <tr class="border-b border-slate-100">
+                        <td class="px-5 py-4">
+
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+                                <!-- PARTICULAR NAME -->
+                                <div>
+                                    <p class="text-sm font-semibold text-[#163b6d]">
+                                        {{ particular.particular_name }}
+                                    </p>
+                                </div>
+
+                                <!-- VALUE INPUT -->
+                                <div>
+                                    <div class="relative">
+                                        <input type="number" min="0" step="0.01"
+                                            [(ngModel)]="reportValues[particular.particular_id]"
+                                            (change)="saveReportValue(particular.particular_id)"
+                                            class="w-full sm:w-40 rounded-lg border border-slate-200 bg-white pl-7 pr-3 py-2 text-sm text-slate-700 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+                                            placeholder="Enter value">
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    }
+
+                    <!-- OFFERING / TITHES -->
+                    @if (
+                    particular.particular_id === 47 ||
+                    particular.particular_id === 48
+                    ) {
+
+                    <tr class="border-b border-slate-100">
+                        <!-- FORM -->
+                        <td class="px-5 py-4">
+
+                            <!-- TITLE -->
+                            <div class="mb-4">
+
+                                <p class="text-sm font-semibold text-[#163b6d]">
+                                    {{ particular.particular_name }}
+                                </p>
+                            </div>
+
+
+                            <!-- MONTHS -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+                                @for (
+                                month of getMonthsForQuarter();
+                                track month
+                                ) {
+
+                                <div>
+
+                                    <!-- MONTH -->
+                                    <label
+                                        class="block mb-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+
+                                        {{ month }}
+
+                                    </label>
+
+
+                                    <!-- INPUT -->
+                                    <div class="relative">
+
+                                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400">
+
+                                            ₱
+
+                                        </span>
+
+                                        <input type="number" min="0" step="0.01" [(ngModel)]="
+                                    monthlyValues[particular.particular_id][month]
+                                " (change)="
+                                    saveMonthlyValues(particular.particular_id)
+                                " class="w-full rounded-lg border border-slate-200 bg-white pl-7 pr-3 py-2 text-sm text-slate-700 outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+                                            [placeholder]="'Enter ' + month">
+
+                                    </div>
+
+                                </div>
+
+                                }
+                                <!-- QUARTERLY TOTAL -->
+                                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+
+                                    <span class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                                        Total
+                                    </span>
+
+                                    <span class="text-sm font-bold text-[#005b48]">
+                                        ₱{{ (quarterlyTotals[particular.particular_id] ?? 0) | number:'1.2-2' }}
+                                    </span>
+
+                                </div>
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    }
+                    }
+
+                    <!-- EMPTY -->
+                    @if (particulars.length === 0) {
+                    <tr>
+                        <td colspan="2" class="px-5 py-8 text-center text-sm text-slate-400">
+                            No stewardship particulars found.
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+        </div>
+
+        <!-- REVIEW & COMMENTS -->
+        <aside class="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
+            <div class="px-5 py-4 border-b border-slate-100">
+                <h2 class="font-serif text-sm font-bold text-slate-800">
+                    Review & Comments
+                </h2>
+            </div>
+            <div class="py-4">
+                <div class="mx-5 p-4 rounded-lg border-l-4 border-rose-400">
+                    <div class="flex items-start justify-between gap-3 mb-2">
+                        <div>
+                            <p class="text-sm font-semibold text-slate-900">
+                                Pr. Ramon Alcantara
+                            </p>
+                            <p class="text-xs text-slate-500">
+                                District Pastor
+                            </p>
+                        </div>
+                        <span class="text-xs text-slate-400 whitespace-nowrap">
+                            June 28, 2026
+                        </span>
+                    </div>
+                    <p class="text-xs font-bold text-rose-600 mb-1.5">
+                        Returned for Revision
+                    </p>
+                    <p class="text-sm leading-relaxed">
+                        “Please verify the number of active members involved in
+                        evangelism. The submitted value appears inconsistent with
+                        the church's monthly evangelism report.”
+                    </p>
+                </div>
+                <button type="button" class="mx-5 mt-4 text-xs font-semibold text-emerald-700 hover:text-emerald-900">
+                    View Previous Comments (1)
+                </button>
+            </div>
+        </aside>
+    </div>
+</div>
