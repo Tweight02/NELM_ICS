@@ -13,6 +13,7 @@ use App\Http\Controllers\SecretaryController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\StewardshipController;
 use App\Http\Controllers\Api\ManageRoleController;
+use App\Http\Controllers\Api\ReportMonitoringController;
 
 // routes/api.php
 
@@ -25,8 +26,8 @@ Route::middleware(['auth:sanctum', 'role:church_representative'])->group(functio
     Route::get('church_representative/event/{id}', [EventController::class, 'getEvents']);
     Route::get('church_representative/announcements', [AnnouncementController::class, 'viewAnnouncements']);
     Route::get('church_representative/stewardship', [StewardshipController::class, 'stewardshipParticular']);
-    // MANAGE ROLES
     Route::get('church_representative/manage-roles', [ManageRoleController::class, 'index']);
+    Route::get('church_representative/monitoring', [ReportMonitoringController::class, 'index']);
 
     // PUT
     Route::put('church_representative/event/manage_event/{id}', [EventController::class, 'manageEvent']);
